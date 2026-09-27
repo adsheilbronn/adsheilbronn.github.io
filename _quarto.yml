@@ -7,9 +7,9 @@ website:
     right:
       - about.qmd
       - icon: github
-        href: https://github.com/
-      - icon: twitter
-        href: https://twitter.com
+        href: https://github.com/adsheilbronn
+      - icon: mortarboard
+        href: https://ilias.hs-heilbronn.de/ilias.php?baseClass=ilrepositorygui&ref_id=1078855
 format:
   html:
     theme: cosmo
