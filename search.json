@@ -11,7 +11,84 @@
     "href": "posts/welcome/index.html",
     "title": "Course Requirement",
     "section": "",
-    "text": "This is the first post in a Quarto blog. Welcome!\n\nSince this post doesn’t specify an explicit image, the first image in the post will be used in the listing page of posts."
+    "text": "Course name\nApplied Data Science (256151, SPO BA 6)\n\n\nSemester\n3\n\n\nDozent\nHaseeb Mahmud\nhaseeb.mahmud@ext.hs-heilbronn.de\nhaseeb.mahmud@gmail.com\n\n\nVisiting hours\nBy appointment over WebEx\n\n\nLanguage\nEnglish\n\n\nWorkload\n125 hours (60 classroom + 65 self-study)\n\n\nECTS points\n5\n\n\nPrerequisite\nStatistics and Data Skills\n\n\n\n\n\nUsing practically relevant examples the students practice how to use a statistic software to perform statistical analysis and test models.\nIn this course the students\n\npostulate a research question using their own data or a panel data set provided by the lecturer,\npostulate hypotheses to test,\nperform statistical analysis to test their models,\nlearn to use software for their data analysis during computer lab sessions,\nwrite a scientific presentation and\npresent their results in a plenary session.\n\n\n\n\n\nmuss über HIS während des vom Senat verabschiedeten und im Semesterterminplan kommunizierten Anmeldezeitraums erfolgen\neine nachträgliche Prüfungsanmeldung über das Prüfungsamt ist nicht möglich!\nFormular V zur Anmeldung LKBK/LKBR muss bei Dozent*in unterschrieben werden. Wenn die Prüfungsleistung nicht erbracht wird/ Kurs abgebrochen wird und auch wenn keine Anmeldung zur Prüfung über HIS stattfand  gilt als Fehlversuch (5,0)\n\nIntended learning outcomes (ILOs) for Programme and Course\n\n\n\n\n\n\n\nILOs for the program\nILOs for the course\n\n\n\n\nDemonstrate profound knowledge in major fields of international business\nAfter the course the students are able to formulate a research question, derive hypotheses based on literature, identify an appropriate research design, specify and operationalize constructs, analyze data according to the hypotheses, and interpret the results. They are familiar with and can apply various models and methods of data assessment. The students know about probability of error, and the difference between significance and effect size when assessing results.\n\n\nImplement conceptual knowledge and apply problem solving ability in different business contexts\nThe students learn how to test conceptual frameworks with empirical data. They will know how to decide for the appropriate statistical procedure depending on the research problem and characteristics of the data.\nThe students are capable of applying the imparted knowledge to draw the correct conclusions when it comes to making decisions in business environments based on data.\n\n\nApply digital skills to effectively resolve work-related assignments\nThe students are capable of conducting a well-founded literature research using databases and scientific search engines.\nThey learn to use statistical software (e.g, SPSS, Python, R, Stata) in a targeted and appropriate manner to analyze data for various research questions.\n\n\nWork effectively in intercultural teams and leverage diversity\nThe students will work in teams to conduct a research project. They need to discuss the approach and find a common strategy to manage the project timely and successfully. To achieve this, they must define milestones, allocate work packages, adhere to agreements, and reflect on their different working styles.\n\n\nBehave in an ethical and sustainable manner\nThe students learn about ethical conduct in scientific research, with special emphasis on plagiarism, data manipulation, and the presentation and interpretation of results."
+  },
+  {
+    "objectID": "posts/welcome/index.html#course-structure",
+    "href": "posts/welcome/index.html#course-structure",
+    "title": "Course Requirement",
+    "section": "",
+    "text": "Course name\nApplied Data Science (256151, SPO BA 6)\n\n\nSemester\n3\n\n\nDozent\nHaseeb Mahmud\nhaseeb.mahmud@ext.hs-heilbronn.de\nhaseeb.mahmud@gmail.com\n\n\nVisiting hours\nBy appointment over WebEx\n\n\nLanguage\nEnglish\n\n\nWorkload\n125 hours (60 classroom + 65 self-study)\n\n\nECTS points\n5\n\n\nPrerequisite\nStatistics and Data Skills\n\n\n\n\n\nUsing practically relevant examples the students practice how to use a statistic software to perform statistical analysis and test models.\nIn this course the students\n\npostulate a research question using their own data or a panel data set provided by the lecturer,\npostulate hypotheses to test,\nperform statistical analysis to test their models,\nlearn to use software for their data analysis during computer lab sessions,\nwrite a scientific presentation and\npresent their results in a plenary session.\n\n\n\n\n\nmuss über HIS während des vom Senat verabschiedeten und im Semesterterminplan kommunizierten Anmeldezeitraums erfolgen\neine nachträgliche Prüfungsanmeldung über das Prüfungsamt ist nicht möglich!\nFormular V zur Anmeldung LKBK/LKBR muss bei Dozent*in unterschrieben werden. Wenn die Prüfungsleistung nicht erbracht wird/ Kurs abgebrochen wird und auch wenn keine Anmeldung zur Prüfung über HIS stattfand  gilt als Fehlversuch (5,0)\n\nIntended learning outcomes (ILOs) for Programme and Course\n\n\n\n\n\n\n\nILOs for the program\nILOs for the course\n\n\n\n\nDemonstrate profound knowledge in major fields of international business\nAfter the course the students are able to formulate a research question, derive hypotheses based on literature, identify an appropriate research design, specify and operationalize constructs, analyze data according to the hypotheses, and interpret the results. They are familiar with and can apply various models and methods of data assessment. The students know about probability of error, and the difference between significance and effect size when assessing results.\n\n\nImplement conceptual knowledge and apply problem solving ability in different business contexts\nThe students learn how to test conceptual frameworks with empirical data. They will know how to decide for the appropriate statistical procedure depending on the research problem and characteristics of the data.\nThe students are capable of applying the imparted knowledge to draw the correct conclusions when it comes to making decisions in business environments based on data.\n\n\nApply digital skills to effectively resolve work-related assignments\nThe students are capable of conducting a well-founded literature research using databases and scientific search engines.\nThey learn to use statistical software (e.g, SPSS, Python, R, Stata) in a targeted and appropriate manner to analyze data for various research questions.\n\n\nWork effectively in intercultural teams and leverage diversity\nThe students will work in teams to conduct a research project. They need to discuss the approach and find a common strategy to manage the project timely and successfully. To achieve this, they must define milestones, allocate work packages, adhere to agreements, and reflect on their different working styles.\n\n\nBehave in an ethical and sustainable manner\nThe students learn about ethical conduct in scientific research, with special emphasis on plagiarism, data manipulation, and the presentation and interpretation of results."
+  },
+  {
+    "objectID": "posts/welcome/index.html#theoretical-part",
+    "href": "posts/welcome/index.html#theoretical-part",
+    "title": "Course Requirement",
+    "section": "Theoretical part",
+    "text": "Theoretical part\n\nWhat is research, formulating and clarifying the research topic\nLiterature review\nTheoretical framework and hypothesis development\nQuestionnaire design\nSampling design\nMeasurement: scaling, reliability and validity"
+  },
+  {
+    "objectID": "posts/welcome/index.html#applied-part",
+    "href": "posts/welcome/index.html#applied-part",
+    "title": "Course Requirement",
+    "section": "Applied part",
+    "text": "Applied part\n\nBasic statistical concepts: descriptive statistics (numerical and graphical)\nHypothesis testing\nCategorical data analysis, comparing two means\nCorrelation and covariance\nANOVA\nReliability analysis\nLinear analysis\nLogistic regression"
+  },
+  {
+    "objectID": "posts/welcome/index.html#software-tools",
+    "href": "posts/welcome/index.html#software-tools",
+    "title": "Course Requirement",
+    "section": "Software tools",
+    "text": "Software tools\n\nJamovi\nVS Code\nReference manager\nUseful file formats: Markdown, CSV\nR/RStudio"
+  },
+  {
+    "objectID": "posts/welcome/index.html#literature",
+    "href": "posts/welcome/index.html#literature",
+    "title": "Course Requirement",
+    "section": "Literature",
+    "text": "Literature\nStatistical tests with Jamovi - University of Lincoln\nLearning Statistics with Jamovi . Danielle J Navarro and David R Foxcroft - alternative link.\nStatistics with Jamovi - Dana Wanzer\nJamovi Worksheets: Stats with Jamovi\nAtteslander, P: Methoden der empirischen Sozialforschung, Walter de Gruyter, Berlin, aktuelle Auflage.\nAuer, B. & Rottmann, H.: Statistik und Ökonometrie für Wirtschaftswissenschaftler. Springer, Leipzig, aktuelle Auflage.\nBackhaus, K., Erichson, B., Gensler, S., Weiber, R & Weiber, T.: Multivariate Analysemethoden – Eine anwendungsorientierte Einführung. Springer, Berlin, aktuelle Auflage.\nField, A.: Discovering Statistics Using IBM SPSS Statistics. London: SAGE Publications, aktuelle Auflage.\nLewis-Beck, M. S.: Applied Regression – an Introduction, SAGE Publications, Thousand Oaks CA, aktuelle Auflage.\nSchnell, R., Hill, P. & Esser, E.: Methoden der empirischen Sozialforschung, Oldenbourg Verlag, München, aktuelle Auflage.\n\nRecommended literature\nGujarati, D., N.: Basic Econometrics. McGraw-Hill, aktuelle Auflage.\nOkasha, S.: Philosophy of Science: Very short introduction. Oxford: Oxford University Press, aktuelle Auflage.\nPampel, F. C.: Logistic Regression. Sage University Papers Series on Quantitative Applications in the Social Sciences, 07-132. Thousand Oaks, CA: SAGE Publications, aktuelle Auflage.\nPorst, R.: Fragebogen – Ein Arbeitsbuch, Springer, Wiesbaden, aktuelle Auflage.\nQuinlan, C., Babin, B., Carr, J., Griffin, M., Zikmund, W.: Business Research Methods, Cengage Learning EMEA, aktuelle Auflage.\nWooldridge, J. M.: Introductory Econometrics, Ohio: Thomson, South-Western, aktuelle Auflage."
+  },
+  {
+    "objectID": "posts/welcome/index.html#hardware-requirement",
+    "href": "posts/welcome/index.html#hardware-requirement",
+    "title": "Course Requirement",
+    "section": "Hardware requirement",
+    "text": "Hardware requirement\nIt is expected that students will work in Windows, Mac or Linux laptops in the classroom. Tablets (e.g. IPad) won’t work."
+  },
+  {
+    "objectID": "posts/welcome/index.html#software-requirement",
+    "href": "posts/welcome/index.html#software-requirement",
+    "title": "Course Requirement",
+    "section": "Software requirement",
+    "text": "Software requirement\n\nJamovi\n\nDownload and Installation\n\n\n\nVS Code\n\nDownload and Installation\n\n\n\nR and RStudio (optional)\n\nR\nRStudio Desktop\n\n\n\nReference manager\n\nZotero\nMendeley"
+  },
+  {
+    "objectID": "posts/welcome/index.html#datasets",
+    "href": "posts/welcome/index.html#datasets",
+    "title": "Course Requirement",
+    "section": "Datasets",
+    "text": "Datasets\nDatasets of the course will be stored in the Datasets folder in the ILIAS. It is highly recommended to download and save the datasets to a local folder.\n\nFor classroom demonstrations\n\nCar pricing dataset\nElectricity cost dataset\nMedical insurance dataset\nWallmart sales dataset\nSalary dataset\nStudy performance dataset\nDatasets from reference books\nAnd many other\n\n\n\nPopular datasets for social science research\n\nESS\nWVS"
+  },
+  {
+    "objectID": "posts/welcome/index.html#teaching-method",
+    "href": "posts/welcome/index.html#teaching-method",
+    "title": "Course Requirement",
+    "section": "Teaching method",
+    "text": "Teaching method\nLectures, demonstrations and practice during the class\nApplying statistical methods in real scenario\nGroup work, going through a research project from start to finish\nLearning tools to apply statistical concepts in real life data"
+  },
+  {
+    "objectID": "posts/welcome/index.html#exam-form-and-evaluation",
+    "href": "posts/welcome/index.html#exam-form-and-evaluation",
+    "title": "Course Requirement",
+    "section": "Exam form and evaluation",
+    "text": "Exam form and evaluation\nThe final grade will be a combination of the result from a research project and a classroom examination.\n\nResearch project (50% of the final grade): Theoretical and empirical model including theory, research question/hypotheses, detailed derivation of hypotheses from the literature, methodology, descriptive results, model variables and regression analysis, scientific discussion, literature (minimum requirement: seven scientific references (journal articles), APA citation style), plus submission of dataset and syntax (final evaluations and model) + output regression analysis. Format: Presentation on the last lecture date with PowerPoint presentation and paper (max. 8 pages without appendix)\nIndividual test (50% of the final grade): Date and time will be announced later"
+  },
+  {
+    "objectID": "posts/welcome/index.html#grading",
+    "href": "posts/welcome/index.html#grading",
+    "title": "Course Requirement",
+    "section": "Grading",
+    "text": "Grading\n\nMidterm (individual performance): 50%\n90-minute open book exam\n(FAQ: Do I have to pass it to get the pass mark for the course?\nAnswer: No.\nPaper + Group presentation (group evaluation): 50%\nStudents have to pass it!"
   },
   {
     "objectID": "index.html",
