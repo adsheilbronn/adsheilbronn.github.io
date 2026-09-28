@@ -170,7 +170,7 @@ $$
 #| echo: false
 #| fig-width: 8
 #| fig-height: 5
-#| fig-cap: "One sample hypothesis test."
+#| fig-cap: "Large sample two tailed test."
 
 
 library(ggplot2)
