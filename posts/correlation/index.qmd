@@ -102,8 +102,6 @@ For example, if study hours are converted to study *minutes* ($X \times 60$), th
 
 Because covariance is unbounded ($-\infty < s_{xy} < \infty$), it cannot tell us **how strong** the association is. To solve this limitation, we standardize covariance to obtain the **Correlation Coefficient**.
 
----
-
 # 2. Concept of Correlation
 
 Correlation is a standardized measure of bivariate association. By dividing the sample covariance by the product of the sample standard deviations of $X$ and $Y$, the metric is scaled into a universal range between **$-1.0$ and $+1.0$**.
@@ -117,8 +115,6 @@ Depending on the scale of measurement, underlying distributional assumptions, an
 1. **Pearson's Product-Moment Correlation ($r$)**
 2. **Kendall's Tau ($\tau$)**
 3. **Spearman's Rank Correlation ($\rho$)**
-
----
 
 ## 2.1 Pearson Correlation Coefficient ($r$)
 
@@ -244,8 +240,6 @@ p7 <- make_plot(df7, "#9b59b6")
 (p1 | p2 | p3) / (p4 | p5 | p6) / (p7 | plot_spacer() | plot_spacer())
 ```
 
----
-
 ## 2.2 Kendall's Tau ($\tau$)
 
 ### What is it?
@@ -334,8 +328,6 @@ ggplot(df_k, aes(x = x, y = y)) +
   )
 ```
 
----
-
 ## 2.3 Spearman's Rho ($\rho$)
 
 ### What is it?
@@ -417,8 +409,6 @@ ggplot(df_s, aes(x = x, y = y, color = is_outlier)) +
   )
 ```
 
----
-
 # 3. How Correlation Can Be Misleading: The Datasaurus Dozen
 
 A common pitfall in empirical data analysis is relying solely on summary statistics—such as means, standard deviations, and correlation coefficients—without plotting the underlying distribution.
@@ -484,8 +474,6 @@ ggplot(datasaurus_dozen, aes(x = x, y = y, color = dataset)) +
 2. **Always plot your raw data** before calculating summary metrics or running regression models.
 3. Anscombe's Quartet and the Datasaurus Dozen demonstrate that identical correlation values ($r = -0.06$) can arise from a Dinosaur shape, concentric circles, star shapes, or grid structures!
 
----
-
 # 4. Conclusion: Correlation Is NOT Causation
 
 The golden rule of statistics and scientific reasoning is:
@@ -526,8 +514,6 @@ We may hypothesize that $X \to Y$, when in fact $Y$ is causing $X$.
 $X$ causes $Y$, but $Y$ also simultaneously causes $X$ in a dynamic feedback loop.
 
 * **Example:** Academic confidence ($X$) and academic performance ($Y$) reinforce one another over time.
-
----
 
 ## How to Establish Causation in Scientific Research
 

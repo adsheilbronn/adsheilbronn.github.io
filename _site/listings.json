@@ -2,6 +2,7 @@
   {
     "listing": "/index.html",
     "items": [
+      "/posts/correlation/index.html",
       "/posts/litreview/index.html",
       "/posts/theoryhypo/index.html",
       "/posts/confinterval/index.html",
