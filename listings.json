@@ -2,10 +2,11 @@
   {
     "listing": "/index.html",
     "items": [
-      "/posts/litreview/index.html",
-      "/posts/theoryhypo/index.html",
-      "/posts/confinterval/index.html",
+      "/posts/hypotesting/index.html",
       "/posts/whatisresearch/index.html",
+      "/posts/theoryhypo/index.html",
+      "/posts/litreview/index.html",
+      "/posts/confinterval/index.html",
       "/posts/descriptives/index.html",
       "/posts/welcome/index.html"
     ]
