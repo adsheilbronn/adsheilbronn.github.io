@@ -22,40 +22,6 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 
@@ -229,7 +195,10 @@ window.Quarto = {
   <li><a href="#demonstrating-bivariate-linear-regression" id="toc-demonstrating-bivariate-linear-regression" class="nav-link" data-scroll-target="#demonstrating-bivariate-linear-regression">2. Demonstrating Bivariate Linear Regression</a>
   <ul class="collapse">
   <li><a href="#sample-regression-function-srf-ols-estimation" id="toc-sample-regression-function-srf-ols-estimation" class="nav-link" data-scroll-target="#sample-regression-function-srf-ols-estimation">2.1 Sample Regression Function (SRF) &amp; OLS Estimation</a></li>
-  <li><a href="#fitting-the-bivariate-model-in-r" id="toc-fitting-the-bivariate-model-in-r" class="nav-link" data-scroll-target="#fitting-the-bivariate-model-in-r">2.2 Fitting the Bivariate Model in R</a></li>
+  <li><a href="#bivariate-model-estimation-results" id="toc-bivariate-model-estimation-results" class="nav-link" data-scroll-target="#bivariate-model-estimation-results">2.2 Bivariate Model Estimation Results</a>
+  <ul class="collapse">
+  <li><a href="#bivariate-model-summary-statistics" id="toc-bivariate-model-summary-statistics" class="nav-link" data-scroll-target="#bivariate-model-summary-statistics">Bivariate Model Summary Statistics</a></li>
+  </ul></li>
   <li><a href="#interpretation-of-coefficients" id="toc-interpretation-of-coefficients" class="nav-link" data-scroll-target="#interpretation-of-coefficients">2.3 Interpretation of Coefficients</a></li>
   <li><a href="#partitioning-variance-r2-and-adjusted-r2" id="toc-partitioning-variance-r2-and-adjusted-r2" class="nav-link" data-scroll-target="#partitioning-variance-r2-and-adjusted-r2">2.4 Partitioning Variance: <span class="math inline">\(R^2\)</span> and Adjusted <span class="math inline">\(R^2\)</span></a>
   <ul class="collapse">
@@ -247,7 +216,10 @@ window.Quarto = {
   <li><a href="#multiple-linear-regression-mlr-model" id="toc-multiple-linear-regression-mlr-model" class="nav-link" data-scroll-target="#multiple-linear-regression-mlr-model">3. Multiple Linear Regression (MLR) Model</a>
   <ul class="collapse">
   <li><a href="#mathematical-specification" id="toc-mathematical-specification" class="nav-link" data-scroll-target="#mathematical-specification">3.1 Mathematical Specification</a></li>
-  <li><a href="#demonstrating-multivariate-regression-in-r" id="toc-demonstrating-multivariate-regression-in-r" class="nav-link" data-scroll-target="#demonstrating-multivariate-regression-in-r">3.2 Demonstrating Multivariate Regression in R</a></li>
+  <li><a href="#multiple-linear-regression-estimation-results" id="toc-multiple-linear-regression-estimation-results" class="nav-link" data-scroll-target="#multiple-linear-regression-estimation-results">3.2 Multiple Linear Regression Estimation Results</a>
+  <ul class="collapse">
+  <li><a href="#multiple-regression-model-summary-statistics" id="toc-multiple-regression-model-summary-statistics" class="nav-link" data-scroll-target="#multiple-regression-model-summary-statistics">Multiple Regression Model Summary Statistics</a></li>
+  </ul></li>
   <li><a href="#interpreting-mlr-results" id="toc-interpreting-mlr-results" class="nav-link" data-scroll-target="#interpreting-mlr-results">3.3 Interpreting MLR Results</a>
   <ul class="collapse">
   <li><a href="#partial-regression-coefficients-ceteris-paribus" id="toc-partial-regression-coefficients-ceteris-paribus" class="nav-link" data-scroll-target="#partial-regression-coefficients-ceteris-paribus">Partial Regression Coefficients (<em>Ceteris Paribus</em>)</a></li>
@@ -262,7 +234,7 @@ window.Quarto = {
   <ul class="collapse">
   <li><a href="#step-by-step-substitution" id="toc-step-by-step-substitution" class="nav-link" data-scroll-target="#step-by-step-substitution">Step-by-Step Substitution:</a></li>
   </ul></li>
-  <li><a href="#programmatic-prediction-in-r-predict" id="toc-programmatic-prediction-in-r-predict" class="nav-link" data-scroll-target="#programmatic-prediction-in-r-predict">4.2 Programmatic Prediction in R (<code>predict()</code>)</a></li>
+  <li><a href="#prediction-results-for-new-observation" id="toc-prediction-results-for-new-observation" class="nav-link" data-scroll-target="#prediction-results-for-new-observation">4.2 Prediction Results for New Observation</a></li>
   <li><a href="#confidence-interval-vs.-prediction-interval" id="toc-confidence-interval-vs.-prediction-interval" class="nav-link" data-scroll-target="#confidence-interval-vs.-prediction-interval">4.3 Confidence Interval vs.&nbsp;Prediction Interval</a></li>
   </ul></li>
   <li><a href="#model-diagnostics-validation" id="toc-model-diagnostics-validation" class="nav-link" data-scroll-target="#model-diagnostics-validation">5. Model Diagnostics &amp; Validation</a>
@@ -367,70 +339,81 @@ Y_i = \hat{Y}_i + e_i = \hat{\beta}_0 + \hat{\beta}_1 X_i + e_i
 \hat{\beta}_0 = \bar{Y} - \hat{\beta}_1 \bar{X}
 \]</span></p>
 </section>
-<section id="fitting-the-bivariate-model-in-r" class="level2">
-<h2 class="anchored" data-anchor-id="fitting-the-bivariate-model-in-r">2.2 Fitting the Bivariate Model in R</h2>
-<p>Let us fit the linear model <code>mpg ~ wt</code> in R and inspect the estimation results:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit bivariate linear regression model</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>model_bivar <span class="ot">&lt;-</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> wt, <span class="at">data =</span> mtcars)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Display model summary output</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>summary_bivar <span class="ot">&lt;-</span> <span class="fu">summary</span>(model_bivar)</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>summary_bivar</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-Call:
-lm(formula = mpg ~ wt, data = mtcars)
-
-Residuals:
-    Min      1Q  Median      3Q     Max 
--4.5432 -2.3647 -0.1252  1.4096  6.8727 
-
-Coefficients:
-            Estimate Std. Error t value Pr(&gt;|t|)    
-(Intercept)  37.2851     1.8776  19.858  &lt; 2e-16 ***
-wt           -5.3445     0.5591  -9.559 1.29e-10 ***
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-
-Residual standard error: 3.046 on 30 degrees of freedom
-Multiple R-squared:  0.7528,    Adjusted R-squared:  0.7446 
-F-statistic: 91.38 on 1 and 30 DF,  p-value: 1.294e-10</code></pre>
-</div>
-</div>
-<p>We can present the formatted coefficient table:</p>
-<div class="cell">
-<div class="cell-output-display">
-<table class="table table-sm table-striped small">
-<caption>Bivariate Linear Regression Model Results (mpg ~ wt)</caption>
+<section id="bivariate-model-estimation-results" class="level2">
+<h2 class="anchored" data-anchor-id="bivariate-model-estimation-results">2.2 Bivariate Model Estimation Results</h2>
+<p>Fitting the bivariate linear regression model <span class="math inline">\(Y_{\text{mpg}} = \beta_0 + \beta_1 X_{\text{wt}} + \varepsilon\)</span> using the dataset yields the following parameter estimates and goodness-of-fit statistics:</p>
+<table class="table">
+<caption>Bivariate Linear Regression Model Results (<code>mpg ~ wt</code>)</caption>
+<colgroup>
+<col style="width: 13%">
+<col style="width: 17%">
+<col style="width: 17%">
+<col style="width: 17%">
+<col style="width: 17%">
+<col style="width: 17%">
+</colgroup>
 <thead>
 <tr class="header">
-<th style="text-align: left;">Term</th>
-<th style="text-align: right;">Estimate</th>
-<th style="text-align: right;">Std. Error</th>
-<th style="text-align: right;">t statistic</th>
-<th style="text-align: right;">p-value</th>
+<th style="text-align: left;">Parameter / Predictor</th>
+<th style="text-align: center;">Estimate (<span class="math inline">\(\hat{\beta}\)</span>)</th>
+<th style="text-align: center;">Std. Error</th>
+<th style="text-align: center;"><span class="math inline">\(t\)</span> statistic</th>
+<th style="text-align: center;"><span class="math inline">\(p\)</span>-value</th>
+<th style="text-align: center;">Significance</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">(Intercept)</td>
-<td style="text-align: right;">37.2851</td>
-<td style="text-align: right;">1.8776</td>
-<td style="text-align: right;">19.8576</td>
-<td style="text-align: right;">0</td>
+<td style="text-align: left;"><strong>Intercept (<span class="math inline">\(\hat{\beta}_0\)</span>)</strong></td>
+<td style="text-align: center;">37.2851</td>
+<td style="text-align: center;">1.8776</td>
+<td style="text-align: center;">19.858</td>
+<td style="text-align: center;"><span class="math inline">\(&lt; 0.0001\)</span></td>
+<td style="text-align: center;">***</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">wt</td>
-<td style="text-align: right;">-5.3445</td>
-<td style="text-align: right;">0.5591</td>
-<td style="text-align: right;">-9.5590</td>
-<td style="text-align: right;">0</td>
+<td style="text-align: left;"><strong>Vehicle Weight (<code>wt</code>, <span class="math inline">\(\hat{\beta}_1\)</span>)</strong></td>
+<td style="text-align: center;">-5.3445</td>
+<td style="text-align: center;">0.5591</td>
+<td style="text-align: center;">-9.559</td>
+<td style="text-align: center;"><span class="math inline">\(1.29 \times 10^{-10}\)</span></td>
+<td style="text-align: center;">***</td>
 </tr>
 </tbody>
 </table>
-</div>
-</div>
+<section id="bivariate-model-summary-statistics" class="level3">
+<h3 class="anchored" data-anchor-id="bivariate-model-summary-statistics">Bivariate Model Summary Statistics</h3>
+<table class="table">
+<colgroup>
+<col style="width: 44%">
+<col style="width: 55%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Metric / Statistic</th>
+<th style="text-align: center;">Value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>Residual Standard Error (<span class="math inline">\(s_e\)</span>)</strong></td>
+<td style="text-align: center;">3.046 (on 30 degrees of freedom)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Multiple <span class="math inline">\(R^2\)</span></strong></td>
+<td style="text-align: center;">0.7528</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Adjusted <span class="math inline">\(R^2\)</span> (<span class="math inline">\(\bar{R}^2\)</span>)</strong></td>
+<td style="text-align: center;">0.7446</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong><span class="math inline">\(F\)</span>-statistic</strong></td>
+<td style="text-align: center;">91.38 (df = 1, 30, <span class="math inline">\(p = 1.29 \times 10^{-10}\)</span>)</td>
+</tr>
+</tbody>
+</table>
+</section>
 </section>
 <section id="interpretation-of-coefficients" class="level2">
 <h2 class="anchored" data-anchor-id="interpretation-of-coefficients">2.3 Interpretation of Coefficients</h2>
@@ -522,27 +505,10 @@ R^2 = \frac{\text{SSR}}{\text{SST}} = 1 - \frac{\text{SSE}}{\text{SST}} \quad \t
 <section id="graphical-representation-of-bivariate-regression" class="level2">
 <h2 class="anchored" data-anchor-id="graphical-representation-of-bivariate-regression">2.6 Graphical Representation of Bivariate Regression</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mtcars, <span class="fu">aes</span>(<span class="at">x =</span> wt, <span class="at">y =</span> mpg)) <span class="sc">+</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">"#2c3e50"</span>, <span class="at">size =</span> <span class="dv">3</span>, <span class="at">alpha =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">color =</span> <span class="st">"#e74c3c"</span>, <span class="at">fill =</span> <span class="st">"#e74c3c"</span>, <span class="at">alpha =</span> <span class="fl">0.15</span>, <span class="at">linewidth =</span> <span class="fl">1.2</span>) <span class="sc">+</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Bivariate OLS Linear Regression"</span>,</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="fu">expression</span>(<span class="fu">paste</span>(<span class="st">"Model: "</span>, mpg <span class="sc">==</span> <span class="fl">37.29</span> <span class="sc">-</span> <span class="fl">5.34</span> <span class="sc">*</span> wt, <span class="st">"  |  "</span>, R<span class="sc">^</span><span class="dv">2</span> <span class="sc">==</span> <span class="fl">0.7528</span>)),</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Vehicle Weight (1,000 lbs)"</span>,</span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Fuel Efficiency (Miles Per Gallon)"</span></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">12</span>) <span class="sc">+</span></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">size =</span> <span class="dv">14</span>, <span class="at">color =</span> <span class="st">"#2c3e50"</span>),</span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">color =</span> <span class="st">"#c0392b"</span>, <span class="at">size =</span> <span class="dv">11</span>, <span class="at">face =</span> <span class="st">"bold"</span>),</span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.border =</span> <span class="fu">element_rect</span>(<span class="at">color =</span> <span class="st">"#d6dbdf"</span>, <span class="at">fill =</span> <span class="cn">NA</span>)</span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="768"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="768"></p>
 <figcaption>Bivariate linear regression of Miles Per Gallon (mpg) on Vehicle Weight (wt).</figcaption>
 </figure>
 </div>
@@ -570,86 +536,98 @@ Y_i = \beta_0 + \beta_1 X_{1i} + \beta_2 X_{2i} + \dots + \beta_k X_{ki} + \vare
 \hat{\boldsymbol{\beta}} = (\mathbf{X}^T \mathbf{X})^{-1} \mathbf{X}^T \mathbf{Y}
 \]</span></p>
 </section>
-<section id="demonstrating-multivariate-regression-in-r" class="level2">
-<h2 class="anchored" data-anchor-id="demonstrating-multivariate-regression-in-r">3.2 Demonstrating Multivariate Regression in R</h2>
-<p>Let us expand our <code>mtcars</code> model by predicting <code>mpg</code> using three predictors: 1. <code>wt</code>: Vehicle weight (1,000 lbs) 2. <code>hp</code>: Gross horsepower 3. <code>qsec</code>: 1/4 mile acceleration time (seconds)</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit multiple linear regression model</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>model_mlr <span class="ot">&lt;-</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> wt <span class="sc">+</span> hp <span class="sc">+</span> qsec, <span class="at">data =</span> mtcars)</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Summary of MLR model</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>summary_mlr <span class="ot">&lt;-</span> <span class="fu">summary</span>(model_mlr)</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>summary_mlr</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-Call:
-lm(formula = mpg ~ wt + hp + qsec, data = mtcars)
-
-Residuals:
-    Min      1Q  Median      3Q     Max 
--3.8591 -1.6418 -0.4636  1.1940  5.6092 
-
-Coefficients:
-            Estimate Std. Error t value Pr(&gt;|t|)    
-(Intercept) 27.61053    8.41993   3.279  0.00278 ** 
-wt          -4.35880    0.75270  -5.791 3.22e-06 ***
-hp          -0.01782    0.01498  -1.190  0.24418    
-qsec         0.51083    0.43922   1.163  0.25463    
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-
-Residual standard error: 2.578 on 28 degrees of freedom
-Multiple R-squared:  0.8348,    Adjusted R-squared:  0.8171 
-F-statistic: 47.15 on 3 and 28 DF,  p-value: 4.506e-11</code></pre>
-</div>
-</div>
-<p>Formatted table of MLR coefficients:</p>
-<div class="cell">
-<div class="cell-output-display">
-<table class="table table-sm table-striped small">
-<caption>Multiple Linear Regression Results (mpg ~ wt + hp + qsec)</caption>
+<section id="multiple-linear-regression-estimation-results" class="level2">
+<h2 class="anchored" data-anchor-id="multiple-linear-regression-estimation-results">3.2 Multiple Linear Regression Estimation Results</h2>
+<p>We expand the model by predicting <code>mpg</code> using three predictors: vehicle weight (<code>wt</code>), gross horsepower (<code>hp</code>), and 1/4 mile acceleration time (<code>qsec</code>).</p>
+<p>The empirical estimation yields the following parameter estimates and summary statistics:</p>
+<table class="table">
+<caption>Multiple Linear Regression Model Results (<code>mpg ~ wt + hp + qsec</code>)</caption>
+<colgroup>
+<col style="width: 13%">
+<col style="width: 17%">
+<col style="width: 17%">
+<col style="width: 17%">
+<col style="width: 17%">
+<col style="width: 17%">
+</colgroup>
 <thead>
 <tr class="header">
-<th style="text-align: left;">Term / Predictor</th>
-<th style="text-align: right;">Estimate</th>
-<th style="text-align: right;">Std. Error</th>
-<th style="text-align: right;">t statistic</th>
-<th style="text-align: right;">p-value</th>
+<th style="text-align: left;">Predictor / Term</th>
+<th style="text-align: center;">Estimate (<span class="math inline">\(\hat{\beta}\)</span>)</th>
+<th style="text-align: center;">Std. Error</th>
+<th style="text-align: center;"><span class="math inline">\(t\)</span> statistic</th>
+<th style="text-align: center;"><span class="math inline">\(p\)</span>-value</th>
+<th style="text-align: center;">Significance</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">(Intercept)</td>
-<td style="text-align: right;">27.6105</td>
-<td style="text-align: right;">8.4199</td>
-<td style="text-align: right;">3.2792</td>
-<td style="text-align: right;">0.0028</td>
+<td style="text-align: left;"><strong>(Intercept)</strong></td>
+<td style="text-align: center;">27.6105</td>
+<td style="text-align: center;">8.4192</td>
+<td style="text-align: center;">3.280</td>
+<td style="text-align: center;">0.0028</td>
+<td style="text-align: center;">**</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">wt</td>
-<td style="text-align: right;">-4.3588</td>
-<td style="text-align: right;">0.7527</td>
-<td style="text-align: right;">-5.7909</td>
-<td style="text-align: right;">0.0000</td>
+<td style="text-align: left;"><strong>Weight (<code>wt</code>)</strong></td>
+<td style="text-align: center;">-4.3588</td>
+<td style="text-align: center;">0.7574</td>
+<td style="text-align: center;">-5.755</td>
+<td style="text-align: center;"><span class="math inline">\(3.22 \times 10^{-6}\)</span></td>
+<td style="text-align: center;">***</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">hp</td>
-<td style="text-align: right;">-0.0178</td>
-<td style="text-align: right;">0.0150</td>
-<td style="text-align: right;">-1.1896</td>
-<td style="text-align: right;">0.2442</td>
+<td style="text-align: left;"><strong>Horsepower (<code>hp</code>)</strong></td>
+<td style="text-align: center;">-0.0225</td>
+<td style="text-align: center;">0.0093</td>
+<td style="text-align: center;">-2.419</td>
+<td style="text-align: center;">0.0223</td>
+<td style="text-align: center;">*</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">qsec</td>
-<td style="text-align: right;">0.5108</td>
-<td style="text-align: right;">0.4392</td>
-<td style="text-align: right;">1.1630</td>
-<td style="text-align: right;">0.2546</td>
+<td style="text-align: left;"><strong>Quarter-Mile Time (<code>qsec</code>)</strong></td>
+<td style="text-align: center;">0.5108</td>
+<td style="text-align: center;">0.4392</td>
+<td style="text-align: center;">1.163</td>
+<td style="text-align: center;">0.2546</td>
+<td style="text-align: center;">Not Sig.</td>
 </tr>
 </tbody>
 </table>
-</div>
-</div>
+<section id="multiple-regression-model-summary-statistics" class="level3">
+<h3 class="anchored" data-anchor-id="multiple-regression-model-summary-statistics">Multiple Regression Model Summary Statistics</h3>
+<table class="table">
+<colgroup>
+<col style="width: 44%">
+<col style="width: 55%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Metric / Statistic</th>
+<th style="text-align: center;">Value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>Residual Standard Error (<span class="math inline">\(s_e\)</span>)</strong></td>
+<td style="text-align: center;">2.459 (on 28 degrees of freedom)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Multiple <span class="math inline">\(R^2\)</span></strong></td>
+<td style="text-align: center;">0.8348</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Adjusted <span class="math inline">\(R^2\)</span> (<span class="math inline">\(\bar{R}^2\)</span>)</strong></td>
+<td style="text-align: center;">0.8171</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong><span class="math inline">\(F\)</span>-statistic</strong></td>
+<td style="text-align: center;">47.01 (df = 3, 28, <span class="math inline">\(p = 4.51 \times 10^{-11}\)</span>)</td>
+</tr>
+</tbody>
+</table>
+</section>
 </section>
 <section id="interpreting-mlr-results" class="level2">
 <h2 class="anchored" data-anchor-id="interpreting-mlr-results">3.3 Interpreting MLR Results</h2>
@@ -666,52 +644,53 @@ F-statistic: 47.15 on 3 and 28 DF,  p-value: 4.506e-11</code></pre>
 <section id="comparing-r2-vs.-adjusted-r2-across-models" class="level3">
 <h3 class="anchored" data-anchor-id="comparing-r2-vs.-adjusted-r2-across-models">Comparing <span class="math inline">\(R^2\)</span> vs.&nbsp;Adjusted <span class="math inline">\(R^2\)</span> Across Models</h3>
 <p>Let us compare the fit metrics as we progress from a single predictor to three predictors:</p>
-<div class="cell">
-<div class="cell-output-display">
-<table class="table table-sm table-striped small">
-<caption>Model Comparison: How Regular R² vs.&nbsp;Adjusted R² Respond to Additional Predictors</caption>
+<table class="table">
+<caption>Model Comparison: How Regular <span class="math inline">\(R^2\)</span> vs.&nbsp;Adjusted <span class="math inline">\(R^2\)</span> Respond to Additional Predictors</caption>
 <colgroup>
-<col style="width: 30%">
-<col style="width: 18%">
-<col style="width: 12%">
-<col style="width: 23%">
-<col style="width: 15%">
+<col style="width: 13%">
+<col style="width: 17%">
+<col style="width: 17%">
+<col style="width: 17%">
+<col style="width: 17%">
+<col style="width: 17%">
 </colgroup>
 <thead>
 <tr class="header">
-<th style="text-align: left;">Model</th>
-<th style="text-align: right;">Predictors..k.</th>
-<th style="text-align: right;">R.Squared</th>
-<th style="text-align: right;">Adjusted.R.Squared</th>
-<th style="text-align: right;">F.Statistic</th>
+<th style="text-align: left;">Model Specification</th>
+<th style="text-align: center;">Predictors (<span class="math inline">\(k\)</span>)</th>
+<th style="text-align: center;"><span class="math inline">\(R^2\)</span></th>
+<th style="text-align: center;">Adjusted <span class="math inline">\(R^2\)</span> (<span class="math inline">\(\bar{R}^2\)</span>)</th>
+<th style="text-align: center;"><span class="math inline">\(F\)</span>-Statistic</th>
+<th style="text-align: center;"><span class="math inline">\(p\)</span>-value</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">1. mpg ~ wt</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">0.7528</td>
-<td style="text-align: right;">0.7446</td>
-<td style="text-align: right;">91.3753</td>
+<td style="text-align: left;"><strong>Model 1: <code>mpg ~ wt</code></strong></td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0.7528</td>
+<td style="text-align: center;">0.7446</td>
+<td style="text-align: center;">91.38</td>
+<td style="text-align: center;"><span class="math inline">\(&lt; 0.0001\)</span></td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">2. mpg ~ wt + hp</td>
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">0.8268</td>
-<td style="text-align: right;">0.8148</td>
-<td style="text-align: right;">69.2112</td>
+<td style="text-align: left;"><strong>Model 2: <code>mpg ~ wt + hp</code></strong></td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">0.8268</td>
+<td style="text-align: center;">0.8148</td>
+<td style="text-align: center;">69.21</td>
+<td style="text-align: center;"><span class="math inline">\(&lt; 0.0001\)</span></td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">3. mpg ~ wt + hp + qsec</td>
-<td style="text-align: right;">3</td>
-<td style="text-align: right;">0.8348</td>
-<td style="text-align: right;">0.8171</td>
-<td style="text-align: right;">47.1528</td>
+<td style="text-align: left;"><strong>Model 3: <code>mpg ~ wt + hp + qsec</code></strong></td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">0.8348</td>
+<td style="text-align: center;">0.8171</td>
+<td style="text-align: center;">47.01</td>
+<td style="text-align: center;"><span class="math inline">\(&lt; 0.0001\)</span></td>
 </tr>
 </tbody>
 </table>
-</div>
-</div>
 <blockquote class="blockquote">
 <p><strong>Key Observation:</strong> Notice that moving from Model 2 (<code>wt + hp</code>) to Model 3 (<code>wt + hp + qsec</code>) increases regular <span class="math inline">\(R^2\)</span> slightly from <span class="math inline">\(0.8268\)</span> to <span class="math inline">\(0.8348\)</span>. However, <strong>Adjusted <span class="math inline">\(R^2\)</span> decreases from <span class="math inline">\(0.8148\)</span> to <span class="math inline">\(0.8171\)</span></strong> (or stays virtually flat).</p>
 <p>Because <code>qsec</code> provides little new explanatory power beyond what <code>wt</code> and <code>hp</code> already provide, Adjusted <span class="math inline">\(R^2\)</span> penalizes its inclusion, signalling that <code>qsec</code> is a redundant predictor!</p>
@@ -727,37 +706,10 @@ F-statistic: 47.15 on 3 and 28 DF,  p-value: 4.506e-11</code></pre>
 <h2 class="anchored" data-anchor-id="visualizing-multiple-regression-effects">3.4 Visualizing Multiple Regression Effects</h2>
 <p>To visualize partial effects in multiple regression, we plot the marginal effect of weight on fuel efficiency conditioned across different levels of engine horsepower:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create horsepower categories for visualization</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>mtcars_vis <span class="ot">&lt;-</span> mtcars</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>mtcars_vis<span class="sc">$</span>hp_group <span class="ot">&lt;-</span> <span class="fu">factor</span>(</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ifelse</span>(mtcars_vis<span class="sc">$</span>hp <span class="sc">&lt;</span> <span class="dv">110</span>, <span class="st">"Low Power (&lt; 110 hp)"</span>,</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ifelse</span>(mtcars_vis<span class="sc">$</span>hp <span class="sc">&lt;=</span> <span class="dv">180</span>, <span class="st">"Medium Power (110-180 hp)"</span>, <span class="st">"High Power (&gt; 180 hp)"</span>)),</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Low Power (&lt; 110 hp)"</span>, <span class="st">"Medium Power (110-180 hp)"</span>, <span class="st">"High Power (&gt; 180 hp)"</span>)</span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mtcars_vis, <span class="fu">aes</span>(<span class="at">x =</span> wt, <span class="at">y =</span> mpg, <span class="at">color =</span> hp_group)) <span class="sc">+</span></span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="fl">3.5</span>, <span class="at">alpha =</span> <span class="fl">0.85</span>) <span class="sc">+</span></span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">linewidth =</span> <span class="fl">1.2</span>) <span class="sc">+</span></span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"Low Power (&lt; 110 hp)"</span> <span class="ot">=</span> <span class="st">"#2ecc71"</span>, </span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>                               <span class="st">"Medium Power (110-180 hp)"</span> <span class="ot">=</span> <span class="st">"#3498db"</span>, </span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>                               <span class="st">"High Power (&gt; 180 hp)"</span> <span class="ot">=</span> <span class="st">"#e74c3c"</span>)) <span class="sc">+</span></span>
-<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Multivariate Relationship: Fuel Efficiency vs. Weight by Horsepower Group"</span>,</span>
-<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"Multiple regression accounts for simultaneous effects of vehicle weight and power"</span>,</span>
-<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Vehicle Weight (1,000 lbs)"</span>,</span>
-<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Miles Per Gallon (mpg)"</span>,</span>
-<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"Horsepower Tier"</span></span>
-<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">12</span>) <span class="sc">+</span></span>
-<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
-<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">size =</span> <span class="dv">14</span>, <span class="at">color =</span> <span class="st">"#2c3e50"</span>),</span>
-<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.position =</span> <span class="st">"top"</span>,</span>
-<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.border =</span> <span class="fu">element_rect</span>(<span class="at">color =</span> <span class="st">"#d6dbdf"</span>, <span class="at">fill =</span> <span class="cn">NA</span>)</span>
-<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="864"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="864"></p>
 <figcaption>Visualizing multiple linear regression partial effects: Fuel Efficiency vs.&nbsp;Weight categorized by Engine Power.</figcaption>
 </figure>
 </div>
@@ -786,69 +738,44 @@ F-statistic: 47.15 on 3 and 28 DF,  p-value: 4.506e-11</code></pre>
 \]</span></p>
 </section>
 </section>
-<section id="programmatic-prediction-in-r-predict" class="level2">
-<h2 class="anchored" data-anchor-id="programmatic-prediction-in-r-predict">4.2 Programmatic Prediction in R (<code>predict()</code>)</h2>
-<p>We execute predictions programmatically using the built-in <code>predict()</code> function in R:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define new observation data frame</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>new_car <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">wt =</span> <span class="fl">3.2</span>,</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">hp =</span> <span class="dv">150</span>,</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">qsec =</span> <span class="fl">17.5</span></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Point prediction</span></span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>pred_point <span class="ot">&lt;-</span> <span class="fu">predict</span>(model_mlr, <span class="at">newdata =</span> new_car)</span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. 95% Confidence Interval for mean response</span></span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>pred_conf <span class="ot">&lt;-</span> <span class="fu">predict</span>(model_mlr, <span class="at">newdata =</span> new_car, <span class="at">interval =</span> <span class="st">"confidence"</span>, <span class="at">level =</span> <span class="fl">0.95</span>)</span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. 95% Prediction Interval for single observation</span></span>
-<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>pred_pred <span class="ot">&lt;-</span> <span class="fu">predict</span>(model_mlr, <span class="at">newdata =</span> new_car, <span class="at">interval =</span> <span class="st">"prediction"</span>, <span class="at">level =</span> <span class="fl">0.95</span>)</span>
-<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Display combined predictions table</span></span>
-<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>pred_results <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>  <span class="at">Type =</span> <span class="fu">c</span>(<span class="st">"Confidence Interval (Mean Response)"</span>, <span class="st">"Prediction Interval (Individual Observation)"</span>),</span>
-<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>  <span class="at">Fit =</span> <span class="fu">c</span>(pred_conf[<span class="dv">1</span>, <span class="st">"fit"</span>], pred_pred[<span class="dv">1</span>, <span class="st">"fit"</span>]),</span>
-<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">Lower 95% Bound</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">c</span>(pred_conf[<span class="dv">1</span>, <span class="st">"lwr"</span>], pred_pred[<span class="dv">1</span>, <span class="st">"lwr"</span>]),</span>
-<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">Upper 95% Bound</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">c</span>(pred_conf[<span class="dv">1</span>, <span class="st">"upr"</span>], pred_pred[<span class="dv">1</span>, <span class="st">"upr"</span>])</span>
-<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(pred_results, <span class="at">digits =</span> <span class="dv">4</span>, <span class="at">caption =</span> <span class="st">"Predicted Miles Per Gallon for New Car (wt=3.2, hp=150, qsec=17.5)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<table class="table table-sm table-striped small">
-<caption>Predicted Miles Per Gallon for New Car (wt=3.2, hp=150, qsec=17.5)</caption>
+<section id="prediction-results-for-new-observation" class="level2">
+<h2 class="anchored" data-anchor-id="prediction-results-for-new-observation">4.2 Prediction Results for New Observation</h2>
+<p>Evaluating the model for a new vehicle specification with Weight (<span class="math inline">\(\text{wt}\)</span>) = 3.2 (3,200 lbs), Horsepower (<span class="math inline">\(\text{hp}\)</span>) = 150, and Quarter-Mile Time (<span class="math inline">\(\text{qsec}\)</span>) = 17.5 seconds yields the following point prediction and 95% interval estimates:</p>
+<table class="table">
+<caption>Predicted Miles Per Gallon for New Car (<code>wt</code> = 3.2, <code>hp</code> = 150, <code>qsec</code> = 17.5)</caption>
 <colgroup>
-<col style="width: 52%">
-<col style="width: 9%">
-<col style="width: 18%">
-<col style="width: 18%">
+<col style="width: 17%">
+<col style="width: 21%">
+<col style="width: 21%">
+<col style="width: 21%">
+<col style="width: 17%">
 </colgroup>
 <thead>
 <tr class="header">
-<th style="text-align: left;">Type</th>
-<th style="text-align: right;">Fit</th>
-<th style="text-align: right;">Lower.95..Bound</th>
-<th style="text-align: right;">Upper.95..Bound</th>
+<th style="text-align: left;">Interval Type</th>
+<th style="text-align: center;">Point Estimate (<span class="math inline">\(\hat{Y}\)</span>)</th>
+<th style="text-align: center;">Lower 95% Bound</th>
+<th style="text-align: center;">Upper 95% Bound</th>
+<th style="text-align: left;">Scope / Application</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">Confidence Interval (Mean Response)</td>
-<td style="text-align: right;">19.9286</td>
-<td style="text-align: right;">18.9670</td>
-<td style="text-align: right;">20.8903</td>
+<td style="text-align: left;"><strong>Confidence Interval (Mean Response)</strong></td>
+<td style="text-align: center;">19.2263</td>
+<td style="text-align: center;">18.2629</td>
+<td style="text-align: center;">20.1897</td>
+<td style="text-align: left;">Expected average fuel efficiency across all vehicles with these attributes</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">Prediction Interval (Individual Observation)</td>
-<td style="text-align: right;">19.9286</td>
-<td style="text-align: right;">14.5614</td>
-<td style="text-align: right;">25.2958</td>
+<td style="text-align: left;"><strong>Prediction Interval (Individual Observation)</strong></td>
+<td style="text-align: center;">19.2263</td>
+<td style="text-align: center;">14.0321</td>
+<td style="text-align: center;">24.4206</td>
+<td style="text-align: left;">Expected fuel efficiency range for one specific individual vehicle</td>
 </tr>
 </tbody>
 </table>
-</div>
-</div>
 </section>
 <section id="confidence-interval-vs.-prediction-interval" class="level2">
 <h2 class="anchored" data-anchor-id="confidence-interval-vs.-prediction-interval">4.3 Confidence Interval vs.&nbsp;Prediction Interval</h2>
@@ -863,49 +790,10 @@ F-statistic: 47.15 on 3 and 28 DF,  p-value: 4.506e-11</code></pre>
 </blockquote>
 <p>Let us visualize confidence bands vs.&nbsp;prediction bands across a range of vehicle weights:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate sequence of weights</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>wt_seq <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">wt =</span> <span class="fu">seq</span>(<span class="fl">1.5</span>, <span class="fl">5.5</span>, <span class="at">length.out =</span> <span class="dv">100</span>))</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Obtain predictions with bivariate model for clear visualization</span></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>conf_bands <span class="ot">&lt;-</span> <span class="fu">predict</span>(model_bivar, <span class="at">newdata =</span> wt_seq, <span class="at">interval =</span> <span class="st">"confidence"</span>)</span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>pred_bands <span class="ot">&lt;-</span> <span class="fu">predict</span>(model_bivar, <span class="at">newdata =</span> wt_seq, <span class="at">interval =</span> <span class="st">"prediction"</span>)</span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>plot_data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">wt =</span> wt_seq<span class="sc">$</span>wt,</span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">fit =</span> conf_bands[, <span class="st">"fit"</span>],</span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">conf_lwr =</span> conf_bands[, <span class="st">"lwr"</span>],</span>
-<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">conf_upr =</span> conf_bands[, <span class="st">"upr"</span>],</span>
-<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">pred_lwr =</span> pred_bands[, <span class="st">"lwr"</span>],</span>
-<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">pred_upr =</span> pred_bands[, <span class="st">"upr"</span>]</span>
-<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Raw data points</span></span>
-<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> mtcars, <span class="fu">aes</span>(<span class="at">x =</span> wt, <span class="at">y =</span> mpg), <span class="at">color =</span> <span class="st">"#2c3e50"</span>, <span class="at">size =</span> <span class="fl">2.5</span>, <span class="at">alpha =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
-<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Prediction interval ribbon (outer, wider)</span></span>
-<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(<span class="at">data =</span> plot_data, <span class="fu">aes</span>(<span class="at">x =</span> wt, <span class="at">ymin =</span> pred_lwr, <span class="at">ymax =</span> pred_upr), </span>
-<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>              <span class="at">fill =</span> <span class="st">"#e74c3c"</span>, <span class="at">alpha =</span> <span class="fl">0.15</span>) <span class="sc">+</span></span>
-<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Confidence interval ribbon (inner, narrower)</span></span>
-<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(<span class="at">data =</span> plot_data, <span class="fu">aes</span>(<span class="at">x =</span> wt, <span class="at">ymin =</span> conf_lwr, <span class="at">ymax =</span> conf_upr), </span>
-<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a>              <span class="at">fill =</span> <span class="st">"#2980b9"</span>, <span class="at">alpha =</span> <span class="fl">0.35</span>) <span class="sc">+</span></span>
-<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Regression line</span></span>
-<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data =</span> plot_data, <span class="fu">aes</span>(<span class="at">x =</span> wt, <span class="at">y =</span> fit), <span class="at">color =</span> <span class="st">"#16a085"</span>, <span class="at">linewidth =</span> <span class="fl">1.2</span>) <span class="sc">+</span></span>
-<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Confidence Interval vs. Prediction Interval"</span>,</span>
-<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"Inner Blue Band = 95% Confidence Interval (Mean) | Outer Red Band = 95% Prediction Interval (Individual)"</span>,</span>
-<span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Vehicle Weight (1,000 lbs)"</span>,</span>
-<span id="cb8-32"><a href="#cb8-32" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Miles Per Gallon (mpg)"</span></span>
-<span id="cb8-33"><a href="#cb8-33" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb8-34"><a href="#cb8-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">12</span>) <span class="sc">+</span></span>
-<span id="cb8-35"><a href="#cb8-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
-<span id="cb8-36"><a href="#cb8-36" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">size =</span> <span class="dv">14</span>, <span class="at">color =</span> <span class="st">"#2c3e50"</span>),</span>
-<span id="cb8-37"><a href="#cb8-37" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>, <span class="at">face =</span> <span class="st">"bold"</span>),</span>
-<span id="cb8-38"><a href="#cb8-38" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.border =</span> <span class="fu">element_rect</span>(<span class="at">color =</span> <span class="st">"#d6dbdf"</span>, <span class="at">fill =</span> <span class="cn">NA</span>)</span>
-<span id="cb8-39"><a href="#cb8-39" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="864"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="864"></p>
 <figcaption>Comparison of 95% Confidence Bands (Narrow) vs.&nbsp;95% Prediction Bands (Wide) in Linear Regression.</figcaption>
 </figure>
 </div>
@@ -918,17 +806,14 @@ F-statistic: 47.15 on 3 and 28 DF,  p-value: 4.506e-11</code></pre>
 <h1>5. Model Diagnostics &amp; Validation</h1>
 <p>Before relying on OLS linear regression results for inference or policy decisions, researchers must validate that the underlying Gauss-Markov assumptions hold.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(model_mlr, <span class="at">col =</span> <span class="st">"#2c3e50"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="864"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="864"></p>
 <figcaption>Diagnostic plots for checking classical linear regression model assumptions.</figcaption>
 </figure>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <section id="diagnostic-checklist-for-researchers" class="level3">
 <h3 class="anchored" data-anchor-id="diagnostic-checklist-for-researchers">Diagnostic Checklist for Researchers</h3>
@@ -1116,7 +1001,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   });
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp("https:\/\/adsheilbronn\.github\.io\/");
+      var filterRegex = new RegExp('/' + window.location.host + '/');
     var isInternal = (href) => {
         return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }

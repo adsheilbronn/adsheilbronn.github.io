@@ -97,6 +97,13 @@ To ensure that the OLS estimators of $\beta_0$ and $\beta_1$ are **BLUE** (**B**
 
 To demonstrate bivariate regression, we use R's built-in `mtcars` dataset, analyzing how vehicle weight (`wt`, measured in 1,000 lbs) predicts fuel efficiency (`mpg`, Miles Per Gallon).
 
+```{r}
+#| echo: false
+#| include: false
+model_bivar <- lm(mpg ~ wt, data = mtcars)
+model_mlr <- lm(mpg ~ wt + hp + qsec, data = mtcars)
+```
+
 ## 2.1 Sample Regression Function (SRF) & OLS Estimation
 
 From a sample of data $\{(x_i, y_i)\}_{i=1}^n$, we estimate the population parameters using sample estimates $\hat{\beta}_0$ and $\hat{\beta}_1$. The **Sample Regression Function (SRF)** is:
