@@ -2,7 +2,7 @@ project:
   type: website
 
 website:
-  title: "adsheilbronn.github.io"
+  title: "Advanced Data Science"
   navbar:
     right:
       - about.qmd
