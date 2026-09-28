@@ -2,42 +2,50 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://adsheilbronn.github.io/about.html</loc>
-    <lastmod>2026-09-28T15:11:07.590Z</lastmod>
+    <lastmod>2026-09-28T15:34:32.205Z</lastmod>
   </url>
   <url>
     <loc>https://adsheilbronn.github.io/posts/litreview/index.html</loc>
-    <lastmod>2026-09-28T15:11:07.595Z</lastmod>
+    <lastmod>2026-09-28T15:34:32.211Z</lastmod>
+  </url>
+  <url>
+    <loc>https://adsheilbronn.github.io/posts/linregression/correlation/index.html</loc>
+    <lastmod>2026-09-28T15:34:32.209Z</lastmod>
   </url>
   <url>
     <loc>https://adsheilbronn.github.io/posts/theoryhypo/index.html</loc>
-    <lastmod>2026-09-28T15:11:07.597Z</lastmod>
+    <lastmod>2026-09-28T15:34:32.214Z</lastmod>
   </url>
   <url>
     <loc>https://adsheilbronn.github.io/posts/descriptives/index.html</loc>
-    <lastmod>2026-09-28T15:11:07.592Z</lastmod>
+    <lastmod>2026-09-28T15:34:32.208Z</lastmod>
   </url>
   <url>
     <loc>https://adsheilbronn.github.io/posts/welcome/index.html</loc>
-    <lastmod>2026-09-28T15:11:07.597Z</lastmod>
+    <lastmod>2026-09-28T15:34:32.214Z</lastmod>
   </url>
   <url>
     <loc>https://adsheilbronn.github.io/index.html</loc>
-    <lastmod>2026-09-28T15:11:07.590Z</lastmod>
+    <lastmod>2026-09-28T15:34:32.205Z</lastmod>
   </url>
   <url>
     <loc>https://adsheilbronn.github.io/posts/hypotesting/index.html</loc>
-    <lastmod>2026-09-28T15:11:07.593Z</lastmod>
+    <lastmod>2026-09-28T15:34:32.209Z</lastmod>
   </url>
   <url>
     <loc>https://adsheilbronn.github.io/posts/whatisresearch/index.html</loc>
-    <lastmod>2026-09-28T15:11:07.601Z</lastmod>
+    <lastmod>2026-09-28T15:34:32.218Z</lastmod>
+  </url>
+  <url>
+    <loc>https://adsheilbronn.github.io/posts/linregression/index.html</loc>
+    <lastmod>2026-09-28T15:34:32.209Z</lastmod>
   </url>
   <url>
     <loc>https://adsheilbronn.github.io/posts/correlation/index.html</loc>
-    <lastmod>2026-09-28T15:11:07.592Z</lastmod>
+    <lastmod>2026-09-28T15:34:32.208Z</lastmod>
   </url>
   <url>
     <loc>https://adsheilbronn.github.io/posts/confinterval/index.html</loc>
-    <lastmod>2026-09-28T15:11:07.591Z</lastmod>
+    <lastmod>2026-09-28T15:34:32.207Z</lastmod>
   </url>
 </urlset>
