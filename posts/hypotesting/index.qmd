@@ -19,10 +19,10 @@ format:
 
 # The concept of hypothesis testing
 
-- A \textit{statistical hypothesis} is a statement about the numerical value of a population parameter.
-- The \textit{null hypothesis}, denoted by $H_0$, represents the hypothesis that will be accepted unless the data provide convincing evidence that it is false. This usually represents the "status quo" or some claim about the population parameter that the researcher wants to test.
-- The \textit{alternative hypothesis}, denoted by $H_a$ represents the hypothesis that will be accepted only if the data provide convincing evidence of its truth. This usually represents the values of a population parameter for which the researcher wants to gather evidence to support.
-- The \textit{test statistic} is a sample statistic, computed from information provided in the sample, that the researcher uses to decide between the null and alternative hypothesis. 
+- A *statistical hypothesis* is a statement about the numerical value of a population parameter.
+- The *null hypothesis*, denoted by $H_0$, represents the hypothesis that will be accepted unless the data provide convincing evidence that it is false. This usually represents the "status quo" or some claim about the population parameter that the researcher wants to test.
+- The *alternative hypothesis*, denoted by $H_a$ represents the hypothesis that will be accepted only if the data provide convincing evidence of its truth. This usually represents the values of a population parameter for which the researcher wants to gather evidence to support.
+- The *test statistic* is a sample statistic, computed from information provided in the sample, that the researcher uses to decide between the null and alternative hypothesis. 
 
 ## One tailed vs. two tailed test
 
@@ -31,6 +31,7 @@ A one-tailed test of hypothesis is one which the alternative hypothesis is direc
 
 ### Two-tailed test
 A two tailed test of hypothesis is one in which the alternative does not specify departure from $H_0$ in a particular direction and is written with the symbol of equality, i.e. "$=$".
+
 For example, 
 
 - One tailed, upper tailed hypothesis $H_a: \mu > 2400$.
@@ -61,15 +62,13 @@ $$
 
 i.e. the pipe meets the specifications.
 
-Convincing evidence in favor of the alternative hypothesis exist when the value of $\bar{x}$ exceeds 2,400 by an amount that that cannot be attributed to sampling variability. To decide, we compute a test statistic called \textbf{z}, a numerical value computed from the sample. It measures the distance between the value of $\bar{x}$ and the value of $\mu$ specified in the null hypothesis.
+Convincing evidence in favor of the alternative hypothesis exist when the value of $\bar{x}$ exceeds 2,400 by an amount that that cannot be attributed to sampling variability. To decide, we compute a test statistic called $z$, a numerical value computed from the sample. It measures the distance between the value of $\bar{x}$ and the value of $\mu$ specified in the null hypothesis. Assume a $95\%$ level of significance.
 
 We can calculation the test statistic $z$ like the following,
 
 $$z =  \frac{\bar{x}-2400}{\sigma_{\bar{x}}}$$
 
 Note that, a value of $z=1$ means that the $\bar{x}$ is $1\sigma$ above $\mu=2400$, a value of $z=1.5$ means $1.5\sigma$ above the $\mu=2400$. 
-
-Figure
 
 In our example, 
 
@@ -92,7 +91,64 @@ $$
 
 Therefore, the sample mean lies $2.12\sigma_{\bar{x}}$ above the hypothetical value of $\mu$, 2400. Because this value of $z$ exceeds 1.645, it falls in the rejection region. That is, we reject the null hypothesis that $\mu=2400$ and conclude that $\mu>2400$. 
 
-Figure 
+```{r}
+#| echo: false
+#| fig-width: 8
+#| fig-height: 5
+#| fig-cap: "Bivariate linear regression of Miles Per Gallon (mpg) on Vehicle Weight (wt)."
+
+
+library(ggplot2)
+
+# 1. Test Parameters
+alpha <- 0.05
+z_calc <- 2.12
+z_crit <- qnorm(1 - alpha)  # 1.645
+
+# 2. Generate Standard Normal Distribution Data
+x_vals <- seq(-4, 4, length.out = 1000)
+df_norm <- data.frame(
+  x = x_vals,
+  y = dnorm(x_vals)
+)
+
+# 3. Create ggplot Visualization
+ggplot(df_norm, aes(x = x, y = y)) +
+  # Draw standard normal curve
+  geom_line(color = "black", linewidth = 1) +
+  
+  # Shade Right-Tailed Rejection Region (alpha = 0.05)
+  geom_area(
+    data = subset(df_norm, x >= z_crit),
+    aes(y = y), fill = "#E63946", alpha = 0.5
+  ) +
+  
+  # Vertical line for the calculated test statistic (z = 2.12)
+  geom_vline(xintercept = z_calc, color = "#1D3557", linetype = "dashed", linewidth = 1.1) +
+  
+  # Vertical line for the critical value (z = 1.645)
+  geom_vline(xintercept = z_crit, color = "#E63946", linetype = "dotted", linewidth = 1) +
+  
+  # Annotations
+  annotate("text", x = z_calc + 0.45, y = 0.15, 
+           label = paste0("z[calc] == ", z_calc), parse = TRUE, color = "#1D3557", fontface = "bold") +
+  annotate("text", x = z_crit + 0.5, y = 0.05, 
+           label = paste0("z[crit] == ", round(z_crit, 3)), parse = TRUE, color = "#E63946") +
+  
+  # Plot Formatting
+  labs(
+    title = "One-Tailed Hypothesis Test for Sewer Pipe Breaking Strength",
+    subtitle = paste0("Rejection Region Shaded (\u03b1 = ", alpha, ") | Calculated z = ", z_calc),
+    x = "Z-score",
+    y = "Probability Density"
+  ) +
+  theme_minimal(base_size = 13) +
+  theme(
+    plot.title = element_text(face = "bold", hjust = 0.5),
+    plot.subtitle = element_text(hjust = 0.5, color = "gray30"),
+    panel.grid.minor = element_blank()
+  )
+```
 
 The sample mean lies $2.12\sigma_{\bar{x}}$ above the hypothesized value of $\mu$ and because this calculated value exceeds the table value 1.645, it falls in the rejection region. That is, we reject the null hypothesis. 
 
@@ -105,7 +161,7 @@ The hypothesis would be,
 - $H_0: \mu = 12$
 - $H_1: \mu \neq 12$
 
-Now assuming, $\bar{x}=11.851$ and $s=512$, $\alpha=0.01$, we have,
+Now assuming, $\bar{x}=11.851$ and $s=0.512$, $\alpha=0.01$, we have,
 
 $$
 z = \frac{\bar{x}-\mu}{\sigma_{\bar{x}}}=\frac{11.851-12}{0.512/\sqrt{100}}=\frac{-.149}{.512/10}=-2.91

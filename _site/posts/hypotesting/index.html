@@ -102,7 +102,7 @@ window.Quarto = {
 <link rel="stylesheet" href="../../styles.css">
 </head>
 
-<body class="nav-fixed fullcontent">
+<body class="nav-fixed">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top quarto-banner">
@@ -175,7 +175,50 @@ window.Quarto = {
   </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#the-concept-of-hypothesis-testing" id="toc-the-concept-of-hypothesis-testing" class="nav-link active" data-scroll-target="#the-concept-of-hypothesis-testing">The concept of hypothesis testing</a>
+  <ul class="collapse">
+  <li><a href="#one-tailed-vs.-two-tailed-test" id="toc-one-tailed-vs.-two-tailed-test" class="nav-link" data-scroll-target="#one-tailed-vs.-two-tailed-test">One tailed vs.&nbsp;two tailed test</a>
+  <ul class="collapse">
+  <li><a href="#one-tailed-test" id="toc-one-tailed-test" class="nav-link" data-scroll-target="#one-tailed-test">One-tailed test</a></li>
+  <li><a href="#two-tailed-test" id="toc-two-tailed-test" class="nav-link" data-scroll-target="#two-tailed-test">Two-tailed test</a></li>
+  </ul></li>
+  <li><a href="#large-sample-test-z-test" id="toc-large-sample-test-z-test" class="nav-link" data-scroll-target="#large-sample-test-z-test">Large sample test: <span class="math inline">\(z\)</span> test</a>
+  <ul class="collapse">
+  <li><a href="#example-large-sample-one-tailed-test" id="toc-example-large-sample-one-tailed-test" class="nav-link" data-scroll-target="#example-large-sample-one-tailed-test">Example: Large sample one tailed test</a></li>
+  <li><a href="#example-large-sample-two-tailed-test" id="toc-example-large-sample-two-tailed-test" class="nav-link" data-scroll-target="#example-large-sample-two-tailed-test">Example: Large sample two tailed test</a></li>
+  <li><a href="#example-small-sample-two-tailed-test" id="toc-example-small-sample-two-tailed-test" class="nav-link" data-scroll-target="#example-small-sample-two-tailed-test">Example: Small sample two tailed test</a></li>
+  <li><a href="#example-small-sample-one-tailed-test" id="toc-example-small-sample-one-tailed-test" class="nav-link" data-scroll-target="#example-small-sample-one-tailed-test">Example: Small sample one tailed test</a></li>
+  </ul></li>
+  <li><a href="#decision-rule-onetwo-tailed-test" id="toc-decision-rule-onetwo-tailed-test" class="nav-link" data-scroll-target="#decision-rule-onetwo-tailed-test">Decision rule: One/Two tailed test</a>
+  <ul class="collapse">
+  <li><a href="#example-spss" id="toc-example-spss" class="nav-link" data-scroll-target="#example-spss">Example: SPSS</a></li>
+  </ul></li>
+  <li><a href="#type-i-and-type-ii-error" id="toc-type-i-and-type-ii-error" class="nav-link" data-scroll-target="#type-i-and-type-ii-error">Type I and Type II error</a></li>
+  <li><a href="#observed-significance-level-p-value" id="toc-observed-significance-level-p-value" class="nav-link" data-scroll-target="#observed-significance-level-p-value">Observed significance level: <span class="math inline">\(p\)</span> value</a>
+  <ul class="collapse">
+  <li><a href="#decision-rule-p-values" id="toc-decision-rule-p-values" class="nav-link" data-scroll-target="#decision-rule-p-values">Decision rule: <span class="math inline">\(p\)</span> values</a></li>
+  </ul></li>
+  <li><a href="#p-value-two-tailed-case-example" id="toc-p-value-two-tailed-case-example" class="nav-link" data-scroll-target="#p-value-two-tailed-case-example"><span class="math inline">\(p\)</span> value: two tailed case example</a></li>
+  <li><a href="#p-value-two-tailed-case-spss-example" id="toc-p-value-two-tailed-case-spss-example" class="nav-link" data-scroll-target="#p-value-two-tailed-case-spss-example"><span class="math inline">\(p\)</span> value: two tailed case SPSS example</a></li>
+  <li><a href="#comparing-two-means-independent-sampling" id="toc-comparing-two-means-independent-sampling" class="nav-link" data-scroll-target="#comparing-two-means-independent-sampling">Comparing two means: independent sampling</a></li>
+  <li><a href="#comparing-two-means-population-sampling" id="toc-comparing-two-means-population-sampling" class="nav-link" data-scroll-target="#comparing-two-means-population-sampling">Comparing two means: population sampling</a>
+  <ul class="collapse">
+  <li><a href="#large-sample-hypothesis-for-mu_1---mu_2" id="toc-large-sample-hypothesis-for-mu_1---mu_2" class="nav-link" data-scroll-target="#large-sample-hypothesis-for-mu_1---mu_2">Large sample hypothesis for <span class="math inline">\((\mu_1 - \mu_2)\)</span></a></li>
+  <li><a href="#small-sample-hypothesis-for-mu_1---mu_2-when-sigma_1-sigma_2" id="toc-small-sample-hypothesis-for-mu_1---mu_2-when-sigma_1-sigma_2" class="nav-link" data-scroll-target="#small-sample-hypothesis-for-mu_1---mu_2-when-sigma_1-sigma_2">Small sample hypothesis for <span class="math inline">\((\mu_1 - \mu_2)\)</span> when <span class="math inline">\(\sigma_1 = \sigma_2\)</span></a></li>
+  <li><a href="#small-sample-hypothesis-for-mu_1---mu_2-when-sigma_1-neq-sigma_2" id="toc-small-sample-hypothesis-for-mu_1---mu_2-when-sigma_1-neq-sigma_2" class="nav-link" data-scroll-target="#small-sample-hypothesis-for-mu_1---mu_2-when-sigma_1-neq-sigma_2">Small sample hypothesis for <span class="math inline">\((\mu_1 - \mu_2)\)</span> when <span class="math inline">\(\sigma_1 \neq \sigma_2\)</span></a></li>
+  <li><a href="#spss-example" id="toc-spss-example" class="nav-link" data-scroll-target="#spss-example">SPSS Example</a></li>
+  <li><a href="#comparing-two-means-paired-difference-experiments" id="toc-comparing-two-means-paired-difference-experiments" class="nav-link" data-scroll-target="#comparing-two-means-paired-difference-experiments">Comparing two means: paired difference experiments</a></li>
+  <li><a href="#spss-example-1" id="toc-spss-example-1" class="nav-link" data-scroll-target="#spss-example-1">SPSS Example</a></li>
+  </ul></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
 <!-- main -->
 <main class="content quarto-banner-title-block" id="quarto-document-content">
 
