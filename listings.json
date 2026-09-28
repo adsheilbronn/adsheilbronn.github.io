@@ -2,6 +2,7 @@
   {
     "listing": "/index.html",
     "items": [
+      "/posts/litreview/index.html",
       "/posts/whatisresearch/index.html",
       "/posts/01_descriptives/index.html",
       "/posts/welcome/index.html"
