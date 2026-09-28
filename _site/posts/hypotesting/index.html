@@ -229,10 +229,10 @@ window.Quarto = {
 <section id="the-concept-of-hypothesis-testing" class="level1">
 <h1>The concept of hypothesis testing</h1>
 <ul>
-<li>A is a statement about the numerical value of a population parameter.</li>
-<li>The , denoted by <span class="math inline">\(H_0\)</span>, represents the hypothesis that will be accepted unless the data provide convincing evidence that it is false. This usually represents the “status quo” or some claim about the population parameter that the researcher wants to test.</li>
-<li>The , denoted by <span class="math inline">\(H_a\)</span> represents the hypothesis that will be accepted only if the data provide convincing evidence of its truth. This usually represents the values of a population parameter for which the researcher wants to gather evidence to support.</li>
-<li>The is a sample statistic, computed from information provided in the sample, that the researcher uses to decide between the null and alternative hypothesis.</li>
+<li>A <em>statistical hypothesis</em> is a statement about the numerical value of a population parameter.</li>
+<li>The <em>null hypothesis</em>, denoted by <span class="math inline">\(H_0\)</span>, represents the hypothesis that will be accepted unless the data provide convincing evidence that it is false. This usually represents the “status quo” or some claim about the population parameter that the researcher wants to test.</li>
+<li>The <em>alternative hypothesis</em>, denoted by <span class="math inline">\(H_a\)</span> represents the hypothesis that will be accepted only if the data provide convincing evidence of its truth. This usually represents the values of a population parameter for which the researcher wants to gather evidence to support.</li>
+<li>The <em>test statistic</em> is a sample statistic, computed from information provided in the sample, that the researcher uses to decide between the null and alternative hypothesis.</li>
 </ul>
 <section id="one-tailed-vs.-two-tailed-test" class="level2">
 <h2 class="anchored" data-anchor-id="one-tailed-vs.-two-tailed-test">One tailed vs.&nbsp;two tailed test</h2>
@@ -242,7 +242,8 @@ window.Quarto = {
 </section>
 <section id="two-tailed-test" class="level3">
 <h3 class="anchored" data-anchor-id="two-tailed-test">Two-tailed test</h3>
-<p>A two tailed test of hypothesis is one in which the alternative does not specify departure from <span class="math inline">\(H_0\)</span> in a particular direction and is written with the symbol of equality, i.e.&nbsp;“<span class="math inline">\(=\)</span>”. For example,</p>
+<p>A two tailed test of hypothesis is one in which the alternative does not specify departure from <span class="math inline">\(H_0\)</span> in a particular direction and is written with the symbol of equality, i.e.&nbsp;“<span class="math inline">\(=\)</span>”.</p>
+<p>For example,</p>
 <ul>
 <li>One tailed, upper tailed hypothesis <span class="math inline">\(H_a: \mu &gt; 2400\)</span>.</li>
 <li>One tailed, lower tailed hypothesis <span class="math inline">\(H_a: \mu &lt; 2400\)</span>.</li>
@@ -266,11 +267,10 @@ H_0: \mu \leq 2400
 H_1: \mu &gt; 2400
 \]</span></p>
 <p>i.e.&nbsp;the pipe meets the specifications.</p>
-<p>Convincing evidence in favor of the alternative hypothesis exist when the value of <span class="math inline">\(\bar{x}\)</span> exceeds 2,400 by an amount that that cannot be attributed to sampling variability. To decide, we compute a test statistic called , a numerical value computed from the sample. It measures the distance between the value of <span class="math inline">\(\bar{x}\)</span> and the value of <span class="math inline">\(\mu\)</span> specified in the null hypothesis.</p>
+<p>Convincing evidence in favor of the alternative hypothesis exist when the value of <span class="math inline">\(\bar{x}\)</span> exceeds 2,400 by an amount that that cannot be attributed to sampling variability. To decide, we compute a test statistic called <span class="math inline">\(z\)</span>, a numerical value computed from the sample. It measures the distance between the value of <span class="math inline">\(\bar{x}\)</span> and the value of <span class="math inline">\(\mu\)</span> specified in the null hypothesis. Assume a <span class="math inline">\(95\%\)</span> level of significance.</p>
 <p>We can calculation the test statistic <span class="math inline">\(z\)</span> like the following,</p>
 <p><span class="math display">\[z =  \frac{\bar{x}-2400}{\sigma_{\bar{x}}}\]</span></p>
 <p>Note that, a value of <span class="math inline">\(z=1\)</span> means that the <span class="math inline">\(\bar{x}\)</span> is <span class="math inline">\(1\sigma\)</span> above <span class="math inline">\(\mu=2400\)</span>, a value of <span class="math inline">\(z=1.5\)</span> means <span class="math inline">\(1.5\sigma\)</span> above the <span class="math inline">\(\mu=2400\)</span>.</p>
-<p>Figure</p>
 <p>In our example,</p>
 <p><span class="math display">\[
 \alpha = \mathbb{P}(z&gt;1.645)=0.05
@@ -286,7 +286,16 @@ H_1: \mu &gt; 2400
 z = \frac{\bar{x}-2400}{\sigma_{\bar{x}}}=\frac{2460-2400}{200/\sqrt{50}}=\frac{60}{28.28}=2.12
 \]</span></p>
 <p>Therefore, the sample mean lies <span class="math inline">\(2.12\sigma_{\bar{x}}\)</span> above the hypothetical value of <span class="math inline">\(\mu\)</span>, 2400. Because this value of <span class="math inline">\(z\)</span> exceeds 1.645, it falls in the rejection region. That is, we reject the null hypothesis that <span class="math inline">\(\mu=2400\)</span> and conclude that <span class="math inline">\(\mu&gt;2400\)</span>.</p>
-<p>Figure</p>
+<div class="cell">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid figure-img" width="768"></p>
+<figcaption>Bivariate linear regression of Miles Per Gallon (mpg) on Vehicle Weight (wt).</figcaption>
+</figure>
+</div>
+</div>
+</div>
 <p>The sample mean lies <span class="math inline">\(2.12\sigma_{\bar{x}}\)</span> above the hypothesized value of <span class="math inline">\(\mu\)</span> and because this calculated value exceeds the table value 1.645, it falls in the rejection region. That is, we reject the null hypothesis.</p>
 </section>
 <section id="example-large-sample-two-tailed-test" class="level3">
@@ -297,7 +306,7 @@ z = \frac{\bar{x}-2400}{\sigma_{\bar{x}}}=\frac{2460-2400}{200/\sqrt{50}}=\frac{
 <li><span class="math inline">\(H_0: \mu = 12\)</span></li>
 <li><span class="math inline">\(H_1: \mu \neq 12\)</span></li>
 </ul>
-<p>Now assuming, <span class="math inline">\(\bar{x}=11.851\)</span> and <span class="math inline">\(s=512\)</span>, <span class="math inline">\(\alpha=0.01\)</span>, we have,</p>
+<p>Now assuming, <span class="math inline">\(\bar{x}=11.851\)</span> and <span class="math inline">\(s=0.512\)</span>, <span class="math inline">\(\alpha=0.01\)</span>, we have,</p>
 <p><span class="math display">\[
 z = \frac{\bar{x}-\mu}{\sigma_{\bar{x}}}=\frac{11.851-12}{0.512/\sqrt{100}}=\frac{-.149}{.512/10}=-2.91
 \]</span></p>

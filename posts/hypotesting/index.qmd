@@ -95,8 +95,7 @@ Therefore, the sample mean lies $2.12\sigma_{\bar{x}}$ above the hypothetical va
 #| echo: false
 #| fig-width: 8
 #| fig-height: 5
-#| fig-cap: "Bivariate linear regression of Miles Per Gallon (mpg) on Vehicle Weight (wt)."
-
+#| fig-cap: "One sample hypothesis test."
 
 library(ggplot2)
 
@@ -166,6 +165,75 @@ Now assuming, $\bar{x}=11.851$ and $s=0.512$, $\alpha=0.01$, we have,
 $$
 z = \frac{\bar{x}-\mu}{\sigma_{\bar{x}}}=\frac{11.851-12}{0.512/\sqrt{100}}=\frac{-.149}{.512/10}=-2.91
 $$
+
+```{r}
+#| echo: false
+#| fig-width: 8
+#| fig-height: 5
+#| fig-cap: "One sample hypothesis test."
+
+
+library(ggplot2)
+
+# 1. Test Parameters
+alpha <- 0.01
+z_calc <- -2.91
+z_crit_upper <- qnorm(1 - alpha / 2)  #  2.576
+z_crit_lower <- qnorm(alpha / 2)      # -2.576
+
+# 2. Generate Standard Normal Distribution Data
+x_vals <- seq(-4, 4, length.out = 1000)
+df_norm <- data.frame(
+  x = x_vals,
+  y = dnorm(x_vals)
+)
+
+# 3. Create ggplot Visualization
+ggplot(df_norm, aes(x = x, y = y)) +
+  # Draw standard normal curve
+  geom_line(color = "black", linewidth = 1) +
+  
+  # Shade Left Rejection Region (alpha / 2 = 0.005)
+  geom_area(
+    data = subset(df_norm, x <= z_crit_lower),
+    aes(y = y), fill = "#E63946", alpha = 0.5
+  ) +
+  
+  # Shade Right Rejection Region (alpha / 2 = 0.005)
+  geom_area(
+    data = subset(df_norm, x >= z_crit_upper),
+    aes(y = y), fill = "#E63946", alpha = 0.5
+  ) +
+  
+  # Vertical line for calculated test statistic (z = -2.91)
+  geom_vline(xintercept = z_calc, color = "#1D3557", linetype = "dashed", linewidth = 1.1) +
+  
+  # Vertical lines for critical values (z = +/-2.576)
+  geom_vline(xintercept = c(z_crit_lower, z_crit_upper), color = "#E63946", linetype = "dotted", linewidth = 0.9) +
+  
+  # Annotations
+  annotate("text", x = z_calc - 0.45, y = 0.12, 
+           label = paste0("z[calc] == ", z_calc), parse = TRUE, color = "#1D3557", fontface = "bold") +
+  annotate("text", x = z_crit_lower - 0.4, y = 0.04, 
+           label = paste0("-z[crit] == ", round(z_crit_lower, 3)), parse = TRUE, color = "#E63946") +
+  annotate("text", x = z_crit_upper + 0.4, y = 0.04, 
+           label = paste0("z[crit] == ", round(z_crit_upper, 3)), parse = TRUE, color = "#E63946") +
+  
+  # Plot Formatting
+  labs(
+    title = "Two-Tailed Hypothesis Test for Cereal Box Fill Weight",
+    subtitle = paste0("Rejection Regions Shaded (\u03b1 = ", alpha, ") | Calculated z = ", z_calc),
+    x = "Z-score",
+    y = "Probability Density"
+  ) +
+  theme_minimal(base_size = 13) +
+  theme(
+    plot.title = element_text(face = "bold", hjust = 0.5),
+    plot.subtitle = element_text(hjust = 0.5, color = "gray30"),
+    panel.grid.minor = element_blank()
+  )
+```
+
 
 The decision rule for large sample two tailed $z$ test is if the calculate value of $z$ is greater than the table value of $z$ we should reject the $H_0$.  
 
@@ -247,26 +315,11 @@ The hypothesis is also to be tested at a given level of significance and a degre
 - In case of directional hypothesis, where we are testing if the population mean is greater than the value in the null hypothesis, the the null hypothesis can be rejected if the calculated t value is positive and that is greater than the tabled one-tailed t value.
 - In case of directional hypothesis, where we are testing if the population mean is less than the value in the null hypothesis, the null hypothesis can be rejected if the calculated t value is **negative** and the absolute value of calculated t is equal or greater than the tabled one-tailed t value.
 
-
-### Example: SPSS
-
-#### Problem Consider the Album sales data again. The music band leader is thinking whether they are spending too much in advertisement compare to the industry. They have got to know that on average the industry spends 500,000 euro per year. So, the band members are wondering whether their spending is statistically different from the industry.
-
-####Solution: To test this, we need to go to Analyze $>$ Compare means $>$ One sample T test. Select the variable we want to test. Here it is Advertisement budget. Put the test value $500$ in the input box at the bottom. Confirm the confidence level by clicking Options. We assume a $95\%$ confidence interval. Click paste and the code will look like as follows,
-
-Dataset: Album Sales.sav
-
-Figure
-
-The resulting output shows (figure XX) that our calculation $t$ value is 3.332, which is larger than 1.96, which means we are rejecting the null hypothesis that there is no significant difference between the band's budget and the industry average budget.
-
 ## Type I and Type II error
 
 The Type I error occurs if the researcher rejects the null hypothesis in favour of the alternative hypothesis when, in fact, $H_0$ is true. The probability of committing a Type I error is denoted by $\alpha$.
 
 The Type II error occurs if the researcher accepts the null hypothesis when, in fact, $H_0$ is false, The probability of committing a Type II error is denoted by $\beta$
-
-Figure 
 
 ## Observed significance level: $p$ value
 
@@ -307,13 +360,9 @@ $$
 
 Thus, we calculate the area below the observed $z$-value and double it, ie. $0.0018 \times 2 = 0.0036$. 
 
-## $p$ value: two tailed case SPSS example
-
-The $p$ value of t-test is reported along with t-test statistic. In out t-test (figure: \ref{fig:304}) output based on \verb|Album Sales| data, the reported $p$-value is $0.001$, which is too low to accept the null hypothesis.
-
 ## Comparing two means: independent sampling
 
-\textbf{Conditions required for valid large-sample inferences about $(\mu_1 - \mu_2)$}
+### Conditions required for valid large-sample inferences about $(\mu_1 - \mu_2)$
 
 - The two samples are randomly selected in an independent manner from the two target populations.
 - The sample sizes, $n_1$ and $n_2$ are both large (i.e. $n \geq 30$ and $n_2 \geq 30$. Due to the Central limit theorem, this condition guarantees that the sampling distribution of $(\bar{x}_1 - \bar{x}_2)$ will be approximately normal regardless of the shapes of the underlying probability distribution of the populations. Also, $s_1^2$ and $s_2^2$ will provide good approximations to $\sigma_1^2$ and $\sigma_2^2$ when the samples are both large. 
@@ -321,7 +370,6 @@ The $p$ value of t-test is reported along with t-test statistic. In out t-test (
 ## Comparing two means: population sampling
 
 ** Properties of the sampling distribution of $\bar{x}_1 - \bar{x}_2$**
-
 
 - The mean of the sampling distribution $(\bar{x}_1 - \bar{x}_2)$ is $(\mu_1 - \mu_2)$.
 - If the two samples are independent, the standard deviation of the sampling distribution is
@@ -437,14 +485,6 @@ $$
 
 where $t$ is based on $\nu = \frac{\frac{s_1^2}{n_1}+\frac{s_2^2}{n_2}}{\frac{s_1^2/n_1}{n_1-1}+\frac{s_2^2/n_2}{n_2-1}}$ degrees of freedom.
 
-### SPSS Example
-
-**Dataset:** `bankloan.sav`
-
-The bank manager wants to decide whether the income of the client makes any difference in the default behavior of a client. He found that the average income of his clients is 47 thousand euros. He wants to see if there exists any difference between above-average income earners and lower-than-average income earners in default behavior. To differentiate, he needs to do a two-sample independent $t$-test, where the first sample consists of clients with above-average income and the second sample consists of people with lower-than-average income.
-
-We assume a null hypothesis here that there exists no difference between the two groups at a $5\%$ significance level. For both equal variance and unequal variance assumptions, the absolute value of the calculated $t$-value is greater than the table value of $1.96$, thus rejecting our null hypothesis that there exists no difference between the two groups. In other words, the difference between the two groups based on income level is statistically significant in their default history.
-
 ### Comparing two means: paired difference experiments
 
 In the paired/matched sample case, the standard $t$-test is invalid because the assumption of independent samples is violated. To solve this problem, we create a column containing the difference between two samples $x_1$ and $x_2$. We then use the mean of the sample mean difference $\bar{d}$ to draw our inference.
@@ -465,11 +505,3 @@ t = \frac{\bar{d}-D}{s_d/\sqrt{n_d}}
 $$
 
 where $s_d$ is the sample standard deviation of the differences. The hypothesis is to be tested by using $(n_d - 1)$ degrees of freedom.
-
-### SPSS Example
-
-**Dataset:** `bankloan.sav`
-
-Suppose the bank manager wants to see if there exists any difference between credit card debts and other debts. To check the null hypothesis that there exists no difference at $5\%$, we compare credit card debt with other debts.
-
-The calculated absolute value of $t$ is far above the table value, which indicates the null hypothesis is rejected and thereby we can say there exists a difference in credit card debt and other debts.
