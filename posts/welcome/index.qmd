@@ -18,7 +18,7 @@ categories: [news]
 |                 | haseeb.mahmud\@ext.hs-heilbronn.de\      |
 |                 | haseeb.mahmud\@gmail.com                 |
 +-----------------+------------------------------------------+
-| Visiting hours  | By appointment over WebEx                |
+| Visiting hours  | By appointment over WebEx/MS Teams       |
 +-----------------+------------------------------------------+
 | Language        | English                                  |
 +-----------------+------------------------------------------+

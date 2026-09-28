@@ -2,7 +2,7 @@
 title: "Descriptive statistics"
 author: "Haseeb Mahmud"
 date: "2026-09-26"
-categories: [news, code, analysis]
+categories: [Statistics]
 image: "image.jpg"
 ---
 
