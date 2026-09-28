@@ -499,8 +499,119 @@ Cov (x, y) = \frac{\sum(x_i - \bar{x})(y_i - \bar{y})}{n}
 <h2 class="anchored" data-anchor-id="percentiles">Percentiles</h2>
 <p>The <span class="math inline">\(p\)</span>-th percentile of a set of <span class="math inline">\(n\)</span>-measurements arranged in order of magnitude is that value that has at most <span class="math inline">\(p\%\)</span> of the measurements below it and at most <span class="math inline">\((100-p)\%\)</span> above it.</p>
 <p>Percentiles are frequently used to describe the results of achievements test scores and the ranking of a person in comparison to the rest of the people taking the examination. Specific percentile of interest are the 25th, 50th and 75th percentiles; often called the lower quantile, the middle quantile (median) and the upper quantile respectively. Similarly, if we divide the data by 10 parts then we refer every part as <em>deciles</em>.</p>
+</section>
+</section>
+<section id="descriptive-statistics-using-graphics" class="level1">
+<h1>Descriptive Statistics using Graphics</h1>
+<p>Graphical representations of data provide intuitive visual summaries of distributions, patterns, trends, and relationships. Unlike numerical descriptive measures (such as mean or standard deviation), graphical methods allow researchers to quickly spot outliers, skewness, multimodal behavior, and temporal trends.</p>
+<section id="barplot" class="level2">
+<h2 class="anchored" data-anchor-id="barplot">Barplot</h2>
+<p><strong>Definition:</strong> A <strong>barplot</strong> (or bar chart) is a graphical display that represents categorical data using rectangular bars, where the length or height of each bar is proportional to the count, frequency, or percentage of observations falling into each category.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="time-series-plot" class="level2">
+<h2 class="anchored" data-anchor-id="time-series-plot">Time series plot</h2>
+<p><strong>Definition:</strong> A <strong>time series plot</strong> is a line chart where observations recorded sequentially over regular time intervals are plotted against time on the horizontal axis. It is used to analyze patterns such as secular trends, seasonality, cyclical fluctuations, and irregular variations over time.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="720"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="stacked-bar-plot" class="level2">
+<h2 class="anchored" data-anchor-id="stacked-bar-plot">Stacked bar plot</h2>
+<p><strong>Definition:</strong> A <strong>stacked bar plot</strong> extends a standard bar plot by dividing each bar into sub-bars representing sub-categories within the main category. It allows simultaneous comparison of total quantities and internal compositions.</p>
+<ul>
+<li><strong>Normal (Absolute) Stacked Bar Plot:</strong> Displays the raw counts or values stacked vertically. The height of the entire bar represents the total aggregate frequency across all sub-categories.</li>
+<li><strong>100% Stacked Bar Plot:</strong> Normalizes every bar to 100% (or proportion 1.0). Each sub-bar represents the relative percentage contribution of that sub-category within its parent group, making it easy to compare proportion structures regardless of differing total group sizes.</li>
+</ul>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="912"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="histogram" class="level2">
+<h2 class="anchored" data-anchor-id="histogram">Histogram</h2>
+<p><strong>Definition:</strong> A <strong>histogram</strong> is a graphical display of the probability distribution of a continuous quantitative variable. The range of values is divided into a series of contiguous, non-overlapping intervals called <strong>bins</strong>. The height of each rectangle corresponds to the frequency or density of data points falling into that bin.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="q-q-plot" class="level2">
+<h2 class="anchored" data-anchor-id="q-q-plot">Q-Q plot</h2>
+<p><strong>Definition:</strong> A <strong>Quantile-Quantile (Q-Q) plot</strong> is a diagnostic scatter plot used to assess whether an empirical sample dataset originates from a theoretical reference distribution (most commonly the Normal Distribution). It plots the empirical sample quantiles on the vertical axis against the theoretical quantiles on the horizontal axis. If the dataset follows the assumed distribution, the points will fall closely along the 45-degree reference line (<span class="math inline">\(y = x\)</span>).</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="box-whisker-plot" class="level2">
+<h2 class="anchored" data-anchor-id="box-whisker-plot">Box whisker plot</h2>
+<p><strong>Definition:</strong> A <strong>box-whisker plot</strong> (or boxplot) provides a concise visual summary of a continuous variable’s distribution based on its five-number summary: minimum, first quartile (<span class="math inline">\(Q_1\)</span>), median (<span class="math inline">\(Q_2\)</span>), third quartile (<span class="math inline">\(Q_3\)</span>), and maximum.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="720"></p>
+</figure>
+</div>
+</div>
+</div>
+<section id="explanation-of-box-whisker-components" class="level3">
+<h3 class="anchored" data-anchor-id="explanation-of-box-whisker-components">Explanation of Box-Whisker Components</h3>
+<ol type="1">
+<li><strong>The Central Box (Interquartile Range - IQR):</strong>
+<ul>
+<li>The lower edge of the box represents the <strong>First Quartile (<span class="math inline">\(Q_1\)</span> / 25th percentile)</strong>.</li>
+<li>The upper edge represents the <strong>Third Quartile (<span class="math inline">\(Q_3\)</span> / 75th percentile)</strong>.</li>
+<li>The span between <span class="math inline">\(Q_1\)</span> and <span class="math inline">\(Q_3\)</span> is the <strong>Interquartile Range (<span class="math inline">\(IQR = Q_3 - Q_1\)</span>)</strong>, which contains the central 50% of the data.</li>
+</ul></li>
+<li><strong>The Median Line (<span class="math inline">\(Q_2\)</span>):</strong>
+<ul>
+<li>The line drawn across the inside of the box marks the <strong>Median (50th percentile)</strong>.</li>
+<li>A median centered within the box suggests a symmetric distribution; a median closer to <span class="math inline">\(Q_1\)</span> indicates positive (right) skewness, while a median closer to <span class="math inline">\(Q_3\)</span> indicates negative (left) skewness.</li>
+</ul></li>
+<li><strong>Whiskers:</strong>
+<ul>
+<li>Lines extending from the top and bottom of the box are called <strong>whiskers</strong>.</li>
+<li>By default (Tukey boxplot convention), whiskers extend to the furthest data points within <span class="math inline">\(1.5 \times IQR\)</span> from <span class="math inline">\(Q_1\)</span> and <span class="math inline">\(Q_3\)</span>: <span class="math display">\[\text{Lower Whisker Limit} = Q_1 - 1.5 \times IQR\]</span> <span class="math display">\[\text{Upper Whisker Limit} = Q_3 + 1.5 \times IQR\]</span></li>
+</ul></li>
+<li><strong>Outliers:</strong>
+<ul>
+<li>Data points located beyond the whiskers (less than <span class="math inline">\(Q_1 - 1.5 \times IQR\)</span> or greater than <span class="math inline">\(Q_3 + 1.5 \times IQR\)</span>) are identified as <strong>outliers</strong> and plotted individually as distinct points (highlighted in red above).</li>
+</ul></li>
+</ol>
 
 
+</section>
 </section>
 </section>
 
@@ -586,7 +697,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   });
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp("https:\/\/adsheilbronn\.github\.io\/");
+      var filterRegex = new RegExp('/' + window.location.host + '/');
     var isInternal = (href) => {
         return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }

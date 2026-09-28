@@ -6,8 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Haseeb Mahmud">
+<meta name="dcterms.date" content="2026-09-28">
 
-<title>Advanced Data Science - adsheilbronn.github.io</title>
+<title>Advanced Data Science - Theoretical framework and hypothesis development</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -23,24 +25,22 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-listing/list.min.js"></script>
-<script src="site_libs/quarto-listing/quarto-listing.js"></script>
-<script src="site_libs/quarto-html/quarto.js"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -68,77 +68,19 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
-<script>
 
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-listing .list');
-    if (!listingTargetEl) {
-      // No listing discovered, do not attach.
-      return; 
-    }
 
-    const options = {
-      valueNames: ['listing-date','listing-title','listing-author','listing-image','listing-description','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
-      
-      searchColumns: ["listing-date","listing-title","listing-author","listing-image","listing-description","listing-categories"],
-    };
-
-    window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
-
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  });
-
-  window.addEventListener('hashchange',() => {
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  })
-  </script>
-
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
-
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="../../styles.css">
 </head>
 
-<body class="nav-fixed">
+<body class="nav-fixed fullcontent">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top quarto-banner">
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">Advanced Data Science</span>
     </a>
   </div>
@@ -149,7 +91,7 @@ window.Quarto = {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./about.html"> 
+    <a class="nav-link" href="../../about.html"> 
 <span class="menu-text">About</span></a>
   </li>  
   <li class="nav-item compact">
@@ -172,209 +114,97 @@ window.Quarto = {
 <!-- content -->
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
-    <div class="quarto-title column-page-left">
-      <h1 class="title">adsheilbronn.github.io</h1>
-                      </div>
+    <div class="quarto-title column-body">
+      <h1 class="title">Theoretical framework and hypothesis development</h1>
+                                <div class="quarto-categories">
+                <div class="quarto-category">Research Methodology</div>
+              </div>
+                  </div>
   </div>
     
   
-  <div class="quarto-title-meta column-page-left">
+  <div class="quarto-title-meta">
 
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Haseeb Mahmud </p>
+            </div>
+    </div>
       
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">September 28, 2026</p>
+      </div>
+    </div>
     
       
     </div>
     
   
-  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(5)</span></div><div class="category" data-category="Research Methodology">Research Methodology <span class="quarto-category-count">(3)</span></div><div class="category" data-category="Statistics">Statistics <span class="quarto-category-count">(1)</span></div><div class="category" data-category="news">news <span class="quarto-category-count">(1)</span></div></div></div>
+    
 <!-- main -->
-<main class="content quarto-banner-title-block column-page-left" id="quarto-document-content">
+<main class="content quarto-banner-title-block" id="quarto-document-content">
 
 
 
 
 
+<section id="theoretical-framework-and-hypothesis-development" class="level1">
+<h1>Theoretical framework and hypothesis development</h1>
+<p>A <em>theoretical framework</em> represents your beliefs on how certain phenomena (or variables or concepts) are related to each other (a model) and an explanation of why you believe that these variables are associated with each other (a theory). Both the model and the theory flow logically from the documentation of previous research in the problem area. Integrating your logical beliefs with published research, taking into consideration the boundaries and constraints governing the situation, is pivotal in developing a scientific basis for investigating the research problem.</p>
+<p>The process of building a theoretical framework includes:</p>
+<ul>
+<li>Introducing <em>operational definitions</em> of the concepts or variables in your model,</li>
+<li>Developing a conceptual model that provides a descriptive representation of your theory.</li>
+<li>Coming up with a theory that provides an explanation for relationships between the variables in your model.</li>
+</ul>
+<p>From the theoretical framework, then, <em>testable hypotheses</em> can be developed to examine whether your theory is valid or not. The <em>hypothesized relationships</em> can thereafter be tested through appropriate statistical analyses. Hence, the entire deductive research project rests on the basis of the theoretical framework. Even if testable hypotheses are not necessarily generated (as in some applied research projects), developing a good theoretical framework is central to examining the problem under investigation.</p>
+<p>Since a theoretical framework involves the identification of the network of relationships among the variables considered important to the study of any given problem situation, it is essential to understand what a variable means and what the different types of variables are.</p>
+<section id="generating-theory" class="level2">
+<h2 class="anchored" data-anchor-id="generating-theory">Generating theory</h2>
+<p>A good <em>theoretical framework</em> identifies and defines the important variables in the situation that are relevant to the problem and subsequently describes and explains the interconnections among these variables. The relationships between the independent variables, the dependent variable(s), are elaborated.</p>
+<p>It is not always easy to come up with generally agreed‐upon definitions of the relevant variables. More often than not, there are many definitions available in the literature (for instance, there are literally dozens of definitions of “brand image,” “customer satisfaction,” and “service quality” available in the marketing literature). Still, well‐chosen guiding definitions of concepts are needed, because they will help you to provide an explanation for the relationships between the variables in your model. What’s more, they will also serve as a basis for the operationalization or measurement of your concepts in the data collection stage of the research process.</p>
+<p>Hence, you will have to choose a useful definition from the literature (do not use dictionary definitions, they are usually too general). It is also important that you explain why you have chosen a particular definition as your guiding definition.</p>
+<p>A conceptual model helps you to structure your discussion of the literature. A conceptual model describes your ideas about how the concepts (variables) in your model are related to each other. A schematic diagram of the conceptual model helps the reader to visualize the theorized relationships between the variables in your model and thus to obtain a quick idea about how you think that the management problem can be solved. Hence, conceptual models are often expressed in this form. However, relationships between variables can also be ade- quately expressed in words. Both a schematic diagram of the conceptual model and a description of the relation- ships between the variables in words should be given, so that the reader can see and easily comprehend the theorized relationships. This facilitates and stimulates discussion about the relationships between the variables in your model. It is therefore important that your model is based on a sound theory.</p>
+<p>A theory or a clear explanation for the relationships in your model is the last component of the theoretical framework. A theory attempts to explain relationships between the variables in your model: an explanation should be provided for all the important relationships that are theorized to exist among the variables. If the nature and direction of the relationships can be theorized on the basis of the findings of previous research and/ or your own ideas on the subject, then there should also be an indication as to whether the relationships should be positive or negative and linear or nonlinear. From the theoretical framework, then, testable hypotheses can be developed to examine whether the theory formulated is valid or not.</p>
+<p>Note that you do not necessarily have to “invent” a new theory every time you are undertaking a research project. In an applied research context you apply existing theories to a specific context. This means that argu- ments can be drawn from previous research. However, in a basic research context you will make some contribution to existing theories and models. In such a case, it is not (always) possible to use existing theories or explanations for relationships between variables. As a result, you will have to rely on your own insights and ideas.</p>
+</section>
+<section id="hypthothesis-development" class="level2">
+<h2 class="anchored" data-anchor-id="hypthothesis-development">Hypthothesis development</h2>
+<section id="definition-of-a-hypothesis" class="level3">
+<h3 class="anchored" data-anchor-id="definition-of-a-hypothesis">Definition of a hypothesis</h3>
+<p>A hypothesis can be defined as a tentative, yet testable, statement, which predicts what you expect to find in your empirical data. Hypotheses are derived from the theory on which your conceptual model is based and are often relational in nature. Along these lines, hypotheses can be defined as logically conjectured relationships between two or more variables expressed in the form of testable statements. By testing the hypotheses and confirming the conjectured relationships, it is expected that solutions can be found to correct the problem encountered.</p>
+<section id="ifthen-statements" class="level4">
+<h4 class="anchored" data-anchor-id="ifthen-statements">If–then statements</h4>
+<p>As already stated, a hypothesis can be defined as a testable statement of the relationship among variables. A hypothesis can also test whether there are differences between two groups (or among several groups) with respect to any variable or variables. To examine whether or not the conjectured relationships or differences exist, these hypotheses can be set either as propositions or in the form of if–then statements. The two formats can be seen in the following two examples.</p>
+<ul>
+<li>Young women will be more likely to express dissatisfaction with their body weight, when they are more frequently exposed to images of thin models in advertisements.</li>
+<li>If young women are more frequently exposed to images of thin models in advertisements, then they will be more likely to express dissatisfaction with their body weight.</li>
+</ul>
+</section>
+<section id="directional-and-nondirectional-hypotheses" class="level4">
+<h4 class="anchored" data-anchor-id="directional-and-nondirectional-hypotheses">Directional and nondirectional hypotheses</h4>
+<p>If, in stating the relationship between two variables or comparing two groups, terms such as positive, negative, more than, less than, and the like are used, then these are directional hypotheses because the direction of the relationship between the variables (positive/negative) is indicated, as in the first example below, or the nature of the difference between two groups on a variable (more than/less than) is postulated, as in the second example.</p>
+<ul>
+<li>The greater the stress experienced in the job, the lower the job satisfaction of employees.</li>
+<li>Women are more motivated than men.</li>
+</ul>
+<p>On the other hand, nondirectional hypotheses are those that do postulate a relationship or difference, but offer no indication of the direction of these relationships or differences. In other words, though it may be conjectured that there is a significant relationship between two variables, we may not be able to say whether the relationship is positive or negative, as in the first example below. Likewise, even if we can conjecture that there will be differences between two groups on a particular variable, we may not be able to say which group will be more and which less on that variable, as in the second example.</p>
+<p>There is a relation between arousal‐seeking tendency and consumer preferences for complex product designs. There is a difference between the work ethic values of American and Asian employees.</p>
+<p>Nondirectional hypotheses are formulated either because the relationships or differences have never been explored, and hence there is no basis for indicating the direction, or because there have been conflicting findings in previous research studies on the variables. In some studies a positive relationship might have been found, while in others a negative relationship might have been traced. Hence, the current researcher might only be able to hypothesize that there is a significant relationship, but the direction may not be clear. In such cases, the hypotheses can be stated nondirectionally. Note that in the first example there is no clue as to whether arousal‐seeking tendency and preferences for complex product designs are positively or negatively correlated, and in the second example we do not know whether the work ethic values are stronger in Americans or in Asians. However, it would have been possible to state that arousal-seeking tendency and preferences for complex product designs are positively correlated, since previous research has indicated such a relationship. ‚</p>
 
 
+</section>
+</section>
+</section>
+</section>
 
-
-<div class="quarto-listing quarto-listing-container-default" id="listing-listing">
-<div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-categories="Research Methodology" data-listing-date-sort="1790546400000" data-listing-file-modified-sort="1790586834957" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5" data-listing-word-count-sort="929">
-<div class="thumbnail">
-<p><a href="./posts/litreview/index.html" class="no-external"></a></p><a href="./posts/litreview/index.html" class="no-external">
-<p><img src="./posts/litreview/image.jpg" class="thumbnail-image"></p>
-</a><p><a href="./posts/litreview/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/litreview/index.html" class="no-external">Literature Review</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/litreview/index.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('Research Methodology'); return false;">
-Research Methodology
-</div>
-</div>
-<div class="listing-description">
-<a href="./posts/litreview/index.html" class="no-external">After setting up the research question and hypotheses, we need to see what others did in the same subject area. This process is called literature review. There are several…</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/litreview/index.html" class="no-external">
-<div class="listing-date">
-Sep 28, 2026
-</div>
-<div class="listing-author">
-Haseeb Mahmud
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="1" data-categories="Research Methodology" data-listing-date-sort="1790546400000" data-listing-file-modified-sort="1790596346338" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="8" data-listing-word-count-sort="1411">
-<div class="thumbnail">
-<p><a href="./posts/theoryhypo/index.html" class="no-external"></a></p><a href="./posts/theoryhypo/index.html" class="no-external">
-<p><img src="./posts/theoryhypo/image.jpg" class="thumbnail-image"></p>
-</a><p><a href="./posts/theoryhypo/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/theoryhypo/index.html" class="no-external">Theoretical framework and hypothesis development</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/theoryhypo/index.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('Research Methodology'); return false;">
-Research Methodology
-</div>
-</div>
-<div class="listing-description">
-<a href="./posts/theoryhypo/index.html" class="no-external">A <em>theoretical framework</em> represents your beliefs on how certain phenomena (or variables or concepts) are related to each other (a model) and an explanation of why you believe…</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/theoryhypo/index.html" class="no-external">
-<div class="listing-date">
-Sep 28, 2026
-</div>
-<div class="listing-author">
-Haseeb Mahmud
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="2" data-categories="Research Methodology" data-listing-date-sort="1790546400000" data-listing-file-modified-sort="1790585794901" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="20" data-listing-word-count-sort="3832">
-<div class="thumbnail">
-<p><a href="./posts/whatisresearch/index.html" class="no-external"></a></p><a href="./posts/whatisresearch/index.html" class="no-external">
-<p><img src="./posts/whatisresearch/thumbnail.jpg" class="thumbnail-image"></p>
-</a><p><a href="./posts/whatisresearch/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/whatisresearch/index.html" class="no-external">What is Research</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/whatisresearch/index.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('Research Methodology'); return false;">
-Research Methodology
-</div>
-</div>
-<div class="listing-description">
-<a href="./posts/whatisresearch/index.html" class="no-external">When listening to the radio, watching the television or reading a daily newspaper it is difficult to avoid the term ‘research’. The results of ‘research’ are all around us.…</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/whatisresearch/index.html" class="no-external">
-<div class="listing-date">
-Sep 28, 2026
-</div>
-<div class="listing-author">
-Haseeb Mahmud
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="3" data-categories="Statistics" data-listing-date-sort="1790373600000" data-listing-file-modified-sort="1790596978114" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="19" data-listing-word-count-sort="3735">
-<div class="thumbnail">
-<p><a href="./posts/01_descriptives/index.html" class="no-external"></a></p><a href="./posts/01_descriptives/index.html" class="no-external">
-<p><img src="./posts/01_descriptives/image.jpg" class="thumbnail-image"></p>
-</a><p><a href="./posts/01_descriptives/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/01_descriptives/index.html" class="no-external">Descriptive statistics</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/01_descriptives/index.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('Statistics'); return false;">
-Statistics
-</div>
-</div>
-<div class="listing-description">
-<a href="./posts/01_descriptives/index.html" class="no-external">The arithmetic mean, or mean of a set of measurements is defined to be the sum of measurements divided by the total number of measurements.</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/01_descriptives/index.html" class="no-external">
-<div class="listing-date">
-Sep 26, 2026
-</div>
-<div class="listing-author">
-Haseeb Mahmud
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="4" data-categories="news" data-listing-date-sort="1790114400000" data-listing-file-modified-sort="1790494801628" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="26" data-listing-word-count-sort="5099">
-<div class="thumbnail">
-<p><a href="./posts/welcome/index.html" class="no-external"></a></p><a href="./posts/welcome/index.html" class="no-external">
-<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
-</a><p><a href="./posts/welcome/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/welcome/index.html" class="no-external">Course Requirement</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/welcome/index.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('news'); return false;">
-news
-</div>
-</div>
-<div class="listing-description">
-<a href="./posts/welcome/index.html" class="no-external">Using practically relevant examples the students practice how to use a statistic software to perform statistical analysis and test models.</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/welcome/index.html" class="no-external">
-<div class="listing-date">
-Sep 23, 2026
-</div>
-<div class="listing-author">
-Haseeb
-</div>
-</a>
-</div>
-</div>
-</div>
-<div class="listing-no-matching d-none">
-No matching items
-</div>
-</div></main> <!-- /main -->
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -456,7 +286,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   });
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp('/' + window.location.host + '/');
+      var filterRegex = new RegExp("https:\/\/adsheilbronn\.github\.io\/");
     var isInternal = (href) => {
         return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }

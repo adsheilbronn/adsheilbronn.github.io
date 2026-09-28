@@ -251,3 +251,265 @@ $$
 The $p$-th percentile of a set of $n$-measurements arranged in order of magnitude is that value that has at most $p\%$ of the measurements below it and at most $(100-p)\%$ above it.
 
 Percentiles are frequently used to describe the results of achievements test scores and the ranking of a person in comparison to the rest of the people taking the examination. Specific percentile of interest are the 25th, 50th and 75th percentiles; often called the lower quantile, the middle quantile (median) and the upper quantile respectively. Similarly, if we divide the data by 10 parts then we refer every part as *deciles*.
+
+# Descriptive Statistics using Graphics
+
+Graphical representations of data provide intuitive visual summaries of distributions, patterns, trends, and relationships. Unlike numerical descriptive measures (such as mean or standard deviation), graphical methods allow researchers to quickly spot outliers, skewness, multimodal behavior, and temporal trends.
+
+## Barplot
+
+**Definition:** A **barplot** (or bar chart) is a graphical display that represents categorical data using rectangular bars, where the length or height of each bar is proportional to the count, frequency, or percentage of observations falling into each category.
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| fig-width: 7
+#| fig-height: 4.5
+#| fig-align: center
+
+library(ggplot2)
+
+set.seed(42)
+df_bar <- data.frame(
+  Category = c("Product A", "Product B", "Product C", "Product D", "Product E"),
+  Sales = c(120, 240, 180, 310, 150)
+)
+
+ggplot(df_bar, aes(x = reorder(Category, -Sales), y = Sales, fill = Category)) +
+  geom_col(show.legend = FALSE, width = 0.55) +
+  geom_text(aes(label = Sales), vjust = -0.5, size = 3.8, fontface = "bold") +
+  scale_fill_brewer(palette = "Set2") +
+  labs(
+    title = "Annual Sales Volume by Product Category",
+    x = "Product Category",
+    y = "Sales Units"
+  ) +
+  scale_y_continuous(expand = expansion(mult = c(0, 0.15))) +
+  theme_minimal(base_size = 12) +
+  theme(
+    plot.title = element_text(face = "bold", hjust = 0.5),
+    panel.grid.major.x = element_blank()
+  )
+```
+
+## Time series plot
+
+**Definition:** A **time series plot** is a line chart where observations recorded sequentially over regular time intervals are plotted against time on the horizontal axis. It is used to analyze patterns such as secular trends, seasonality, cyclical fluctuations, and irregular variations over time.
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| fig-width: 7.5
+#| fig-height: 4.5
+#| fig-align: center
+
+set.seed(42)
+dates <- seq.Date(from = as.Date("2024-01-01"), to = as.Date("2025-12-01"), by = "month")
+trend <- seq(100, 260, length.out = length(dates))
+seasonality <- 25 * sin(seq(0, 4 * pi, length.out = length(dates)))
+noise <- rnorm(length(dates), mean = 0, sd = 7)
+df_ts <- data.frame(Date = dates, Revenue = trend + seasonality + noise)
+
+ggplot(df_ts, aes(x = Date, y = Revenue)) +
+  geom_line(color = "#2b5c8f", linewidth = 1) +
+  geom_point(color = "#2b5c8f", size = 2.2) +
+  geom_smooth(method = "loess", se = FALSE, color = "#e74c3c", linetype = "dashed", linewidth = 0.8) +
+  scale_x_date(date_breaks = "3 months", date_labels = "%b %Y") +
+  labs(
+    title = "Monthly Business Revenue Trend (2024 - 2025)",
+    subtitle = "Solid line represents monthly figures; dashed red line shows smoothed trend",
+    x = "Timeline (Months)",
+    y = "Revenue (in $1,000s)"
+  ) +
+  theme_minimal(base_size = 12) +
+  theme(
+    plot.title = element_text(face = "bold", hjust = 0.5),
+    plot.subtitle = element_text(hjust = 0.5, color = "gray30", size = 10),
+    axis.text.x = element_text(angle = 45, hjust = 1)
+  )
+```
+
+## Stacked bar plot
+
+**Definition:** A **stacked bar plot** extends a standard bar plot by dividing each bar into sub-bars representing sub-categories within the main category. It allows simultaneous comparison of total quantities and internal compositions.
+
+- **Normal (Absolute) Stacked Bar Plot:** Displays the raw counts or values stacked vertically. The height of the entire bar represents the total aggregate frequency across all sub-categories.
+- **100% Stacked Bar Plot:** Normalizes every bar to 100% (or proportion 1.0). Each sub-bar represents the relative percentage contribution of that sub-category within its parent group, making it easy to compare proportion structures regardless of differing total group sizes.
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| fig-width: 9.5
+#| fig-height: 4.5
+#| fig-align: center
+
+library(patchwork)
+library(scales)
+
+set.seed(42)
+df_stacked <- expand.grid(
+  Department = c("Sales", "R&D", "Marketing", "HR"),
+  Satisfaction = c("Low", "Medium", "High")
+)
+df_stacked$Satisfaction <- factor(df_stacked$Satisfaction, levels = c("Low", "Medium", "High"))
+df_stacked$Count <- c(15, 30, 55,  10, 40, 70,  20, 35, 25,  5, 25, 20)
+
+p1 <- ggplot(df_stacked, aes(x = Department, y = Count, fill = Satisfaction)) +
+  geom_col(position = "stack", width = 0.55) +
+  scale_fill_brewer(palette = "Set2") +
+  labs(
+    title = "Standard (Absolute) Stacked Bar Plot",
+    x = "Department",
+    y = "Number of Employees",
+    fill = "Satisfaction Level"
+  ) +
+  theme_minimal(base_size = 11) +
+  theme(
+    plot.title = element_text(face = "bold", hjust = 0.5),
+    legend.position = "bottom"
+  )
+
+p2 <- ggplot(df_stacked, aes(x = Department, y = Count, fill = Satisfaction)) +
+  geom_col(position = "fill", width = 0.55) +
+  scale_y_continuous(labels = scales::percent) +
+  scale_fill_brewer(palette = "Set2") +
+  labs(
+    title = "100% Stacked Bar Plot",
+    x = "Department",
+    y = "Proportion (%)",
+    fill = "Satisfaction Level"
+  ) +
+  theme_minimal(base_size = 11) +
+  theme(
+    plot.title = element_text(face = "bold", hjust = 0.5),
+    legend.position = "bottom"
+  )
+
+p1 + p2 + plot_layout(guides = "collect") & theme(legend.position = "bottom")
+```
+
+## Histogram
+
+**Definition:** A **histogram** is a graphical display of the probability distribution of a continuous quantitative variable. The range of values is divided into a series of contiguous, non-overlapping intervals called **bins**. The height of each rectangle corresponds to the frequency or density of data points falling into that bin.
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| fig-width: 7
+#| fig-height: 4.5
+#| fig-align: center
+
+set.seed(42)
+scores <- rnorm(500, mean = 72, sd = 10)
+df_hist <- data.frame(Score = scores)
+
+ggplot(df_hist, aes(x = Score)) +
+  geom_histogram(aes(y = after_stat(density)), bins = 25, fill = "#3498db", color = "white", alpha = 0.85) +
+  geom_density(color = "#e74c3c", linewidth = 1.1) +
+  labs(
+    title = "Distribution of Student Exam Scores",
+    subtitle = "Histogram with overlaid kernel density estimation (Red Curve)",
+    x = "Exam Score",
+    y = "Density"
+  ) +
+  theme_minimal(base_size = 12) +
+  theme(
+    plot.title = element_text(face = "bold", hjust = 0.5),
+    plot.subtitle = element_text(hjust = 0.5, color = "gray30", size = 10)
+  )
+```
+
+## Q-Q plot
+
+**Definition:** A **Quantile-Quantile (Q-Q) plot** is a diagnostic scatter plot used to assess whether an empirical sample dataset originates from a theoretical reference distribution (most commonly the Normal Distribution). It plots the empirical sample quantiles on the vertical axis against the theoretical quantiles on the horizontal axis. If the dataset follows the assumed distribution, the points will fall closely along the 45-degree reference line ($y = x$).
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| fig-width: 7
+#| fig-height: 4.5
+#| fig-align: center
+
+set.seed(42)
+sample_norm <- rnorm(200, mean = 50, sd = 10)
+df_qq <- data.frame(Value = sample_norm)
+
+ggplot(df_qq, aes(sample = Value)) +
+  stat_qq(color = "#2c3e50", alpha = 0.7, size = 2) +
+  stat_qq_line(color = "#e74c3c", linewidth = 1, linetype = "dashed") +
+  labs(
+    title = "Normal Q-Q Plot of Sample Data",
+    subtitle = "Points closely following the red dashed line confirm approximate normality",
+    x = "Theoretical Normal Quantiles",
+    y = "Sample Quantiles"
+  ) +
+  theme_minimal(base_size = 12) +
+  theme(
+    plot.title = element_text(face = "bold", hjust = 0.5),
+    plot.subtitle = element_text(hjust = 0.5, color = "gray30", size = 10)
+  )
+```
+
+## Box whisker plot
+
+**Definition:** A **box-whisker plot** (or boxplot) provides a concise visual summary of a continuous variable's distribution based on its five-number summary: minimum, first quartile ($Q_1$), median ($Q_2$), third quartile ($Q_3$), and maximum.
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| fig-width: 7.5
+#| fig-height: 4.5
+#| fig-align: center
+
+set.seed(42)
+df_box <- data.frame(
+  Group = factor(rep(c("Group A", "Group B", "Group C"), each = 60)),
+  Value = c(
+    rnorm(58, mean = 50, sd = 8), 78, 20,
+    rnorm(60, mean = 65, sd = 6),
+    rnorm(59, mean = 42, sd = 11), 85
+  )
+)
+
+ggplot(df_box, aes(x = Group, y = Value, fill = Group)) +
+  geom_boxplot(alpha = 0.7, outlier.color = "#e74c3c", outlier.shape = 16, outlier.size = 2.5, width = 0.5) +
+  geom_jitter(width = 0.12, alpha = 0.25, color = "black") +
+  scale_fill_brewer(palette = "Set2") +
+  labs(
+    title = "Comparative Box-Whisker Plot Across Groups",
+    x = "Group Category",
+    y = "Observed Value",
+    fill = "Group"
+  ) +
+  theme_minimal(base_size = 12) +
+  theme(
+    plot.title = element_text(face = "bold", hjust = 0.5),
+    legend.position = "none"
+  )
+```
+
+### Explanation of Box-Whisker Components
+
+1. **The Central Box (Interquartile Range - IQR):**
+   - The lower edge of the box represents the **First Quartile ($Q_1$ / 25th percentile)**.
+   - The upper edge represents the **Third Quartile ($Q_3$ / 75th percentile)**.
+   - The span between $Q_1$ and $Q_3$ is the **Interquartile Range ($IQR = Q_3 - Q_1$)**, which contains the central 50% of the data.
+
+2. **The Median Line ($Q_2$):**
+   - The line drawn across the inside of the box marks the **Median (50th percentile)**.
+   - A median centered within the box suggests a symmetric distribution; a median closer to $Q_1$ indicates positive (right) skewness, while a median closer to $Q_3$ indicates negative (left) skewness.
+
+3. **Whiskers:**
+   - Lines extending from the top and bottom of the box are called **whiskers**.
+   - By default (Tukey boxplot convention), whiskers extend to the furthest data points within $1.5 \times IQR$ from $Q_1$ and $Q_3$:
+     $$\text{Lower Whisker Limit} = Q_1 - 1.5 \times IQR$$
+     $$\text{Upper Whisker Limit} = Q_3 + 1.5 \times IQR$$
+
+4. **Outliers:**
+   - Data points located beyond the whiskers (less than $Q_1 - 1.5 \times IQR$ or greater than $Q_3 + 1.5 \times IQR$) are identified as **outliers** and plotted individually as distinct points (highlighted in red above).
