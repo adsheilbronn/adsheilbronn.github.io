@@ -2,9 +2,9 @@
   {
     "listing": "/index.html",
     "items": [
-      "/posts/whatisresearch/index.html",
-      "/posts/theoryhypo/index.html",
       "/posts/litreview/index.html",
+      "/posts/theoryhypo/index.html",
+      "/posts/whatisresearch/index.html",
       "/posts/01_descriptives/index.html",
       "/posts/welcome/index.html"
     ]
