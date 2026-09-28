@@ -1,5 +1,5 @@
 ---
-title: "literature Review"
+title: "Literature Review"
 author: "Haseeb Mahmud"
 date: "2026-09-28"
 categories: [Research Methodology]
@@ -68,3 +68,64 @@ Summary findings can be organized in the spreadsheet too.
 Another approach could be using [mindmap](https://www.google.com/search?q=mindmap&newwindow=1&sxsrf=AOaemvIoVQqJYRE2wdmDFQkpsamskwwelA:1632123735585&source=lnms&tbm=isch&sa=X&sqi=2&ved=2ahUKEwiDofTbho3zAhVXFlkFHXsdBj4Q_AUoAXoECAEQAw&biw=1745&bih=881&dpr=1.1) like softwares.
 
 ![](Unbenannt.PNG)
+
+
+### Develop a critical approach
+
+It is very common to see students writing literature review describing only one side of the story. There are few possibilities in scientific research works on a certain phenomena.
+
+-   The phenomenon is known deterministically. There is no need for a second opinion. Example: what is the height of the Eifle Tower.
+
+-   The phenomenon is known through estimations.
+
+**Example 1**: Let's assume we want to review the research findings on the average female height in Germany. One cannot have a single answer for this because of
+
+-   different sample size
+
+-   different sampling techniques
+
+-   different measurement methods/methodology
+
+-   measurement errors
+
+-   difference in operational definitions etc.
+
+**Example 2**: Let's assume we want to know the factors behind a successful job application. We cannot have a single line answer to this question too because of,
+
+-   different sample size and sampling strategy
+
+-   different hypotheses/variables taken into consideration
+
+-   different sample characteristics
+
+-   difference in operation definitions etc.
+
+### **Beware of confirmation bias**
+
+> **Confirmation bias** is the tendency to search for, interpret, favor, and recall information in a way that confirms or supports one's prior [beliefs](https://en.wikipedia.org/wiki/Belief "Belief") or values. People display this bias when they select information that supports their views, ignoring contrary information, or when they interpret ambiguous evidence as supporting their existing attitudes. The effect is strongest for desired outcomes, for [emotionally](https://en.wikipedia.org/wiki/Emotion "Emotion") charged issues, and for deeply entrenched beliefs. Confirmation bias cannot be eliminated entirely, but it can be managed, for example, by education and training in critical thinking skills. Source: Wikipedia
+
+It is not OK to cite only the side of the story that is in line with the authors findings.
+
+### **A big list of cognitive biases**
+
+Confirmation bias is a type of cognitive bias. In addition, there are plenty of biases one may fall victim of, in conscious or in unconscious mind. To go through a helpful list of biases, the reader may right click on the following image and open it into a new window.
+
+[![Cognitive biases. Source: Wikimedia. Right click and open it in a different window for better visibility.](Cognitive_bias_codex_en.svg)](https://upload.wikimedia.org/wikipedia/commons/6/65/Cognitive_bias_codex_en.svg)
+
+### **Gettier problem**
+
+Knowledge is the justified true belief. It can be formulated as this,
+
+S knows that P, iff
+
+-   P is true
+
+-   S believes that P, and
+
+-   S is justified in believing that P.
+
+[Gettier](https://academic.oup.com/analysis/article-abstract/23/6/121/109949?redirectedFrom=fulltext) argued that that there are cases where individuals can have a justified, true belief regarding a claim but still fail to know it because the reasons for the belief, while justified, turn out to be false.
+
+<https://plato.stanford.edu/entries/knowledge-analysis/#GettProb>
+
+[![Error types. Source: XKCD](error_types.png)](https://www.explainxkcd.com/wiki/index.php/2303:_Error_Types)
