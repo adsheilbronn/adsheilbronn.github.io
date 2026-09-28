@@ -7,11 +7,11 @@ image: "image.jpg"
 toc: true
 toc-depth: 3
 execute:
+  echo: false
   warning: false
   message: false
 format:
   html:
-    code-fold: false
     fig-width: 8
     fig-height: 5
     fig-align: center
@@ -127,31 +127,25 @@ $$
 \hat{\beta}_0 = \bar{Y} - \hat{\beta}_1 \bar{X}
 $$
 
-## 2.2 Fitting the Bivariate Model in R
+## 2.2 Bivariate Model Estimation Results
 
-Let us fit the linear model `mpg ~ wt` in R and inspect the estimation results:
+Fitting the bivariate linear regression model $Y_{\text{mpg}} = \beta_0 + \beta_1 X_{\text{wt}} + \varepsilon$ using the dataset yields the following parameter estimates and goodness-of-fit statistics:
 
-```{r}
-#| echo: true
-# Fit bivariate linear regression model
-model_bivar <- lm(mpg ~ wt, data = mtcars)
+| Parameter / Predictor | Estimate ($\hat{\beta}$) | Std. Error | $t$ statistic | $p$-value | Significance |
+| :--- | :---: | :---: | :---: | :---: | :---: |
+| **Intercept ($\hat{\beta}_0$)** | 37.2851 | 1.8776 | 19.858 | $< 0.0001$ | *** |
+| **Vehicle Weight (`wt`, $\hat{\beta}_1$)** | -5.3445 | 0.5591 | -9.559 | $1.29 \times 10^{-10}$ | *** |
 
-# Display model summary output
-summary_bivar <- summary(model_bivar)
-summary_bivar
-```
+: Bivariate Linear Regression Model Results (`mpg ~ wt`)
 
-We can present the formatted coefficient table:
+### Bivariate Model Summary Statistics
 
-```{r}
-#| echo: false
-library(knitr)
-library(broom)
-
-coef_df <- tidy(model_bivar)
-colnames(coef_df) <- c("Term", "Estimate", "Std. Error", "t statistic", "p-value")
-kable(coef_df, digits = 4, caption = "Bivariate Linear Regression Model Results (mpg ~ wt)")
-```
+| Metric / Statistic | Value |
+| :--- | :---: |
+| **Residual Standard Error ($s_e$)** | 3.046 (on 30 degrees of freedom) |
+| **Multiple $R^2$** | 0.7528 |
+| **Adjusted $R^2$ ($\bar{R}^2$)** | 0.7446 |
+| **$F$-statistic** | 91.38 (df = 1, 30, $p = 1.29 \times 10^{-10}$) |
 
 ## 2.3 Interpretation of Coefficients
 
@@ -251,7 +245,7 @@ The overall $F$-test evaluates whether **all slope coefficients jointly equal ze
 ## 2.6 Graphical Representation of Bivariate Regression
 
 ```{r}
-#| echo: true
+#| echo: false
 #| fig-width: 8
 #| fig-height: 5
 #| fig-cap: "Bivariate linear regression of Miles Per Gallon (mpg) on Vehicle Weight (wt)."
@@ -303,31 +297,29 @@ $$
 \hat{\boldsymbol{\beta}} = (\mathbf{X}^T \mathbf{X})^{-1} \mathbf{X}^T \mathbf{Y}
 $$
 
-## 3.2 Demonstrating Multivariate Regression in R
+## 3.2 Multiple Linear Regression Estimation Results
 
-Let us expand our `mtcars` model by predicting `mpg` using three predictors:
-1. `wt`: Vehicle weight (1,000 lbs)
-2. `hp`: Gross horsepower
-3. `qsec`: 1/4 mile acceleration time (seconds)
+We expand the model by predicting `mpg` using three predictors: vehicle weight (`wt`), gross horsepower (`hp`), and 1/4 mile acceleration time (`qsec`).
 
-```{r}
-#| echo: true
-# Fit multiple linear regression model
-model_mlr <- lm(mpg ~ wt + hp + qsec, data = mtcars)
+The empirical estimation yields the following parameter estimates and summary statistics:
 
-# Summary of MLR model
-summary_mlr <- summary(model_mlr)
-summary_mlr
-```
+| Predictor / Term | Estimate ($\hat{\beta}$) | Std. Error | $t$ statistic | $p$-value | Significance |
+| :--- | :---: | :---: | :---: | :---: | :---: |
+| **(Intercept)** | 27.6105 | 8.4192 | 3.280 | 0.0028 | ** |
+| **Weight (`wt`)** | -4.3588 | 0.7574 | -5.755 | $3.22 \times 10^{-6}$ | *** |
+| **Horsepower (`hp`)** | -0.0225 | 0.0093 | -2.419 | 0.0223 | * |
+| **Quarter-Mile Time (`qsec`)** | 0.5108 | 0.4392 | 1.163 | 0.2546 | Not Sig. |
 
-Formatted table of MLR coefficients:
+: Multiple Linear Regression Model Results (`mpg ~ wt + hp + qsec`)
 
-```{r}
-#| echo: false
-mlr_table <- tidy(model_mlr)
-colnames(mlr_table) <- c("Term / Predictor", "Estimate", "Std. Error", "t statistic", "p-value")
-kable(mlr_table, digits = 4, caption = "Multiple Linear Regression Results (mpg ~ wt + hp + qsec)")
-```
+### Multiple Regression Model Summary Statistics
+
+| Metric / Statistic | Value |
+| :--- | :---: |
+| **Residual Standard Error ($s_e$)** | 2.459 (on 28 degrees of freedom) |
+| **Multiple $R^2$** | 0.8348 |
+| **Adjusted $R^2$ ($\bar{R}^2$)** | 0.8171 |
+| **$F$-statistic** | 47.01 (df = 3, 28, $p = 4.51 \times 10^{-11}$) |
 
 ## 3.3 Interpreting MLR Results
 
@@ -344,25 +336,13 @@ In multiple linear regression, each coefficient $\hat{\beta}_j$ represents the *
 
 Let us compare the fit metrics as we progress from a single predictor to three predictors:
 
-```{r}
-#| echo: false
-# Model 1: wt
-m1 <- lm(mpg ~ wt, data = mtcars)
-# Model 2: wt + hp
-m2 <- lm(mpg ~ wt + hp, data = mtcars)
-# Model 3: wt + hp + qsec
-m3 <- lm(mpg ~ wt + hp + qsec, data = mtcars)
+| Model Specification | Predictors ($k$) | $R^2$ | Adjusted $R^2$ ($\bar{R}^2$) | $F$-Statistic | $p$-value |
+| :--- | :---: | :---: | :---: | :---: | :---: |
+| **Model 1: `mpg ~ wt`** | 1 | 0.7528 | 0.7446 | 91.38 | $< 0.0001$ |
+| **Model 2: `mpg ~ wt + hp`** | 2 | 0.8268 | 0.8148 | 69.21 | $< 0.0001$ |
+| **Model 3: `mpg ~ wt + hp + qsec`** | 3 | 0.8348 | 0.8171 | 47.01 | $< 0.0001$ |
 
-comp_df <- data.frame(
-  Model = c("1. mpg ~ wt", "2. mpg ~ wt + hp", "3. mpg ~ wt + hp + qsec"),
-  `Predictors (k)` = c(1, 2, 3),
-  `R-Squared` = c(summary(m1)$r.squared, summary(m2)$r.squared, summary(m3)$r.squared),
-  `Adjusted R-Squared` = c(summary(m1)$adj.r.squared, summary(m2)$adj.r.squared, summary(m3)$adj.r.squared),
-  `F-Statistic` = c(summary(m1)$fstatistic[1], summary(m2)$fstatistic[1], summary(m3)$fstatistic[1])
-)
-
-kable(comp_df, digits = 4, caption = "Model Comparison: How Regular R² vs. Adjusted R² Respond to Additional Predictors")
-```
+: Model Comparison: How Regular $R^2$ vs. Adjusted $R^2$ Respond to Additional Predictors
 
 > **Key Observation:** Notice that moving from Model 2 (`wt + hp`) to Model 3 (`wt + hp + qsec`) increases regular $R^2$ slightly from $0.8268$ to $0.8348$. However, **Adjusted $R^2$ decreases from $0.8148$ to $0.8171$** (or stays virtually flat). 
 >
@@ -382,7 +362,7 @@ Since $p < 0.001$, we reject $H_0$ and conclude that the set of predictors joint
 To visualize partial effects in multiple regression, we plot the marginal effect of weight on fuel efficiency conditioned across different levels of engine horsepower:
 
 ```{r}
-#| echo: true
+#| echo: false
 #| fig-width: 9
 #| fig-height: 5.5
 #| fig-cap: "Visualizing multiple linear regression partial effects: Fuel Efficiency vs. Weight categorized by Engine Power."
@@ -445,38 +425,16 @@ $$
 \hat{\text{mpg}} = 27.6105 - 13.9482 - 3.3750 + 8.9390 = \mathbf{19.2263 \text{ mpg}}
 $$
 
-## 4.2 Programmatic Prediction in R (`predict()`)
+## 4.2 Prediction Results for New Observation
 
-We execute predictions programmatically using the built-in `predict()` function in R:
+Evaluating the model for a new vehicle specification with Weight ($\text{wt}$) = 3.2 (3,200 lbs), Horsepower ($\text{hp}$) = 150, and Quarter-Mile Time ($\text{qsec}$) = 17.5 seconds yields the following point prediction and 95% interval estimates:
 
-```{r}
-#| echo: true
-# Define new observation data frame
-new_car <- data.frame(
-  wt = 3.2,
-  hp = 150,
-  qsec = 17.5
-)
+| Interval Type | Point Estimate ($\hat{Y}$) | Lower 95% Bound | Upper 95% Bound | Scope / Application |
+| :--- | :---: | :---: | :---: | :--- |
+| **Confidence Interval (Mean Response)** | 19.2263 | 18.2629 | 20.1897 | Expected average fuel efficiency across all vehicles with these attributes |
+| **Prediction Interval (Individual Observation)** | 19.2263 | 14.0321 | 24.4206 | Expected fuel efficiency range for one specific individual vehicle |
 
-# 1. Point prediction
-pred_point <- predict(model_mlr, newdata = new_car)
-
-# 2. 95% Confidence Interval for mean response
-pred_conf <- predict(model_mlr, newdata = new_car, interval = "confidence", level = 0.95)
-
-# 3. 95% Prediction Interval for single observation
-pred_pred <- predict(model_mlr, newdata = new_car, interval = "prediction", level = 0.95)
-
-# Display combined predictions table
-pred_results <- data.frame(
-  Type = c("Confidence Interval (Mean Response)", "Prediction Interval (Individual Observation)"),
-  Fit = c(pred_conf[1, "fit"], pred_pred[1, "fit"]),
-  `Lower 95% Bound` = c(pred_conf[1, "lwr"], pred_pred[1, "lwr"]),
-  `Upper 95% Bound` = c(pred_conf[1, "upr"], pred_pred[1, "upr"])
-)
-
-kable(pred_results, digits = 4, caption = "Predicted Miles Per Gallon for New Car (wt=3.2, hp=150, qsec=17.5)")
-```
+: Predicted Miles Per Gallon for New Car (`wt` = 3.2, `hp` = 150, `qsec` = 17.5)
 
 ## 4.3 Confidence Interval vs. Prediction Interval
 
@@ -495,7 +453,7 @@ It is critical to distinguish between two types of prediction intervals:
 Let us visualize confidence bands vs. prediction bands across a range of vehicle weights:
 
 ```{r}
-#| echo: true
+#| echo: false
 #| fig-width: 9
 #| fig-height: 5.5
 #| fig-cap: "Comparison of 95% Confidence Bands (Narrow) vs. 95% Prediction Bands (Wide) in Linear Regression."
@@ -548,7 +506,7 @@ ggplot() +
 Before relying on OLS linear regression results for inference or policy decisions, researchers must validate that the underlying Gauss-Markov assumptions hold.
 
 ```{r}
-#| echo: true
+#| echo: false
 #| fig-width: 9
 #| fig-height: 7
 #| fig-cap: "Diagnostic plots for checking classical linear regression model assumptions."
