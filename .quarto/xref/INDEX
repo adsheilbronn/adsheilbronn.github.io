@@ -34,5 +34,11 @@
   },
   "posts/correlation/index.qmd": {
     "index.html": "253df329"
+  },
+  "posts/linregression/index.qmd": {
+    "index.html": "f3538a37"
+  },
+  "posts/linregression/correlation/index.qmd": {
+    "index.html": "40658009"
   }
 }

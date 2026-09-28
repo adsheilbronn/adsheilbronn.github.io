@@ -494,13 +494,6 @@ With thousands of global variables tracked over time, many variables move togeth
 ### 2. Confounding / Third-Variable Problem ($Z \to X$ and $Z \to Y$)
 An unobserved third variable $Z$ (a **confounder**) causes changes in both $X$ and $Y$ simultaneously, creating an artificial correlation between $X$ and $Y$.
 
-```
-       [ Confounder Z ] (e.g., Summer Temperature)
-          /         \
-         v           v
-[ Ice Cream Sales X ] [ Drowning Incidents Y ]
-```
-
 * **Example:** Ice cream consumption ($X$) is strongly positively correlated with drowning incidents ($Y$). 
 * **The Reality:** Eating ice cream does not cause drowning. The underlying confounder is **outdoor temperature ($Z$)**. On warm summer days, more people buy ice cream and more people go swimming, leading to higher drowning risks.
 
