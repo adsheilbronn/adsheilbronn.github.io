@@ -10,5 +10,11 @@
   },
   "about.qmd": {
     "about.html": "55b9ea42"
+  },
+  "posts/01_descriptives/index.qmd": {
+    "index.html": "eff9fce5"
+  },
+  "posts/whatisresearch/index.qmd": {
+    "index.html": "168a34be"
   }
 }

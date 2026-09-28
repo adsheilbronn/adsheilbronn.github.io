@@ -6,10 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Haseeb">
-<meta name="dcterms.date" content="2026-09-23">
+<meta name="author" content="Haseeb Mahmud">
+<meta name="dcterms.date" content="2026-09-26">
 
-<title>adsheilbronn.github.io - Course Requirement</title>
+<title>adsheilbronn.github.io - Descriptive statistics</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -69,6 +69,35 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../../styles.css">
 </head>
@@ -115,9 +144,9 @@ ul.task-list li input[type="checkbox"] {
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">Course Requirement</h1>
+      <h1 class="title">Descriptive statistics</h1>
                                 <div class="quarto-categories">
-                <div class="quarto-category">news</div>
+                <div class="quarto-category">Statistics</div>
               </div>
                   </div>
   </div>
@@ -128,14 +157,14 @@ ul.task-list li input[type="checkbox"] {
       <div>
       <div class="quarto-title-meta-heading">Author</div>
       <div class="quarto-title-meta-contents">
-               <p>Haseeb </p>
+               <p>Haseeb Mahmud </p>
             </div>
     </div>
       
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">September 23, 2026</p>
+        <p class="date">September 26, 2026</p>
       </div>
     </div>
     
@@ -154,249 +183,322 @@ ul.task-list li input[type="checkbox"] {
 
 
 
-<section id="course-structure" class="level2">
-<h2 class="anchored" data-anchor-id="course-structure">Course structure</h2>
+<section id="measures-of-central-tendency" class="level1">
+<h1>Measures of central Tendency</h1>
+<section id="arithmetic-mean" class="level2">
+<h2 class="anchored" data-anchor-id="arithmetic-mean">Arithmetic mean</h2>
+<p>The arithmetic mean, or mean of a set of measurements is defined to be the sum of measurements divided by the total number of measurements.</p>
+<p>Usually, the population mean is denoted by <span class="math inline">\(\mu\)</span> and the sample mean is denoted by <span class="math inline">\(\bar{y}\)</span>. The sample mean of a series is defined as,</p>
+<p><span class="math display">\[
+\bar{y}=\frac{\sum_iY_i}{n}
+\]</span></p>
+<p>where, <span class="math inline">\(n\)</span> is the number of observations.</p>
+<p>Example A sample of <span class="math inline">\(n=15\)</span> overdue accounts in a large department store yields the following amounts due,</p>
 <table class="table">
-<colgroup>
-<col style="width: 25%">
-<col style="width: 59%">
-</colgroup>
 <tbody>
 <tr class="odd">
-<td>Course name</td>
-<td>Applied Data Science (256151, SPO BA 6)</td>
+<td>55.2</td>
+<td>4.88</td>
+<td>271.95</td>
 </tr>
 <tr class="even">
-<td>Semester</td>
-<td>3</td>
+<td>18.06</td>
+<td>180.29</td>
+<td>365.29</td>
 </tr>
 <tr class="odd">
-<td>Dozent</td>
-<td>Haseeb Mahmud<br>
-haseeb.mahmud@ext.hs-heilbronn.de<br>
-haseeb.mahmud@gmail.com</td>
+<td>28.16</td>
+<td>399.11</td>
+<td>807.8</td>
 </tr>
 <tr class="even">
-<td>Visiting hours</td>
-<td>By appointment over WebEx/MS Teams</td>
+<td>44.14</td>
+<td>97.47</td>
+<td>9.98</td>
 </tr>
 <tr class="odd">
-<td>Language</td>
-<td>English</td>
-</tr>
-<tr class="even">
-<td>Workload</td>
-<td>125 hours (60 classroom + 65 self-study)</td>
-</tr>
-<tr class="odd">
-<td>ECTS points</td>
-<td>5</td>
-</tr>
-<tr class="even">
-<td>Prerequisite</td>
-<td>Statistics and Data Skills</td>
+<td>61.61</td>
+<td>56.89</td>
+<td>82.73</td>
 </tr>
 </tbody>
 </table>
-<section id="short-course-description" class="level3">
-<h3 class="anchored" data-anchor-id="short-course-description">Short course description</h3>
-<p>Using practically relevant examples the students practice how to use a statistic software to perform statistical analysis and test models.</p>
-<p>In this course the students</p>
-<ol type="1">
-<li><p>postulate a research question using their own data or a panel data set provided by the lecturer,</p></li>
-<li><p>postulate hypotheses to test,</p></li>
-<li><p>perform statistical analysis to test their models,</p></li>
-<li><p>learn to use software for their data analysis during computer lab sessions,</p></li>
-<li><p>write a scientific presentation and</p></li>
-<li><p>present their results in a plenary session.</p></li>
-</ol>
-</section>
-<section id="formalien-prüfungsanmeldung-gemäß-spo-at" class="level3">
-<h3 class="anchored" data-anchor-id="formalien-prüfungsanmeldung-gemäß-spo-at">Formalien Prüfungsanmeldung gemäß SPO AT</h3>
+<p>The sample mean is computed as follows,</p>
+<p><span class="math display">\[
+\bar{y}= \frac{\sum_iY_i}{n}=\frac{55.20+18.06+ .... + 82.73}{15}=\frac{2483.56}{15}=165.57
+\]</span></p>
+<section id="some-comments-about-the-arithmetic-mean" class="level3">
+<h3 class="anchored" data-anchor-id="some-comments-about-the-arithmetic-mean">Some comments about the arithmetic mean</h3>
 <ul>
-<li><p>muss über HIS während des vom Senat verabschiedeten und im Semesterterminplan kommunizierten Anmeldezeitraums erfolgen</p></li>
-<li><p>eine nachträgliche Prüfungsanmeldung über das Prüfungsamt ist nicht möglich!</p></li>
-<li><p>Formular V zur Anmeldung LKBK/LKBR muss bei Dozent*in unterschrieben werden. Wenn die Prüfungsleistung nicht erbracht wird/ Kurs abgebrochen wird und auch wenn keine Anmeldung zur Prüfung über HIS stattfand  gilt als Fehlversuch (5,0)</p></li>
+<li>It is the most common central tendency measure</li>
+<li>There exist only one mean of a dataset/series</li>
+<li>The value of the mean is influenced by the extreme values. Trimming or deleting extreme observations helps to reduce/omit that influence</li>
+<li>Means of samples from a single population can be combined to get the population mean.</li>
+<li>It is applicable to quantitative data only.</li>
 </ul>
-<p>Intended learning outcomes (ILOs) for Programme and Course</p>
+</section>
+</section>
+<section id="median" class="level2">
+<h2 class="anchored" data-anchor-id="median">Median</h2>
+<p>The median of a set of measurements is defined to be the middle value when the measurements are arranged from lowest to highest. So, first we need to sort the dataset from lowest to highest.</p>
+<p><span class="math display">\[
+y_1 \leq y_2 \leq y_3 \leq .... \leq y_i \leq .. \leq y_n
+\]</span></p>
+<p>Then, the median of a series will be,</p>
+<ul>
+<li><span class="math inline">\(\frac{N+1}{2}\)</span>-th observation if <span class="math inline">\(n\)</span> is odd.</li>
+<li>Average of <span class="math inline">\(\left(\frac{N}{2}\right)\)</span> and <span class="math inline">\(\left(\frac{N}{2}+1\right)\)</span>-th observation if <span class="math inline">\(n\)</span> is even.</li>
+</ul>
+<section id="median-some-comments" class="level3">
+<h3 class="anchored" data-anchor-id="median-some-comments">Median: some comments</h3>
+<ul>
+<li>It is the central value, 50 percent of the observations lie above it and the rest fall below it.</li>
+<li>There is only one median in a dataset</li>
+<li>It is not affected by extreme observations</li>
+<li>Medians of subsamples cannot be combined to get the median of the population.</li>
+<li>It is applicable to quantitative data only</li>
+<li>For group data, its value is rather stable even when the data are organized into different categories.</li>
+</ul>
+</section>
+</section>
+<section id="mode" class="level2">
+<h2 class="anchored" data-anchor-id="mode">Mode</h2>
+<p>A mode of a set of measurements is defined to be the measurement that occurs most often, i.e.&nbsp;the highest frequency.</p>
+<section id="mode-some-comments" class="level3">
+<h3 class="anchored" data-anchor-id="mode-some-comments">Mode: some comments</h3>
+<p>There can be more than one mode in a dataseries. Modes of the subsamples cann’t be used to determine to formulate the mode of the population It is applicable for both qualitative and quantitative data For grouped data, its value can change depending on the categories used.</p>
+</section>
+</section>
+<section id="relationship-mean-median-mode" class="level2">
+<h2 class="anchored" data-anchor-id="relationship-mean-median-mode">Relationship: mean, Median, Mode</h2>
+<ul>
+<li>When a variable is normally distributed, the mean, median, and mode are the same number.</li>
+<li>When the variable is skewed to the left (i.e., negatively skewed), the mean shifts to the left the most, the median shifts to the left the second most, and the mode the least affected by the presence of skew in the data.</li>
+<li>When the variable is skewed to the right (i.e., positively skewed), the mean is shifted to the right the most, the median is shifted to the right the second most, and the mode the least affected.</li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="2_1.png" class="img-fluid figure-img"></p>
+<figcaption>Relationship among different central tendency measures</figcaption>
+</figure>
+</div>
+</section>
+</section>
+<section id="measures-of-dispersion" class="level1">
+<h1>Measures of dispersion</h1>
+<section id="range" class="level2">
+<h2 class="anchored" data-anchor-id="range">Range</h2>
+<p>The range of a set of measurements is defined to be the difference between the largest and the smallest measurements of the set.</p>
+<p>From the above dataset we are working on, the smallest values is 4.88 and the largest is 807.80. The range of the data would be,</p>
+<p><span class="math display">\[
+range = 807.80 - 4.88 = 802.92
+\]</span></p>
+</section>
+<section id="variance-and-standard-deviation" class="level2">
+<h2 class="anchored" data-anchor-id="variance-and-standard-deviation">Variance and standard deviation</h2>
+<p>The <em>variance</em> of a set of measurements <span class="math inline">\(y_1, y_2, y_3, .... , y_n\)</span>, with a mean of <span class="math inline">\(\bar{y}_n\)</span> is the sum of the squared deviations divided by <span class="math inline">\(n-1\)</span>. Symbolically,</p>
+<p><span class="math display">\[
+s^2 = \frac{\sum_{i=1}^n(x_i-\bar{x})^2}{n-1}
+\]</span></p>
+<p>We are assuming, we are working with <strong>samples</strong>. In case of variance we will replace <span class="math inline">\(n-1\)</span> with <span class="math inline">\(n\)</span> in the denominator. Sample variance is denoted by <span class="math inline">\(s^2\)</span> and the population variance is denoted by <span class="math inline">\(\sigma^2\)</span>.</p>
+<p>Sample variance is an <em>unbiased estimator</em> of the population variance. That means, if we take different sub-samples from the population, then the average variance of those samples are (roughly) equal to the population variance.</p>
+<p>The <strong>standard deviation</strong> is a set of measurements is defined to be the positive square root of the variance. <span class="math display">\[
+s = \sqrt{\frac{\sum_{i=1}^n(x_i-\bar{x})^2}{n-1}}
+\]</span></p>
+<p>As mentioned before, sample standard deviation will be denoted by <span class="math inline">\(s\)</span> and the population standard deviation is denoted by <span class="math inline">\(\sigma\)</span>. In real life, this difference is often ignored.</p>
+<section id="variance-and-standard-deviation-example" class="level3">
+<h3 class="anchored" data-anchor-id="variance-and-standard-deviation-example">Variance and standard deviation: Example</h3>
 <table class="table">
+<caption>Calories in different Starbucks drinks</caption>
 <colgroup>
-<col style="width: 17%">
-<col style="width: 82%">
+<col style="width: 50%">
+<col style="width: 50%">
 </colgroup>
 <thead>
 <tr class="header">
-<th>ILOs for the program</th>
-<th>ILOs for the course</th>
+<th>Product</th>
+<th>Calories</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>Demonstrate profound knowledge in major fields of international business</td>
-<td>After the course the students are able to formulate a research question, derive hypotheses based on literature, identify an appropriate research design, specify and operationalize constructs, analyze data according to the hypotheses, and interpret the results. They are familiar with and can apply various models and methods of data assessment. The students know about probability of error, and the difference between significance and effect size when assessing results.</td>
+<td>Dunkin’s Donuts Iced Mocha Swirl latte (whole milk)</td>
+<td>240</td>
 </tr>
 <tr class="even">
-<td>Implement conceptual knowledge and apply problem solving ability in different business contexts</td>
-<td><p>The students learn how to test conceptual frameworks with empirical data. They will know how to decide for the appropriate statistical procedure depending on the research problem and characteristics of the data.</p>
-<p>The students are capable of applying the imparted knowledge to draw the correct conclusions when it comes to making decisions in business environments based on data.</p></td>
+<td>Starbucks coffee frappuccino blended coffee</td>
+<td>260</td>
 </tr>
 <tr class="odd">
-<td>Apply digital skills to effectively resolve work-related assignments</td>
-<td><p>The students are capable of conducting a well-founded literature research using databases and scientific search engines.</p>
-<p>They learn to use statistical software (e.g, SPSS, Python, R, Stata) in a targeted and appropriate manner to analyze data for various research questions.</p></td>
+<td>Dunkin Donuts coffee coolatta</td>
+<td>350</td>
 </tr>
 <tr class="even">
-<td>Work effectively in intercultural teams and leverage diversity</td>
-<td>The students will work in teams to conduct a research project. They need to discuss the approach and find a common strategy to manage the project timely and successfully. To achieve this, they must define milestones, allocate work packages, adhere to agreements, and reflect on their different working styles.</td>
+<td>Starbucks Iced Coffee Mocha Espresso (whole Milk and whipped cream</td>
+<td>350</td>
 </tr>
 <tr class="odd">
-<td>Behave in an ethical and sustainable manner</td>
-<td>The students learn about ethical conduct in scientific research, with special emphasis on plagiarism, data manipulation, and the presentation and interpretation of results.</td>
+<td>Starbucks Mocha Flappuccino blended coffee (whipped cream)</td>
+<td>420</td>
+</tr>
+<tr class="even">
+<td>Starbucks Chocolate Brownie Flappuccino blended coffee (whipped cream)</td>
+<td>510</td>
+</tr>
+<tr class="odd">
+<td>Starbucks Chocolate Flappuccino blended creme (whipped cream</td>
+<td>530</td>
 </tr>
 </tbody>
 </table>
+<p>To calculate standard deviation and variance first we need to calculate the mean, then the squared differences</p>
+<p><span class="math display">\[
+\bar{x} = \frac{\sum_{i=1}^nX_i}{n} = \frac{2660}{7} = 380
+\]</span></p>
+<table class="table">
+<thead>
+<tr class="header">
+<th>Calories</th>
+<th><span class="math inline">\((x_i - \bar{x})\)</span></th>
+<th><span class="math inline">\((x_i - \bar{x})^2\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>240</td>
+<td>-140</td>
+<td>19600</td>
+</tr>
+<tr class="even">
+<td>260</td>
+<td>-120</td>
+<td>14400</td>
+</tr>
+<tr class="odd">
+<td>350</td>
+<td>-30</td>
+<td>900</td>
+</tr>
+<tr class="even">
+<td>350</td>
+<td>-30</td>
+<td>900</td>
+</tr>
+<tr class="odd">
+<td>420</td>
+<td>40</td>
+<td>1600</td>
+</tr>
+<tr class="even">
+<td>510</td>
+<td>130</td>
+<td>16900</td>
+</tr>
+<tr class="odd">
+<td>530</td>
+<td>150</td>
+<td>22500</td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+<td>76800</td>
+</tr>
+</tbody>
+</table>
+<p>Putting all into the formula, we can get the variance.</p>
+<p><span class="math display">\[
+s^2 = \frac{\sum_{i=1}^n(x_i-\bar{x})^2}{n-1} = \frac{76800}{6} =  12800
+\]</span><br>
+And, the standard deviation is,</p>
+<p><span class="math display">\[
+s = \sqrt{s^2} = \sqrt{12800} = 113.1371
+\]</span></p>
 </section>
-</section>
-<section id="course-outline" class="level1">
-<h1>Course outline</h1>
-<section id="theoretical-part" class="level2">
-<h2 class="anchored" data-anchor-id="theoretical-part">Theoretical part</h2>
-<ol type="1">
-<li>What is research, formulating and clarifying the research topic</li>
-<li>Literature review</li>
-<li>Theoretical framework and hypothesis development</li>
-<li>Questionnaire design</li>
-<li>Sampling design</li>
-<li>Measurement: scaling, reliability and validity</li>
-</ol>
-</section>
-<section id="applied-part" class="level2">
-<h2 class="anchored" data-anchor-id="applied-part">Applied part</h2>
-<ol type="1">
-<li>Basic statistical concepts: descriptive statistics (numerical and graphical)</li>
-<li>Hypothesis testing</li>
-<li>Categorical data analysis, comparing two means</li>
-<li>Correlation and covariance</li>
-<li>ANOVA</li>
-<li>Reliability analysis</li>
-<li>Linear analysis</li>
-<li>Logistic regression</li>
-</ol>
-</section>
-<section id="software-tools" class="level2">
-<h2 class="anchored" data-anchor-id="software-tools">Software tools</h2>
-<ol type="1">
-<li>Jamovi</li>
-<li>VS Code</li>
-<li>Reference manager</li>
-<li>Useful file formats: Markdown, CSV</li>
-<li>R/RStudio</li>
-</ol>
-</section>
-<section id="literature" class="level2">
-<h2 class="anchored" data-anchor-id="literature">Literature</h2>
-<p><a href="https://guides.library.lincoln.ac.uk/mash/jamovi">Statistical tests with Jamovi - University of Lincoln</a></p>
-<p><a href="https://blog.jamovi.org/2018/10/25/learning-statistics-with-jamovi.html">Learning Statistics with Jamovi . Danielle J Navarro and David R Foxcroft</a> - <a href="https://davidfoxcroft.github.io/lsj-book/">alternative link</a>.</p>
-<p><a href="https://danawanzer.github.io/stats-with-jamovi/">Statistics with Jamovi - Dana Wanzer</a></p>
-<p><a href="https://jmablog.github.io/jamovi-worksheets/">Jamovi Worksheets: Stats with Jamovi</a></p>
-<p>Atteslander, P: Methoden der empirischen Sozialforschung, Walter de Gruyter, Berlin, aktuelle Auflage.</p>
-<p>Auer, B. &amp; Rottmann, H.: Statistik und Ökonometrie für Wirtschaftswissenschaftler. Springer, Leipzig, aktuelle Auflage.</p>
-<p>Backhaus, K., Erichson, B., Gensler, S., Weiber, R &amp; Weiber, T.: Multivariate Analysemethoden – Eine anwendungsorientierte Einführung. Springer, Berlin, aktuelle Auflage.</p>
-<p>Field, A.: Discovering Statistics Using IBM SPSS Statistics. London: SAGE Publications, aktuelle Auflage.</p>
-<p>Lewis-Beck, M. S.: Applied Regression – an Introduction, SAGE Publications, Thousand Oaks CA, aktuelle Auflage.</p>
-<p>Schnell, R., Hill, P. &amp; Esser, E.: Methoden der empirischen Sozialforschung, Oldenbourg Verlag, München, aktuelle Auflage.</p>
-<section id="recommended-literature" class="level3">
-<h3 class="anchored" data-anchor-id="recommended-literature">Recommended literature</h3>
-<p>Gujarati, D., N.: Basic Econometrics. McGraw-Hill, aktuelle Auflage.</p>
-<p>Okasha, S.: Philosophy of Science: Very short introduction. Oxford: Oxford University Press, aktuelle Auflage.</p>
-<p>Pampel, F. C.: Logistic Regression. Sage University Papers Series on Quantitative Applications in the Social Sciences, 07-132. Thousand Oaks, CA: SAGE Publications, aktuelle Auflage.</p>
-<p>Porst, R.: Fragebogen – Ein Arbeitsbuch, Springer, Wiesbaden, aktuelle Auflage.</p>
-<p>Quinlan, C., Babin, B., Carr, J., Griffin, M., Zikmund, W.: Business Research Methods, Cengage Learning EMEA, aktuelle Auflage.</p>
-<p>Wooldridge, J. M.: Introductory Econometrics, Ohio: Thomson, South-Western, aktuelle Auflage.</p>
-</section>
-</section>
-<section id="hardware-requirement" class="level2">
-<h2 class="anchored" data-anchor-id="hardware-requirement">Hardware requirement</h2>
-<p>It is expected that students will work in Windows, Mac or Linux laptops in the classroom. Tablets (e.g.&nbsp;IPad) won’t work.</p>
-</section>
-<section id="software-requirement" class="level2">
-<h2 class="anchored" data-anchor-id="software-requirement">Software requirement</h2>
-<section id="jamovi" class="level3">
-<h3 class="anchored" data-anchor-id="jamovi">Jamovi</h3>
+<section id="characteristics-of-deviation-measures" class="level3">
+<h3 class="anchored" data-anchor-id="characteristics-of-deviation-measures">Characteristics of deviation measures</h3>
 <ul>
-<li><a href="https://docs.jamovi.org/_pages/um_1_installation.html">Download and Installation</a></li>
-</ul>
-</section>
-<section id="vs-code" class="level3">
-<h3 class="anchored" data-anchor-id="vs-code">VS Code</h3>
-<ul>
-<li><a href="https://code.visualstudio.com/docs/setup/setup-overview">Download and Installation</a></li>
-</ul>
-</section>
-<section id="r-and-rstudio-optional" class="level3">
-<h3 class="anchored" data-anchor-id="r-and-rstudio-optional">R and RStudio (optional)</h3>
-<ul>
-<li><p><a href="https://www.r-project.org/">R</a></p></li>
-<li><p><a href="https://posit.co/download/rstudio-desktop/">RStudio Desktop</a></p></li>
-</ul>
-</section>
-<section id="reference-manager" class="level3">
-<h3 class="anchored" data-anchor-id="reference-manager">Reference manager</h3>
-<ul>
-<li><p><a href="https://www.zotero.org">Zotero</a></p></li>
-<li><p><a href="https://www.mendeley.com/">Mendeley</a></p></li>
+<li>The greater the spread or dispersion of the data, the larger the range, <span class="math inline">\(\sigma^2\)</span> and <span class="math inline">\(\sigma\)</span>.</li>
+<li>The greater the concentration of the data around the central value, the smaller the range, <span class="math inline">\(\sigma^2\)</span> and <span class="math inline">\(\sigma\)</span>.</li>
+<li>If the values are all the same (so that there are no variation in the data), the range, <span class="math inline">\(\sigma^2\)</span> and <span class="math inline">\(\sigma\)</span> will all equal to zero.</li>
+<li>None of the measures of variation can <em>ever</em> be negative.</li>
 </ul>
 </section>
 </section>
-<section id="datasets" class="level2">
-<h2 class="anchored" data-anchor-id="datasets">Datasets</h2>
-<p>Datasets of the course will be stored in the Datasets folder in the ILIAS. It is highly recommended to download and save the datasets to a local folder.</p>
-<section id="for-classroom-demonstrations" class="level3">
-<h3 class="anchored" data-anchor-id="for-classroom-demonstrations">For classroom demonstrations</h3>
-<ol type="1">
-<li><a href="https://www.kaggle.com/datasets/amjadzhour/car-price-prediction">Car pricing dataset</a></li>
-<li><a href="https://www.kaggle.com/datasets/shalmamuji/electricity-cost-prediction-dataset">Electricity cost dataset</a></li>
-<li><a href="https://www.kaggle.com/datasets/kanzariachref/medical-insurance-cost-dataset">Medical insurance dataset</a></li>
-<li><a href="https://www.kaggle.com/datasets/mikhail1681/walmart-sales">Wallmart sales dataset</a></li>
-<li><a href="https://www.kaggle.com/datasets/abhishek14398/salary-dataset-simple-linear-regression">Salary dataset</a></li>
-<li><a href="https://www.kaggle.com/datasets/nikhil7280/student-performance-multiple-linear-regression">Study performance dataset</a></li>
-<li>Datasets from reference books</li>
-<li>And many other</li>
-</ol>
-</section>
-<section id="popular-datasets-for-social-science-research" class="level3">
-<h3 class="anchored" data-anchor-id="popular-datasets-for-social-science-research">Popular datasets for social science research</h3>
-<ol type="1">
-<li><a href="https://www.europeansocialsurvey.org/">ESS</a></li>
-<li><a href="https://www.worldvaluessurvey.org">WVS</a></li>
-</ol>
+<section id="the-coefficient-of-variation" class="level2">
+<h2 class="anchored" data-anchor-id="the-coefficient-of-variation">The coefficient of variation</h2>
+<p>Unlike the range, <span class="math inline">\(\sigma\)</span> and <span class="math inline">\(\sigma^2\)</span>, the coefficient of variation is a relative measure expressed as a percentage rather than units of a particular data. The coefficient of variation is equal to the standard deviation by the mean, multiplied by <span class="math inline">\(100\%\)</span>.</p>
+<p><span class="math display">\[
+CV = \left(\frac{\sigma}{\bar{x}}\right)\times 100\%
+\]</span></p>
+<p>The coefficient of variation is particularly useful to compare the variability of two different datasets measured in two different units of measurements.</p>
+<p>From the previous Starbucks data, the coefficient of variation can be calculated as,</p>
+<p><span class="math display">\[
+CV = \left(\frac{s}{\bar{x}}\right)\times 100\% = \frac{113.1371}{380} \times 100\% = 28.79\%
+\]</span></p>
 </section>
 </section>
-<section id="teaching-method" class="level2">
-<h2 class="anchored" data-anchor-id="teaching-method">Teaching method</h2>
-<p>Lectures, demonstrations and practice during the class</p>
-<p>Applying statistical methods in real scenario</p>
-<p>Group work, going through a research project from start to finish</p>
-<p>Learning tools to apply statistical concepts in real life data</p>
-</section>
-<section id="exam-form-and-evaluation" class="level2">
-<h2 class="anchored" data-anchor-id="exam-form-and-evaluation">Exam form and evaluation</h2>
-<p>The final grade will be a combination of the result from a research project and a classroom examination.</p>
+<section id="confidence-intervals" class="level1">
+<h1>Confidence Intervals</h1>
+<p>The goal here is to estimate the sample information to estimate the population parameter of interest to assess the reliability of the estimate.</p>
 <ul>
-<li><p><strong>Research project (50% of the final grade):</strong> Theoretical and empirical model including theory, research question/hypotheses, detailed derivation of hypotheses from the literature, methodology, descriptive results, model variables and regression analysis, scientific discussion, literature (minimum requirement: seven scientific references (journal articles), APA citation style), plus submission of dataset and syntax (final evaluations and model) + output regression analysis. Format: Presentation on the last lecture date with PowerPoint presentation and paper (max. 8 pages without appendix)</p></li>
-<li><p><strong>Individual test (50% of the final grade):</strong> Date and time will be announced later</p></li>
+<li>The unknown population parameter (e.g.&nbsp;mean or proportion) that we are interested in estimating is called <em>target parameter</em>}.</li>
+<li>A <em>point estimator</em> of a population is a rule or formula that tells us how to use the sample data to calculate as single number that can be used as an estimate of the target parameter.</li>
+<li>An <em>interval estimator or confidence interval</em> is a formula that tells us how to use the sample data to calculate an interval that estimates the target parameter.</li>
 </ul>
+<section id="confidence-interval-large-sample" class="level2">
+<h2 class="anchored" data-anchor-id="confidence-interval-large-sample">Confidence interval: large sample</h2>
+<p><strong>CI for a</strong> <span class="math inline">\(\mu\)</span>: Normal <span class="math inline">\(z\)</span>-statistic</p>
+<p>Let <span class="math inline">\(x_1, x_2, ... , x_n\)</span> be a random sample of <span class="math inline">\(n\)</span> observations from a normally distributed population with unknown mean <span class="math inline">\(\mu\)</span> and known <span class="math inline">\(\sigma^2\)</span>. Suppose that, we want a <span class="math inline">\(100(1-\alpha)\%\)</span> CI of the population mean. Previously, we saw that,</p>
+<p><span class="math display">\[
+z = \frac{\bar{x}-\mu}{\sigma/\sqrt{n}}
+\]</span></p>
+<p>has a <span class="math inline">\(N(0,1)\)</span> distribution and <span class="math inline">\(z_{\alpha/2}\)</span> is the value from the <span class="math inline">\(N(0,1)\)</span> such that the upper tail probability is <span class="math inline">\(\alpha/2\)</span>. We use the basis algebra to find,</p>
+<p><span class="math display">\[
+1 - \alpha =  \mathbb{P} (-z_{\alpha/2} &lt; z &lt; z_{\alpha/2}) = \mathbb{P} \left(-z_{\alpha/2} &lt; \frac{\bar{x}-\mu}{\sigma/\sqrt{n}} &lt; z_{\alpha/2}\right)
+\]</span></p>
+<p>which in turn,</p>
+<p><span class="math display">\[
+\mathbb{P} \left(-z_{\alpha/2} \frac{\sigma}{\sqrt{n}} &lt; \bar{x} - \mu &lt; z_{\alpha/2}\frac{\sigma}{\sqrt{n}}\right)
+= \mathbb{P} \left(\bar{x}-z_{\alpha/2} \frac{\sigma}{\sqrt{n}} &lt; \mu &lt; \bar{x}+z_{\alpha/2}\frac{\sigma}{\sqrt{n}}\right)
+\]</span></p>
 </section>
-<section id="grading" class="level2">
-<h2 class="anchored" data-anchor-id="grading">Grading</h2>
+<section id="central-limit-theorem" class="level2">
+<h2 class="anchored" data-anchor-id="central-limit-theorem">Central limit theorem</h2>
+<p>According to the Central Limit Theorem the sampling distribution of the sample mean is approximately normal for large samples. For a <span class="math inline">\(95\%\)</span> confidence level it follows that,</p>
+<p><span class="math display">\[
+\mathbb{P} \left(\bar{x}-1.96 \frac{\sigma}{\sqrt{n}} &lt; \mu &lt; \bar{x}+1.96\frac{\sigma}{\sqrt{n}}\right)
+\]</span></p>
+<p>The interval <span class="math inline">\(\bar{x} \pm 1.96\sigma_{\bar{x}}\)</span> is called the large sample <span class="math inline">\(95\%\)</span> confidence interval for the population mean <span class="math inline">\(\mu\)</span>. The term large sample refers to the sample being of sufficiently large size that we can apply the Central Limit Theory and the normal <span class="math inline">\(z\)</span> statistic to determine the form of the sampling distribution of <span class="math inline">\(\bar{x}\)</span>. Empirical research suggests that a sample size <span class="math inline">\(n\)</span> exceeding a value between 20 and 30 will usually yield a sampling distribution of <span class="math inline">\(\bar{x}\)</span>, that is normal.</p>
+<p>If the sample means (e.g.&nbsp;<span class="math inline">\(\bar{x}_1, \bar{x}_3\)</span> and <span class="math inline">\(\bar{x}_4\)</span>) falls between the two lines on either side of <span class="math inline">\(\mu\)</span>, then the interval <span class="math inline">\(\bar{x} \pm 1.96\sigma_{\bar{x}}\)</span> will contain <span class="math inline">\(\mu\)</span>; if <span class="math inline">\(\bar{x}\)</span> falls outside the boundaries (e.g.&nbsp;<span class="math inline">\(\bar{x}_2\)</span>), the interval <span class="math inline">\(\bar{x} \pm 1.96\sigma_{\bar{x}}\)</span> will not contain <span class="math inline">\(\mu\)</span>.\ From the Empirical rule, we know that, the area under the normal curve (the sampling distribution of <span class="math inline">\(\bar{x}\)</span> between these boundaries is exactly 0.95. Thus the probability that a randomly selected interval <span class="math inline">\(\bar{x} \pm 1.96\sigma_{\bar{x}}\)</span>, will contain <span class="math inline">\(\mu\)</span> is equal to <span class="math inline">\(0.95\)</span> or <span class="math inline">\(95\%\)</span>.\ Large sample interval estimator requires knowing the value of the population <span class="math inline">\(\sigma\)</span>. In most practical applications, the value of population <span class="math inline">\(\sigma\)</span> is unknown. For large samples, in the absence of <span class="math inline">\(\sigma\)</span>, sample standard deviation <span class="math inline">\(s\)</span> provides a good approximation to <span class="math inline">\(\sigma\)</span>.</p>
+</section>
+</section>
+<section id="covariance-and-correlation" class="level1">
+<h1>Covariance and correlation</h1>
+<p>Covariance is a measure of the relationship between two random variables. The metric evaluates how much - to what extent - the variables change together. In other words, it is essentially a measure of the variance between two variables. However, the metric does not assess the dependency between variables.</p>
+<p><span class="math display">\[
+Cov (x, y) = \frac{\sum(x_i - \bar{x})(y_i - \bar{y})}{n}
+\]</span></p>
+<p>For a sample covariance, we need to deduct 1 from the demoninator, i.e.&nbsp;<span class="math inline">\((n-1)\)</span>.</p>
 <ul>
-<li><p>Midterm (individual performance): 50%<br>
-90-minute open book exam<br>
-(FAQ: Do I have to pass it to get the pass mark for the course?<br>
-Answer: No.</p></li>
-<li><p>Paper + Group presentation (group evaluation): 50%<br>
-Students have to pass it!</p></li>
+<li>Positive covariance: Indicates that two variables tend to move in the same direction.</li>
+<li>Negative covariance: Reveals that two variables tend to move in inverse directions.</li>
 </ul>
+<p>Using covariance, we can only gauge the direction of the relationship (whether the variables tend to move in tandem or show an inverse relationship). However, it does not indicate the strength of the relationship, nor the dependency between the variables.</p>
+<p>Correlation measures the strength of the relationship between variables. Correlation is the scaled measure of covariance. It is dimensionless. In other words, the correlation coefficient is always a pure value and not measured in any units.</p>
+<p><span class="math display">\[
+\rho = \frac{cov(x, y)}{\sigma_x \sigma_y}
+\]</span></p>
+<ul>
+<li>Correlation value ranges from <span class="math inline">\(-1\)</span> to <span class="math inline">\(+1\)</span>. The correlation of zero indicates zero relationship.</li>
+<li><span class="math inline">\(\rho_{x,y} = \rho_{y,x}\)</span></li>
+<li>The correlation is not synonimous to causation!</li>
+<li>More on this topic will be covered later in the degree program.</li>
+</ul>
+<section id="percentiles" class="level2">
+<h2 class="anchored" data-anchor-id="percentiles">Percentiles</h2>
+<p>The <span class="math inline">\(p\)</span>-th percentile of a set of <span class="math inline">\(n\)</span>-measurements arranged in order of magnitude is that value that has at most <span class="math inline">\(p\%\)</span> of the measurements below it and at most <span class="math inline">\((100-p)\%\)</span> above it.</p>
+<p>Percentiles are frequently used to describe the results of achievements test scores and the ranking of a person in comparison to the rest of the people taking the examination. Specific percentile of interest are the 25th, 50th and 75th percentiles; often called the lower quantile, the middle quantile (median) and the upper quantile respectively. Similarly, if we divide the data by 10 parts then we refer every part as <em>deciles</em>.</p>
 
 
 </section>

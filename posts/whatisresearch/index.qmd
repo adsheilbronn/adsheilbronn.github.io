@@ -1,3 +1,10 @@
+---
+title: "What is Research"
+author: "Haseeb Mahmud"
+date: "2026-09-23"
+categories: [Research Methodology]
+---
+
 # What is research
 
 When listening to the radio, watching the television or reading a daily newspaper it is difficult to avoid the term 'research'. The results of 'research' are all around us. A debate about the findings of a recent poll of people's opinions inevitably includes a discussion of 'research', normally referring to the way in which the data were collected. Politicians often justify their policy decisions on the basis of 'research'. Newspapers report the findings of research companies' surveys. Documentary programs tell us about 'research findings', and advertisers may highlight the 'results of research' to encourage you to buy a particular product or brand. However, we believe that what these examples really emphasizes is the wide range of meanings given to the term 'research' in everyday speech.
