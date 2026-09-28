@@ -1,0 +1,1363 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.554">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Haseeb Mahmud">
+<meta name="dcterms.date" content="2026-09-28">
+
+<title>Advanced Data Science - Correlation and Covariance</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Advanced Data Science</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/adsheilbronn"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://ilias.hs-heilbronn.de/ilias.php?baseClass=ilrepositorygui&amp;ref_id=1078855"> <i class="bi bi-mortarboard" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+          <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Correlation and Covariance</h1>
+                                <div class="quarto-categories">
+                <div class="quarto-category">Statistics</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Haseeb Mahmud </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">September 28, 2026</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#concept-of-covariance" id="toc-concept-of-covariance" class="nav-link active" data-scroll-target="#concept-of-covariance">1. Concept of Covariance</a>
+  <ul class="collapse">
+  <li><a href="#mathematical-formulation" id="toc-mathematical-formulation" class="nav-link" data-scroll-target="#mathematical-formulation">Mathematical Formulation</a></li>
+  <li><a href="#step-by-step-calculation-example" id="toc-step-by-step-calculation-example" class="nav-link" data-scroll-target="#step-by-step-calculation-example">Step-by-Step Calculation Example</a>
+  <ul class="collapse">
+  <li><a href="#compute-sample-means" id="toc-compute-sample-means" class="nav-link" data-scroll-target="#compute-sample-means">1. Compute Sample Means</a></li>
+  <li><a href="#deviations-and-products-table" id="toc-deviations-and-products-table" class="nav-link" data-scroll-target="#deviations-and-products-table">2. Deviations and Products Table</a></li>
+  <li><a href="#compute-sample-covariance" id="toc-compute-sample-covariance" class="nav-link" data-scroll-target="#compute-sample-covariance">3. Compute Sample Covariance</a></li>
+  </ul></li>
+  <li><a href="#interpretation-limitations" id="toc-interpretation-limitations" class="nav-link" data-scroll-target="#interpretation-limitations">Interpretation &amp; Limitations</a>
+  <ul class="collapse">
+  <li><a href="#major-limitation-of-covariance" id="toc-major-limitation-of-covariance" class="nav-link" data-scroll-target="#major-limitation-of-covariance">Major Limitation of Covariance</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#concept-of-correlation" id="toc-concept-of-correlation" class="nav-link" data-scroll-target="#concept-of-correlation">2. Concept of Correlation</a>
+  <ul class="collapse">
+  <li><a href="#pearson-correlation-coefficient-r" id="toc-pearson-correlation-coefficient-r" class="nav-link" data-scroll-target="#pearson-correlation-coefficient-r">2.1 Pearson Correlation Coefficient (<span class="math inline">\(r\)</span>)</a>
+  <ul class="collapse">
+  <li><a href="#concept" id="toc-concept" class="nav-link" data-scroll-target="#concept">Concept</a></li>
+  <li><a href="#formula" id="toc-formula" class="nav-link" data-scroll-target="#formula">Formula</a></li>
+  <li><a href="#interpretation" id="toc-interpretation" class="nav-link" data-scroll-target="#interpretation">Interpretation</a></li>
+  <li><a href="#hypothesis-testing-for-pearsons-r" id="toc-hypothesis-testing-for-pearsons-r" class="nav-link" data-scroll-target="#hypothesis-testing-for-pearsons-r">Hypothesis Testing for Pearson’s <span class="math inline">\(r\)</span></a></li>
+  <li><a href="#graphical-demonstration-of-different-correlation-values" id="toc-graphical-demonstration-of-different-correlation-values" class="nav-link" data-scroll-target="#graphical-demonstration-of-different-correlation-values">Graphical Demonstration of Different Correlation Values</a></li>
+  </ul></li>
+  <li><a href="#kendalls-tau-tau" id="toc-kendalls-tau-tau" class="nav-link" data-scroll-target="#kendalls-tau-tau">2.2 Kendall’s Tau (<span class="math inline">\(\tau\)</span>)</a>
+  <ul class="collapse">
+  <li><a href="#what-is-it" id="toc-what-is-it" class="nav-link" data-scroll-target="#what-is-it">What is it?</a></li>
+  <li><a href="#concordant-vs.-discordant-pairs" id="toc-concordant-vs.-discordant-pairs" class="nav-link" data-scroll-target="#concordant-vs.-discordant-pairs">Concordant vs.&nbsp;Discordant Pairs</a></li>
+  <li><a href="#when-to-use-kendalls-tau" id="toc-when-to-use-kendalls-tau" class="nav-link" data-scroll-target="#when-to-use-kendalls-tau">When to Use Kendall’s Tau?</a></li>
+  <li><a href="#formula-1" id="toc-formula-1" class="nav-link" data-scroll-target="#formula-1">Formula</a></li>
+  <li><a href="#hypothesis-testing-for-kendalls-tau" id="toc-hypothesis-testing-for-kendalls-tau" class="nav-link" data-scroll-target="#hypothesis-testing-for-kendalls-tau">Hypothesis Testing for Kendall’s <span class="math inline">\(\tau\)</span></a></li>
+  <li><a href="#graphical-demonstration-of-monotonic-vs.-linear-relationships" id="toc-graphical-demonstration-of-monotonic-vs.-linear-relationships" class="nav-link" data-scroll-target="#graphical-demonstration-of-monotonic-vs.-linear-relationships">Graphical Demonstration of Monotonic vs.&nbsp;Linear Relationships</a></li>
+  </ul></li>
+  <li><a href="#spearmans-rho-rho" id="toc-spearmans-rho-rho" class="nav-link" data-scroll-target="#spearmans-rho-rho">2.3 Spearman’s Rho (<span class="math inline">\(\rho\)</span>)</a>
+  <ul class="collapse">
+  <li><a href="#what-is-it-1" id="toc-what-is-it-1" class="nav-link" data-scroll-target="#what-is-it-1">What is it?</a></li>
+  <li><a href="#when-to-use-spearmans-rho" id="toc-when-to-use-spearmans-rho" class="nav-link" data-scroll-target="#when-to-use-spearmans-rho">When to Use Spearman’s Rho?</a></li>
+  <li><a href="#formula-2" id="toc-formula-2" class="nav-link" data-scroll-target="#formula-2">Formula</a></li>
+  <li><a href="#hypothesis-testing-for-spearmans-rho" id="toc-hypothesis-testing-for-spearmans-rho" class="nav-link" data-scroll-target="#hypothesis-testing-for-spearmans-rho">Hypothesis Testing for Spearman’s <span class="math inline">\(\rho\)</span></a></li>
+  <li><a href="#graphical-demonstration-outlier-robustness-of-spearman-vs.-pearson" id="toc-graphical-demonstration-outlier-robustness-of-spearman-vs.-pearson" class="nav-link" data-scroll-target="#graphical-demonstration-outlier-robustness-of-spearman-vs.-pearson">Graphical Demonstration: Outlier Robustness of Spearman vs.&nbsp;Pearson</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#how-correlation-can-be-misleading-the-datasaurus-dozen" id="toc-how-correlation-can-be-misleading-the-datasaurus-dozen" class="nav-link" data-scroll-target="#how-correlation-can-be-misleading-the-datasaurus-dozen">3. How Correlation Can Be Misleading: The Datasaurus Dozen</a>
+  <ul class="collapse">
+  <li><a href="#summary-statistics-comparison" id="toc-summary-statistics-comparison" class="nav-link" data-scroll-target="#summary-statistics-comparison">Summary Statistics Comparison</a></li>
+  <li><a href="#graphical-revelation" id="toc-graphical-revelation" class="nav-link" data-scroll-target="#graphical-revelation">Graphical Revelation</a>
+  <ul class="collapse">
+  <li><a href="#lesson-for-data-analysts" id="toc-lesson-for-data-analysts" class="nav-link" data-scroll-target="#lesson-for-data-analysts">Lesson for Data Analysts</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#conclusion-correlation-is-not-causation" id="toc-conclusion-correlation-is-not-causation" class="nav-link" data-scroll-target="#conclusion-correlation-is-not-causation">4. Conclusion: Correlation Is NOT Causation</a>
+  <ul class="collapse">
+  <li><a href="#why-correlation-neq-causation" id="toc-why-correlation-neq-causation" class="nav-link" data-scroll-target="#why-correlation-neq-causation">Why Correlation <span class="math inline">\(\neq\)</span> Causation</a>
+  <ul class="collapse">
+  <li><a href="#spurious-correlation-coincidence" id="toc-spurious-correlation-coincidence" class="nav-link" data-scroll-target="#spurious-correlation-coincidence">1. Spurious Correlation &amp; Coincidence</a></li>
+  <li><a href="#confounding-third-variable-problem-z-to-x-and-z-to-y" id="toc-confounding-third-variable-problem-z-to-x-and-z-to-y" class="nav-link" data-scroll-target="#confounding-third-variable-problem-z-to-x-and-z-to-y">2. Confounding / Third-Variable Problem (<span class="math inline">\(Z \to X\)</span> and <span class="math inline">\(Z \to Y\)</span>)</a></li>
+  <li><a href="#reverse-causality-y-to-x" id="toc-reverse-causality-y-to-x" class="nav-link" data-scroll-target="#reverse-causality-y-to-x">3. Reverse Causality (<span class="math inline">\(Y \to X\)</span>)</a></li>
+  <li><a href="#bidirectional-feedback-loops" id="toc-bidirectional-feedback-loops" class="nav-link" data-scroll-target="#bidirectional-feedback-loops">4. Bidirectional / Feedback Loops</a></li>
+  </ul></li>
+  <li><a href="#how-to-establish-causation-in-scientific-research" id="toc-how-to-establish-causation-in-scientific-research" class="nav-link" data-scroll-target="#how-to-establish-causation-in-scientific-research">How to Establish Causation in Scientific Research</a>
+  <ul class="collapse">
+  <li><a href="#summary-matrix" id="toc-summary-matrix" class="nav-link" data-scroll-target="#summary-matrix">Summary Matrix</a></li>
+  </ul></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+
+<p>Understanding how two or more variables move together is a cornerstone of empirical research and statistical modeling. Whether analyzing the relationship between advertising spend and sales revenue, studying habits and exam performance, or height and weight, bivariate analysis allows us to quantify association, direction, and magnitude.</p>
+<p>In this guide, we explore <strong>Covariance</strong>, <strong>Pearson’s Correlation</strong>, <strong>Kendall’s Tau</strong>, and <strong>Spearman’s Rho</strong>, complete with mathematical formulations, step-by-step calculations, hypothesis testing procedures, and data visualizations. We will also demonstrate how single summary statistics like correlation can be deceptively misleading using the famous <code>datasauRus</code> dataset, and conclude with why correlation does not imply causation.</p>
+<hr>
+<section id="concept-of-covariance" class="level1">
+<h1>1. Concept of Covariance</h1>
+<p>Before measuring correlation, we must examine its fundamental building block: <strong>Covariance</strong>.</p>
+<p>Covariance measures the direction of a joint linear relationship between two quantitative variables. If higher values of variable <span class="math inline">\(X\)</span> tend to correspond with higher values of variable <span class="math inline">\(Y\)</span>, their covariance is positive. Conversely, if higher values of <span class="math inline">\(X\)</span> correspond with lower values of <span class="math inline">\(Y\)</span>, their covariance is negative.</p>
+<section id="mathematical-formulation" class="level2">
+<h2 class="anchored" data-anchor-id="mathematical-formulation">Mathematical Formulation</h2>
+<p>For a population of pairs <span class="math inline">\((X, Y)\)</span>, the <strong>population covariance</strong> <span class="math inline">\(\sigma_{xy}\)</span> is defined as the expected value of the product of their deviations from their respective means:</p>
+<p><span class="math display">\[
+\sigma_{xy} = \mathrm{Cov}(X,Y) = \mathbb{E}\left[(X - \mu_X)(Y - \mu_Y)\right]
+\]</span></p>
+<p>Given a random sample of <span class="math inline">\(n\)</span> paired observations <span class="math inline">\((x_1, y_1), (x_2, y_2), \dots, (x_n, y_n)\)</span>, the <strong>sample covariance</strong> <span class="math inline">\(s_{xy}\)</span> is calculated as:</p>
+<p><span class="math display">\[
+s_{xy} = \frac{\sum_{i=1}^n (x_i - \bar{x})(y_i - \bar{y})}{n - 1}
+\]</span></p>
+<p>where:</p>
+<ul>
+<li><span class="math inline">\(\bar{x} = \frac{1}{n}\sum_{i=1}^n x_i\)</span> is the sample mean of <span class="math inline">\(X\)</span></li>
+<li><span class="math inline">\(\bar{y} = \frac{1}{n}\sum_{i=1}^n y_i\)</span> is the sample mean of <span class="math inline">\(Y\)</span></li>
+<li><span class="math inline">\(n - 1\)</span> is the degrees of freedom adjustment for sample estimation.</li>
+</ul>
+</section>
+<section id="step-by-step-calculation-example" class="level2">
+<h2 class="anchored" data-anchor-id="step-by-step-calculation-example">Step-by-Step Calculation Example</h2>
+<p>Suppose we observe the weekly study hours (<span class="math inline">\(X\)</span>) and midterm test scores (<span class="math inline">\(Y\)</span>) for <span class="math inline">\(n = 5\)</span> students:</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th style="text-align: center;">Student (<span class="math inline">\(i\)</span>)</th>
+<th style="text-align: center;">Study Hours (<span class="math inline">\(x_i\)</span>)</th>
+<th style="text-align: center;">Test Score (<span class="math inline">\(y_i\)</span>)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">55</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">65</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">6</td>
+<td style="text-align: center;">70</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">8</td>
+<td style="text-align: center;">85</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">10</td>
+<td style="text-align: center;">90</td>
+</tr>
+</tbody>
+</table>
+<section id="compute-sample-means" class="level3">
+<h3 class="anchored" data-anchor-id="compute-sample-means">1. Compute Sample Means</h3>
+<p><span class="math display">\[
+\bar{x} = \frac{2 + 4 + 6 + 8 + 10}{5} = 6
+\]</span></p>
+<p><span class="math display">\[
+\bar{y} = \frac{55 + 65 + 70 + 85 + 90}{5} = 73
+\]</span></p>
+</section>
+<section id="deviations-and-products-table" class="level3">
+<h3 class="anchored" data-anchor-id="deviations-and-products-table">2. Deviations and Products Table</h3>
+<table class="table">
+<colgroup>
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;"><span class="math inline">\(i\)</span></th>
+<th style="text-align: center;"><span class="math inline">\(x_i\)</span></th>
+<th style="text-align: center;"><span class="math inline">\(y_i\)</span></th>
+<th style="text-align: center;"><span class="math inline">\((x_i - \bar{x})\)</span></th>
+<th style="text-align: center;"><span class="math inline">\((y_i - \bar{y})\)</span></th>
+<th style="text-align: center;"><span class="math inline">\((x_i - \bar{x})(y_i - \bar{y})\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">55</td>
+<td style="text-align: center;"><span class="math inline">\(2 - 6 = -4\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(55 - 73 = -18\)</span></td>
+<td style="text-align: center;"><span class="math inline">\((-4) \times (-18) = 72\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">65</td>
+<td style="text-align: center;"><span class="math inline">\(4 - 6 = -2\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(65 - 73 = -8\)</span></td>
+<td style="text-align: center;"><span class="math inline">\((-2) \times (-8) = 16\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">6</td>
+<td style="text-align: center;">70</td>
+<td style="text-align: center;"><span class="math inline">\(6 - 6 = 0\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(70 - 73 = -3\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(0 \times (-3) = 0\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">8</td>
+<td style="text-align: center;">85</td>
+<td style="text-align: center;"><span class="math inline">\(8 - 6 = 2\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(85 - 73 = 12\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(2 \times 12 = 24\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">10</td>
+<td style="text-align: center;">90</td>
+<td style="text-align: center;"><span class="math inline">\(10 - 6 = 4\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(90 - 73 = 17\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(4 \times 17 = 68\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><strong>Sum</strong></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><strong>180</strong></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="compute-sample-covariance" class="level3">
+<h3 class="anchored" data-anchor-id="compute-sample-covariance">3. Compute Sample Covariance</h3>
+<p><span class="math display">\[
+s_{xy} = \frac{\sum_{i=1}^n (x_i - \bar{x})(y_i - \bar{y})}{n - 1} = \frac{180}{5 - 1} = \frac{180}{4} = 45
+\]</span></p>
+</section>
+</section>
+<section id="interpretation-limitations" class="level2">
+<h2 class="anchored" data-anchor-id="interpretation-limitations">Interpretation &amp; Limitations</h2>
+<ul>
+<li><strong>Positive Covariance (<span class="math inline">\(s_{xy} &gt; 0\)</span>):</strong> Indicates that above-average values of <span class="math inline">\(X\)</span> tend to associate with above-average values of <span class="math inline">\(Y\)</span>.</li>
+<li><strong>Negative Covariance (<span class="math inline">\(s_{xy} &lt; 0\)</span>):</strong> Indicates an inverse relationship where above-average values of <span class="math inline">\(X\)</span> associate with below-average values of <span class="math inline">\(Y\)</span>.</li>
+<li><strong>Zero Covariance (<span class="math inline">\(s_{xy} \approx 0\)</span>):</strong> Indicates no linear co-movement between <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>.</li>
+</ul>
+<section id="major-limitation-of-covariance" class="level3">
+<h3 class="anchored" data-anchor-id="major-limitation-of-covariance">Major Limitation of Covariance</h3>
+<p>The numerical magnitude of covariance depends entirely on the <strong>measurement units</strong> of <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>.</p>
+<p>For example, if study hours are converted to study <em>minutes</em> (<span class="math inline">\(X \times 60\)</span>), the covariance increases by a factor of 60 (<span class="math inline">\(s_{xy} = 2700\)</span>), even though the strength of the underlying relationship remains identical!</p>
+<p>Because covariance is unbounded (<span class="math inline">\(-\infty &lt; s_{xy} &lt; \infty\)</span>), it cannot tell us <strong>how strong</strong> the association is. To solve this limitation, we standardize covariance to obtain the <strong>Correlation Coefficient</strong>.</p>
+<hr>
+</section>
+</section>
+</section>
+<section id="concept-of-correlation" class="level1">
+<h1>2. Concept of Correlation</h1>
+<p>Correlation is a standardized measure of bivariate association. By dividing the sample covariance by the product of the sample standard deviations of <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>, the metric is scaled into a universal range between <strong><span class="math inline">\(-1.0\)</span> and <span class="math inline">\(+1.0\)</span></strong>.</p>
+<p><span class="math display">\[
+-1.0 \le r \le +1.0
+\]</span></p>
+<p>Depending on the scale of measurement, underlying distributional assumptions, and linearity of the data, statisticians use three primary correlation coefficients:</p>
+<ol type="1">
+<li><strong>Pearson’s Product-Moment Correlation (<span class="math inline">\(r\)</span>)</strong></li>
+<li><strong>Kendall’s Tau (<span class="math inline">\(\tau\)</span>)</strong></li>
+<li><strong>Spearman’s Rank Correlation (<span class="math inline">\(\rho\)</span>)</strong></li>
+</ol>
+<hr>
+<section id="pearson-correlation-coefficient-r" class="level2">
+<h2 class="anchored" data-anchor-id="pearson-correlation-coefficient-r">2.1 Pearson Correlation Coefficient (<span class="math inline">\(r\)</span>)</h2>
+<section id="concept" class="level3">
+<h3 class="anchored" data-anchor-id="concept">Concept</h3>
+<p>Pearson’s correlation coefficient evaluates the <strong>linear relationship</strong> between two continuous, normally distributed variables. It measures how closely sample points cluster around a straight trendline.</p>
+</section>
+<section id="formula" class="level3">
+<h3 class="anchored" data-anchor-id="formula">Formula</h3>
+<p>The sample Pearson correlation coefficient <span class="math inline">\(r\)</span> is defined as:</p>
+<p><span class="math display">\[
+r = \frac{s_{xy}}{s_x s_y} = \frac{\sum_{i=1}^n (x_i - \bar{x})(y_i - \bar{y})}{\sqrt{\sum_{i=1}^n (x_i - \bar{x})^2 \sum_{i=1}^n (y_i - \bar{y})^2}}
+\]</span></p>
+<p>where <span class="math inline">\(s_x\)</span> and <span class="math inline">\(s_y\)</span> are the sample standard deviations of <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>, respectively:</p>
+<p><span class="math display">\[
+s_x = \sqrt{\frac{\sum_{i=1}^n (x_i - \bar{x})^2}{n-1}}, \quad s_y = \sqrt{\frac{\sum_{i=1}^n (y_i - \bar{y})^2}{n-1}}
+\]</span></p>
+</section>
+<section id="interpretation" class="level3">
+<h3 class="anchored" data-anchor-id="interpretation">Interpretation</h3>
+<ul>
+<li><strong><span class="math inline">\(r = +1.0\)</span>:</strong> Perfect positive linear relationship.</li>
+<li><strong><span class="math inline">\(r = +0.7 \text{ to } +0.9\)</span>:</strong> Strong positive linear relationship.</li>
+<li><strong><span class="math inline">\(r = +0.3 \text{ to } +0.6\)</span>:</strong> Moderate positive linear relationship.</li>
+<li><strong><span class="math inline">\(r = 0.0\)</span>:</strong> No linear association.</li>
+<li><strong><span class="math inline">\(r = -0.3 \text{ to } -0.6\)</span>:</strong> Moderate negative linear relationship.</li>
+<li><strong><span class="math inline">\(r = -0.7 \text{ to } -0.9\)</span>:</strong> Strong negative linear relationship.</li>
+<li><strong><span class="math inline">\(r = -1.0\)</span>:</strong> Perfect negative linear relationship.</li>
+</ul>
+<blockquote class="blockquote">
+<p><strong>Note:</strong> <span class="math inline">\(r = 0\)</span> implies no <em>linear</em> relationship, but a strong non-linear (e.g., U-shaped or quadratic) relationship may still exist!</p>
+</blockquote>
+</section>
+<section id="hypothesis-testing-for-pearsons-r" class="level3">
+<h3 class="anchored" data-anchor-id="hypothesis-testing-for-pearsons-r">Hypothesis Testing for Pearson’s <span class="math inline">\(r\)</span></h3>
+<p>To test whether an observed sample correlation coefficient <span class="math inline">\(r\)</span> reflects a true non-zero linear relationship in the population (<span class="math inline">\(\rho\)</span>):</p>
+<section id="hypotheses" class="level4">
+<h4 class="anchored" data-anchor-id="hypotheses">1. Hypotheses</h4>
+<ul>
+<li><strong>Null Hypothesis (<span class="math inline">\(H_0\)</span>):</strong> <span class="math inline">\(\rho = 0\)</span> (No linear relationship in the population)</li>
+<li><strong>Alternative Hypothesis (<span class="math inline">\(H_1\)</span>):</strong> <span class="math inline">\(\rho \neq 0\)</span> (Two-tailed test for linear relationship)</li>
+</ul>
+</section>
+<section id="test-statistic" class="level4">
+<h4 class="anchored" data-anchor-id="test-statistic">2. Test Statistic</h4>
+<p>Under the assumption that <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> follow a bivariate normal distribution, the test statistic follows a <strong>Student’s <span class="math inline">\(t\)</span>-distribution</strong> with <span class="math inline">\(df = n - 2\)</span> degrees of freedom:</p>
+<p><span class="math display">\[
+t = \frac{r \sqrt{n - 2}}{\sqrt{1 - r^2}} \sim t_{n-2}
+\]</span></p>
+</section>
+<section id="decision-rule" class="level4">
+<h4 class="anchored" data-anchor-id="decision-rule">3. Decision Rule</h4>
+<p>At significance level <span class="math inline">\(\alpha = 0.05\)</span>: * Reject <span class="math inline">\(H_0\)</span> if <span class="math inline">\(|t| &gt; t_{\alpha/2, n-2}\)</span> or if the <span class="math inline">\(p\)</span>-value <span class="math inline">\(&lt; \alpha\)</span>. * Conclude that there is a statistically significant linear correlation between <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>.</p>
+</section>
+</section>
+<section id="graphical-demonstration-of-different-correlation-values" class="level3">
+<h3 class="anchored" data-anchor-id="graphical-demonstration-of-different-correlation-values">Graphical Demonstration of Different Correlation Values</h3>
+<p>The plots below illustrate synthetic datasets with varying Pearson correlation values:</p>
+<div class="cell">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid figure-img" width="960"></p>
+<figcaption>Simulated scatterplots demonstrating various Pearson correlation coefficient values (<span class="math inline">\(r\)</span>).</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<hr>
+</section>
+</section>
+<section id="kendalls-tau-tau" class="level2">
+<h2 class="anchored" data-anchor-id="kendalls-tau-tau">2.2 Kendall’s Tau (<span class="math inline">\(\tau\)</span>)</h2>
+<section id="what-is-it" class="level3">
+<h3 class="anchored" data-anchor-id="what-is-it">What is it?</h3>
+<p>Kendall’s rank correlation coefficient (<span class="math inline">\(\tau\)</span>) is a <strong>non-parametric statistic</strong> that measures the strength of monotonic association between two ordinal or continuous variables.</p>
+<p>Instead of measuring precise numerical distances like Pearson’s <span class="math inline">\(r\)</span>, Kendall’s tau evaluates whether pairs of data points move in the same relative rank direction (<strong>concordance</strong>) or opposite rank directions (<strong>discordance</strong>).</p>
+</section>
+<section id="concordant-vs.-discordant-pairs" class="level3">
+<h3 class="anchored" data-anchor-id="concordant-vs.-discordant-pairs">Concordant vs.&nbsp;Discordant Pairs</h3>
+<p>Consider two paired observations <span class="math inline">\((x_i, y_i)\)</span> and <span class="math inline">\((x_j, y_j)\)</span>: * <strong>Concordant Pair:</strong> If <span class="math inline">\(x_i &gt; x_j\)</span> and <span class="math inline">\(y_i &gt; y_j\)</span>, or <span class="math inline">\(x_i &lt; x_j\)</span> and <span class="math inline">\(y_i &lt; y_j\)</span>. (The rank order of <span class="math inline">\(X\)</span> matches the rank order of <span class="math inline">\(Y\)</span>). * <strong>Discordant Pair:</strong> If <span class="math inline">\(x_i &gt; x_j\)</span> and <span class="math inline">\(y_i &lt; y_j\)</span>, or <span class="math inline">\(x_i &lt; x_j\)</span> and <span class="math inline">\(y_i &gt; y_j\)</span>. (The rank order of <span class="math inline">\(X\)</span> is opposite to <span class="math inline">\(Y\)</span>). * <strong>Tied Pair:</strong> If <span class="math inline">\(x_i = x_j\)</span> or <span class="math inline">\(y_i = y_j\)</span>.</p>
+</section>
+<section id="when-to-use-kendalls-tau" class="level3">
+<h3 class="anchored" data-anchor-id="when-to-use-kendalls-tau">When to Use Kendall’s Tau?</h3>
+<ol type="1">
+<li><strong>Ordinal Data:</strong> When variables are measured on an ordinal scale (e.g., Likert scales, rankings).</li>
+<li><strong>Small Sample Sizes:</strong> Kendall’s tau has superior statistical properties and lower error rates in small samples compared to Spearman’s rho.</li>
+<li><strong>Presence of Tied Ranks:</strong> Variant <span class="math inline">\(\tau_b\)</span> explicitly handles ties in data rankings.</li>
+<li><strong>Violations of Normality:</strong> Non-parametric approach that requires no normality assumption.</li>
+</ol>
+</section>
+<section id="formula-1" class="level3">
+<h3 class="anchored" data-anchor-id="formula-1">Formula</h3>
+<p>For <span class="math inline">\(n\)</span> observations, the total number of unique pairs is <span class="math inline">\(\binom{n}{2} = \frac{n(n-1)}{2}\)</span>.</p>
+<p>When there are no tied ranks, <strong>Kendall’s Tau-a</strong> is:</p>
+<p><span class="math display">\[
+\tau = \frac{C - D}{\frac{1}{2} n (n - 1)} = \frac{C - D}{C + D}
+\]</span></p>
+<p>where: * <span class="math inline">\(C\)</span> = Number of concordant pairs * <span class="math inline">\(D\)</span> = Number of discordant pairs</p>
+<p>When ties exist, <strong>Kendall’s Tau-b</strong> is adjusted:</p>
+<p><span class="math display">\[
+\tau_b = \frac{C - D}{\sqrt{\left(C + D + T_x\right) \left(C + D + T_y\right)}}
+\]</span></p>
+<p>where <span class="math inline">\(T_x\)</span> and <span class="math inline">\(T_y\)</span> represent ties in <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>, respectively.</p>
+</section>
+<section id="hypothesis-testing-for-kendalls-tau" class="level3">
+<h3 class="anchored" data-anchor-id="hypothesis-testing-for-kendalls-tau">Hypothesis Testing for Kendall’s <span class="math inline">\(\tau\)</span></h3>
+<section id="hypotheses-1" class="level4">
+<h4 class="anchored" data-anchor-id="hypotheses-1">1. Hypotheses</h4>
+<ul>
+<li><strong>Null Hypothesis (<span class="math inline">\(H_0\)</span>):</strong> <span class="math inline">\(\tau = 0\)</span> (No monotonic association between <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>)</li>
+<li><strong>Alternative Hypothesis (<span class="math inline">\(H_1\)</span>):</strong> <span class="math inline">\(\tau \neq 0\)</span> (Monotonic association exists)</li>
+</ul>
+</section>
+<section id="test-statistic-large-sample-approximation" class="level4">
+<h4 class="anchored" data-anchor-id="test-statistic-large-sample-approximation">2. Test Statistic (Large Sample Approximation)</h4>
+<p>For sample sizes <span class="math inline">\(n &gt; 10\)</span>, the test statistic <span class="math inline">\(Z\)</span> follows an approximate standard normal distribution under <span class="math inline">\(H_0\)</span>:</p>
+<p><span class="math display">\[
+Z = \frac{3 \tau \sqrt{n(n - 1)}}{\sqrt{2(2n + 5)}} \sim N(0, 1)
+\]</span></p>
+</section>
+</section>
+<section id="graphical-demonstration-of-monotonic-vs.-linear-relationships" class="level3">
+<h3 class="anchored" data-anchor-id="graphical-demonstration-of-monotonic-vs.-linear-relationships">Graphical Demonstration of Monotonic vs.&nbsp;Linear Relationships</h3>
+<div class="cell">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="864"></p>
+<figcaption>Simulated non-linear monotonic data comparing Pearson’s r vs Kendall’s tau.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<hr>
+</section>
+</section>
+<section id="spearmans-rho-rho" class="level2">
+<h2 class="anchored" data-anchor-id="spearmans-rho-rho">2.3 Spearman’s Rho (<span class="math inline">\(\rho\)</span>)</h2>
+<section id="what-is-it-1" class="level3">
+<h3 class="anchored" data-anchor-id="what-is-it-1">What is it?</h3>
+<p>Spearman’s rank correlation coefficient (<span class="math inline">\(r_s\)</span> or <span class="math inline">\(\rho\)</span>) is a non-parametric statistic that measures the strength and direction of a <strong>monotonic relationship</strong> between two ranked variables.</p>
+<p>Technically, Spearman’s <span class="math inline">\(\rho\)</span> is equivalent to calculating Pearson’s correlation coefficient <span class="math inline">\(r\)</span> directly on the <strong>ranked values</strong> of <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> rather than raw scores.</p>
+</section>
+<section id="when-to-use-spearmans-rho" class="level3">
+<h3 class="anchored" data-anchor-id="when-to-use-spearmans-rho">When to Use Spearman’s Rho?</h3>
+<ol type="1">
+<li><strong>Non-linear Monotonic Data:</strong> When variables increase or decrease together, but not necessarily at a constant linear rate.</li>
+<li><strong>Ordinal Scale Data:</strong> Ranking variables (e.g., student class rank vs test performance).</li>
+<li><strong>Outliers Present:</strong> Because Spearman operates on ranks, extreme outliers have a constrained effect on ranks compared to raw values.</li>
+<li><strong>Non-normal Continuous Variables:</strong> Avoids linear and normality assumptions required by Pearson.</li>
+</ol>
+</section>
+<section id="formula-2" class="level3">
+<h3 class="anchored" data-anchor-id="formula-2">Formula</h3>
+<p>Let <span class="math inline">\(R(x_i)\)</span> and <span class="math inline">\(R(y_i)\)</span> be the ranks of <span class="math inline">\(x_i\)</span> and <span class="math inline">\(y_i\)</span>. Define <span class="math inline">\(d_i = R(x_i) - R(y_i)\)</span> as the difference between the ranks for observation <span class="math inline">\(i\)</span>.</p>
+<p>If there are <strong>no tied ranks</strong>, Spearman’s coefficient is given by the exact formula:</p>
+<p><span class="math display">\[
+r_s = 1 - \frac{6 \sum_{i=1}^n d_i^2}{n(n^2 - 1)}
+\]</span></p>
+<p>If tied ranks are present, ranks are averaged, and Pearson’s formula is computed on the ranks <span class="math inline">\(R(x)\)</span> and <span class="math inline">\(R(y)\)</span>:</p>
+<p><span class="math display">\[
+r_s = \frac{\sum_{i=1}^n (R(x_i) - \bar{R}_x)(R(y_i) - \bar{R}_y)}{\sqrt{\sum_{i=1}^n (R(x_i) - \bar{R}_x)^2 \sum_{i=1}^n (R(y_i) - \bar{R}_y)^2}}
+\]</span></p>
+</section>
+<section id="hypothesis-testing-for-spearmans-rho" class="level3">
+<h3 class="anchored" data-anchor-id="hypothesis-testing-for-spearmans-rho">Hypothesis Testing for Spearman’s <span class="math inline">\(\rho\)</span></h3>
+<section id="hypotheses-2" class="level4">
+<h4 class="anchored" data-anchor-id="hypotheses-2">1. Hypotheses</h4>
+<ul>
+<li><strong>Null Hypothesis (<span class="math inline">\(H_0\)</span>):</strong> <span class="math inline">\(\rho_s = 0\)</span> (No monotonic correlation in the population)</li>
+<li><strong>Alternative Hypothesis (<span class="math inline">\(H_1\)</span>):</strong> <span class="math inline">\(\rho_s \neq 0\)</span> (Monotonic correlation exists)</li>
+</ul>
+</section>
+<section id="test-statistic-1" class="level4">
+<h4 class="anchored" data-anchor-id="test-statistic-1">2. Test Statistic</h4>
+<p>For sample sizes <span class="math inline">\(n \ge 10\)</span>, the test statistic uses Student’s <span class="math inline">\(t\)</span>-distribution with <span class="math inline">\(df = n - 2\)</span>:</p>
+<p><span class="math display">\[
+t = \frac{r_s \sqrt{n - 2}}{\sqrt{1 - r_s^2}} \sim t_{n-2}
+\]</span></p>
+<p>For small sample sizes (<span class="math inline">\(n &lt; 10\)</span>), exact critical values tables for Spearman’s <span class="math inline">\(r_s\)</span> are used.</p>
+</section>
+</section>
+<section id="graphical-demonstration-outlier-robustness-of-spearman-vs.-pearson" class="level3">
+<h3 class="anchored" data-anchor-id="graphical-demonstration-outlier-robustness-of-spearman-vs.-pearson">Graphical Demonstration: Outlier Robustness of Spearman vs.&nbsp;Pearson</h3>
+<div class="cell">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="864"></p>
+<figcaption>Demonstrating how a single extreme outlier severely distorts Pearson’s r, while Spearman’s rho remains robust.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<hr>
+</section>
+</section>
+</section>
+<section id="how-correlation-can-be-misleading-the-datasaurus-dozen" class="level1">
+<h1>3. How Correlation Can Be Misleading: The Datasaurus Dozen</h1>
+<p>A common pitfall in empirical data analysis is relying solely on summary statistics—such as means, standard deviations, and correlation coefficients—without plotting the underlying distribution.</p>
+<p>To illustrate this danger, Alberto Cairo created the famous <strong>Datasaurus Dozen</strong> dataset (available in R via the <code>datasauRus</code> package).</p>
+<section id="summary-statistics-comparison" class="level2">
+<h2 class="anchored" data-anchor-id="summary-statistics-comparison">Summary Statistics Comparison</h2>
+<p>Let us compute summary statistics across 12 distinct datasets in <code>datasauRus</code>:</p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="table table-sm table-striped small">
+<colgroup>
+<col style="width: 18%">
+<col style="width: 13%">
+<col style="width: 10%">
+<col style="width: 13%">
+<col style="width: 10%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Dataset Name</th>
+<th style="text-align: center;">Mean (X)</th>
+<th style="text-align: center;">SD (X)</th>
+<th style="text-align: center;">Mean (Y)</th>
+<th style="text-align: center;">SD (Y)</th>
+<th style="text-align: center;">Pearson Correlation (r)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">away</td>
+<td style="text-align: center;">54.27</td>
+<td style="text-align: center;">16.77</td>
+<td style="text-align: center;">47.83</td>
+<td style="text-align: center;">26.94</td>
+<td style="text-align: center;">-0.06</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">bullseye</td>
+<td style="text-align: center;">54.27</td>
+<td style="text-align: center;">16.77</td>
+<td style="text-align: center;">47.83</td>
+<td style="text-align: center;">26.94</td>
+<td style="text-align: center;">-0.07</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">circle</td>
+<td style="text-align: center;">54.27</td>
+<td style="text-align: center;">16.76</td>
+<td style="text-align: center;">47.84</td>
+<td style="text-align: center;">26.93</td>
+<td style="text-align: center;">-0.07</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">dino</td>
+<td style="text-align: center;">54.26</td>
+<td style="text-align: center;">16.77</td>
+<td style="text-align: center;">47.83</td>
+<td style="text-align: center;">26.94</td>
+<td style="text-align: center;">-0.06</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">dots</td>
+<td style="text-align: center;">54.26</td>
+<td style="text-align: center;">16.77</td>
+<td style="text-align: center;">47.84</td>
+<td style="text-align: center;">26.93</td>
+<td style="text-align: center;">-0.06</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">h_lines</td>
+<td style="text-align: center;">54.26</td>
+<td style="text-align: center;">16.77</td>
+<td style="text-align: center;">47.83</td>
+<td style="text-align: center;">26.94</td>
+<td style="text-align: center;">-0.06</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">high_lines</td>
+<td style="text-align: center;">54.27</td>
+<td style="text-align: center;">16.77</td>
+<td style="text-align: center;">47.84</td>
+<td style="text-align: center;">26.94</td>
+<td style="text-align: center;">-0.07</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">slant_down</td>
+<td style="text-align: center;">54.27</td>
+<td style="text-align: center;">16.77</td>
+<td style="text-align: center;">47.84</td>
+<td style="text-align: center;">26.94</td>
+<td style="text-align: center;">-0.07</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">slant_up</td>
+<td style="text-align: center;">54.27</td>
+<td style="text-align: center;">16.77</td>
+<td style="text-align: center;">47.83</td>
+<td style="text-align: center;">26.94</td>
+<td style="text-align: center;">-0.07</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">star</td>
+<td style="text-align: center;">54.27</td>
+<td style="text-align: center;">16.77</td>
+<td style="text-align: center;">47.84</td>
+<td style="text-align: center;">26.93</td>
+<td style="text-align: center;">-0.06</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">v_lines</td>
+<td style="text-align: center;">54.27</td>
+<td style="text-align: center;">16.77</td>
+<td style="text-align: center;">47.84</td>
+<td style="text-align: center;">26.94</td>
+<td style="text-align: center;">-0.07</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">wide_lines</td>
+<td style="text-align: center;">54.27</td>
+<td style="text-align: center;">16.77</td>
+<td style="text-align: center;">47.83</td>
+<td style="text-align: center;">26.94</td>
+<td style="text-align: center;">-0.07</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">x_shape</td>
+<td style="text-align: center;">54.26</td>
+<td style="text-align: center;">16.77</td>
+<td style="text-align: center;">47.84</td>
+<td style="text-align: center;">26.93</td>
+<td style="text-align: center;">-0.07</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<blockquote class="blockquote">
+<p><strong>Key Observation:</strong> Across all 12 datasets, the summary statistics are virtually identical: * <span class="math inline">\(\text{Mean}(X) \approx 54.26\)</span> * <span class="math inline">\(\text{Mean}(Y) \approx 47.83\)</span> * <span class="math inline">\(\text{SD}(X) \approx 16.76\)</span> * <span class="math inline">\(\text{SD}(Y) \approx 26.93\)</span> * <span class="math inline">\(\text{Pearson Correlation } r \approx -0.06\)</span></p>
+</blockquote>
+<p>If we only reported these statistical metrics, we would conclude that all 12 datasets represent the exact same weak, slightly negative relationship.</p>
+</section>
+<section id="graphical-revelation" class="level2">
+<h2 class="anchored" data-anchor-id="graphical-revelation">Graphical Revelation</h2>
+<p>However, when we <strong>visualize</strong> the data with scatterplots, the stark reality is revealed:</p>
+<div class="cell">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="1056"></p>
+<figcaption>The Datasaurus Dozen: 12 wildly different scatterplots sharing identical means, standard deviations, and Pearson correlation coefficient (r = -0.06).</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<section id="lesson-for-data-analysts" class="level3">
+<h3 class="anchored" data-anchor-id="lesson-for-data-analysts">Lesson for Data Analysts</h3>
+<ol type="1">
+<li><strong>Never judge a dataset by summary statistics alone.</strong></li>
+<li><strong>Always plot your raw data</strong> before calculating summary metrics or running regression models.</li>
+<li>Anscombe’s Quartet and the Datasaurus Dozen demonstrate that identical correlation values (<span class="math inline">\(r = -0.06\)</span>) can arise from a Dinosaur shape, concentric circles, star shapes, or grid structures!</li>
+</ol>
+<hr>
+</section>
+</section>
+</section>
+<section id="conclusion-correlation-is-not-causation" class="level1">
+<h1>4. Conclusion: Correlation Is NOT Causation</h1>
+<p>The golden rule of statistics and scientific reasoning is:</p>
+<blockquote class="blockquote">
+<p><strong>“Correlation implies association, but correlation does NOT imply causation.”</strong></p>
+</blockquote>
+<p>Finding a strong, statistically significant correlation between variable <span class="math inline">\(X\)</span> and variable <span class="math inline">\(Y\)</span> (<span class="math inline">\(r \approx \pm 1, p &lt; 0.001\)</span>) simply means that <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> co-vary together. It provides <strong>zero proof</strong> that <span class="math inline">\(X\)</span> causes <span class="math inline">\(Y\)</span>.</p>
+<section id="why-correlation-neq-causation" class="level2">
+<h2 class="anchored" data-anchor-id="why-correlation-neq-causation">Why Correlation <span class="math inline">\(\neq\)</span> Causation</h2>
+<p>There are four primary reasons why two variables may be strongly correlated without a direct causal mechanism:</p>
+<section id="spurious-correlation-coincidence" class="level3">
+<h3 class="anchored" data-anchor-id="spurious-correlation-coincidence">1. Spurious Correlation &amp; Coincidence</h3>
+<p>With thousands of global variables tracked over time, many variables move together purely by chance.</p>
+<ul>
+<li><strong>Classic Example:</strong> The total annual revenue generated by arcade games correlates almost perfectly (<span class="math inline">\(r = 0.98\)</span>) with computer science doctorates awarded in the US. However, playing arcade games does not grant a PhD!</li>
+</ul>
+</section>
+<section id="confounding-third-variable-problem-z-to-x-and-z-to-y" class="level3">
+<h3 class="anchored" data-anchor-id="confounding-third-variable-problem-z-to-x-and-z-to-y">2. Confounding / Third-Variable Problem (<span class="math inline">\(Z \to X\)</span> and <span class="math inline">\(Z \to Y\)</span>)</h3>
+<p>An unobserved third variable <span class="math inline">\(Z\)</span> (a <strong>confounder</strong>) causes changes in both <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> simultaneously, creating an artificial correlation between <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>.</p>
+<pre><code>       [ Confounder Z ] (e.g., Summer Temperature)
+          /         \
+         v           v
+[ Ice Cream Sales X ] [ Drowning Incidents Y ]</code></pre>
+<ul>
+<li><strong>Example:</strong> Ice cream consumption (<span class="math inline">\(X\)</span>) is strongly positively correlated with drowning incidents (<span class="math inline">\(Y\)</span>).</li>
+<li><strong>The Reality:</strong> Eating ice cream does not cause drowning. The underlying confounder is <strong>outdoor temperature (<span class="math inline">\(Z\)</span>)</strong>. On warm summer days, more people buy ice cream and more people go swimming, leading to higher drowning risks.</li>
+</ul>
+</section>
+<section id="reverse-causality-y-to-x" class="level3">
+<h3 class="anchored" data-anchor-id="reverse-causality-y-to-x">3. Reverse Causality (<span class="math inline">\(Y \to X\)</span>)</h3>
+<p>We may hypothesize that <span class="math inline">\(X \to Y\)</span>, when in fact <span class="math inline">\(Y\)</span> is causing <span class="math inline">\(X\)</span>.</p>
+<ul>
+<li><strong>Example:</strong> A strong positive correlation exists between taking anxiety medication (<span class="math inline">\(X\)</span>) and reported anxiety levels (<span class="math inline">\(Y\)</span>).</li>
+<li><strong>The Reality:</strong> The medication does not cause anxiety; rather, experiencing high anxiety causes individuals to seek medication.</li>
+</ul>
+</section>
+<section id="bidirectional-feedback-loops" class="level3">
+<h3 class="anchored" data-anchor-id="bidirectional-feedback-loops">4. Bidirectional / Feedback Loops</h3>
+<p><span class="math inline">\(X\)</span> causes <span class="math inline">\(Y\)</span>, but <span class="math inline">\(Y\)</span> also simultaneously causes <span class="math inline">\(X\)</span> in a dynamic feedback loop.</p>
+<ul>
+<li><strong>Example:</strong> Academic confidence (<span class="math inline">\(X\)</span>) and academic performance (<span class="math inline">\(Y\)</span>) reinforce one another over time.</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="how-to-establish-causation-in-scientific-research" class="level2">
+<h2 class="anchored" data-anchor-id="how-to-establish-causation-in-scientific-research">How to Establish Causation in Scientific Research</h2>
+<p>If correlation is insufficient, how do scientists establish true causal links?</p>
+<table class="table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Method</th>
+<th style="text-align: left;">Mechanism for Establishing Causality</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>Randomized Controlled Trials (RCTs)</strong></td>
+<td style="text-align: left;">Randomly assigning participants to treatment vs.&nbsp;control groups eliminates confounding variables (<span class="math inline">\(Z\)</span>).</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Natural Experiments</strong></td>
+<td style="text-align: left;">Utilizing exogenous shocks or policy changes that isolate variation in <span class="math inline">\(X\)</span>.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Instrumental Variables (IV)</strong></td>
+<td style="text-align: left;">Using an instrument <span class="math inline">\(Z\)</span> that influences <span class="math inline">\(X\)</span> but affects <span class="math inline">\(Y\)</span> <em>only</em> through <span class="math inline">\(X\)</span>.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Causal Graphs (DAGs)</strong></td>
+<td style="text-align: left;">Mapping causal structures using Directed Acyclic Graphs and Structural Equation Models.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Granger Causality &amp; Time Lagging</strong></td>
+<td style="text-align: left;">Testing whether past values of <span class="math inline">\(X\)</span> contain unique predictive information about future values of <span class="math inline">\(Y\)</span>.</td>
+</tr>
+</tbody>
+</table>
+<section id="summary-matrix" class="level3">
+<h3 class="anchored" data-anchor-id="summary-matrix">Summary Matrix</h3>
+<table class="table">
+<colgroup>
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 20%">
+<col style="width: 16%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Metric</th>
+<th style="text-align: left;">Type</th>
+<th style="text-align: left;">Scale Requirement</th>
+<th style="text-align: left;">Measures</th>
+<th style="text-align: center;">Robust to Outliers?</th>
+<th style="text-align: left;">Formula / Basis</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>Covariance (<span class="math inline">\(s_{xy}\)</span>)</strong></td>
+<td style="text-align: left;">Unstandardized</td>
+<td style="text-align: left;">Continuous</td>
+<td style="text-align: left;">Unbounded linear co-movement</td>
+<td style="text-align: center;">No</td>
+<td style="text-align: left;"><span class="math inline">\(\frac{\sum (x - \bar{x})(y - \bar{y})}{n - 1}\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Pearson’s <span class="math inline">\(r\)</span></strong></td>
+<td style="text-align: left;">Parametric</td>
+<td style="text-align: left;">Continuous</td>
+<td style="text-align: left;">Linear relationship <span class="math inline">\([-1, +1]\)</span></td>
+<td style="text-align: center;">No</td>
+<td style="text-align: left;"><span class="math inline">\(\frac{s_{xy}}{s_x s_y}\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Kendall’s <span class="math inline">\(\tau\)</span></strong></td>
+<td style="text-align: left;">Non-parametric</td>
+<td style="text-align: left;">Ordinal / Continuous</td>
+<td style="text-align: left;">Concordant vs discordant pairs</td>
+<td style="text-align: center;">Yes</td>
+<td style="text-align: left;"><span class="math inline">\(\frac{C - D}{\frac{1}{2}n(n-1)}\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Spearman’s <span class="math inline">\(\rho\)</span></strong></td>
+<td style="text-align: left;">Non-parametric</td>
+<td style="text-align: left;">Ordinal / Continuous</td>
+<td style="text-align: left;">Monotonic rank relationship</td>
+<td style="text-align: center;">Yes</td>
+<td style="text-align: left;"><span class="math inline">\(1 - \frac{6\sum d_i^2}{n(n^2-1)}\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>By combining rigorous statistical metrics with visual exploration and sound experimental design, researchers can accurately understand data relationships without falling victim to spurious conclusions.</p>
+
+
+</section>
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/adsheilbronn\.github\.io\/");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
