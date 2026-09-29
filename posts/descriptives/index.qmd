@@ -1,9 +1,20 @@
 ---
-title: "Descriptive statistics"
+title: "Hypothesis Testing"
 author: "Haseeb Mahmud"
-date: "2026-09-26"
+date: "2026-09-28"
 categories: [Statistics]
 image: "image.jpg"
+toc: true
+toc-depth: 3
+execute:
+  warning: false
+  message: false
+format:
+  html:
+    code-fold: false
+    fig-width: 8
+    fig-height: 5
+    fig-align: center
 ---
 
 # Measures of central Tendency
@@ -391,9 +402,9 @@ p2 <- ggplot(df_stacked, aes(x = Department, y = Count, fill = Satisfaction)) +
 p1 + p2 + plot_layout(guides = "collect") & theme(legend.position = "bottom")
 ```
 
-## Histogram
+## Histogram and density plot
 
-**Definition:** A **histogram** is a graphical display of the probability distribution of a continuous quantitative variable. The range of values is divided into a series of contiguous, non-overlapping intervals called **bins**. The height of each rectangle corresponds to the frequency or density of data points falling into that bin.
+A **histogram** is a graphical display of the probability distribution of a continuous quantitative variable. The range of values is divided into a series of contiguous, non-overlapping intervals called **bins**. The height of each rectangle corresponds to the frequency or density of data points falling into that bin.
 
 ```{r}
 #| echo: false
@@ -423,9 +434,36 @@ ggplot(df_hist, aes(x = Score)) +
   )
 ```
 
+A histogram visualizes the frequency of data within pre-specified numerical ranges ("bins"). Because bin widths can heavily influence the visual output, histograms display a discrete representation of raw counts.
+
+A density plot is a smooth, continuous curve representing the probability density function (PDF) of the underlying data. It estimates the probability of a random variable falling within a given range, where the total area under the density curve equals $1$.
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| fig-width: 7
+#| fig-height: 4.5
+#| fig-align: center
+
+# Simulate skewed continuous data
+sim_data <- data.frame(Value = rgamma(500, shape = 3, scale = 2))
+
+# Histogram followed by Density Plot
+ggplot(sim_data, aes(x = Value)) +
+  geom_histogram(aes(y = after_stat(density)), bins = 30, fill = "#69b3a2", color = "white", alpha = 0.6) +
+  geom_density(color = "#e74c3c", linewidth = 1.2) +
+  theme_minimal() +
+  labs(
+    title = "Continuous Density Estimate Overlaid on Histogram",
+    x = "Simulated Values",
+    y = "Density"
+  )
+```
+
 ## Q-Q plot
 
-**Definition:** A **Quantile-Quantile (Q-Q) plot** is a diagnostic scatter plot used to assess whether an empirical sample dataset originates from a theoretical reference distribution (most commonly the Normal Distribution). It plots the empirical sample quantiles on the vertical axis against the theoretical quantiles on the horizontal axis. If the dataset follows the assumed distribution, the points will fall closely along the 45-degree reference line ($y = x$).
+A **Quantile-Quantile (Q-Q) plot** is a diagnostic scatter plot used to assess whether an empirical sample dataset originates from a theoretical reference distribution (most commonly the Normal Distribution). It plots the empirical sample quantiles on the vertical axis against the theoretical quantiles on the horizontal axis. If the dataset follows the assumed distribution, the points will fall closely along the 45-degree reference line ($y = x$).
 
 ```{r}
 #| echo: false

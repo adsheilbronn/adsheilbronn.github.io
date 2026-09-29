@@ -191,6 +191,26 @@ window.Quarto = {
   <ul class="collapse">
   <li><a href="#example-large-sample-one-tailed-test" id="toc-example-large-sample-one-tailed-test" class="nav-link" data-scroll-target="#example-large-sample-one-tailed-test">Example: Large sample one tailed test</a></li>
   <li><a href="#example-large-sample-two-tailed-test" id="toc-example-large-sample-two-tailed-test" class="nav-link" data-scroll-target="#example-large-sample-two-tailed-test">Example: Large sample two tailed test</a></li>
+  <li><a href="#example-small-sample-two-tailed-test" id="toc-example-small-sample-two-tailed-test" class="nav-link" data-scroll-target="#example-small-sample-two-tailed-test">Example: Small sample two tailed test</a></li>
+  <li><a href="#example-small-sample-one-tailed-test" id="toc-example-small-sample-one-tailed-test" class="nav-link" data-scroll-target="#example-small-sample-one-tailed-test">Example: Small sample one tailed test</a></li>
+  </ul></li>
+  <li><a href="#decision-rule-onetwo-tailed-test" id="toc-decision-rule-onetwo-tailed-test" class="nav-link" data-scroll-target="#decision-rule-onetwo-tailed-test">Decision rule: One/Two tailed test</a></li>
+  <li><a href="#type-i-and-type-ii-error" id="toc-type-i-and-type-ii-error" class="nav-link" data-scroll-target="#type-i-and-type-ii-error">Type I and Type II error</a></li>
+  <li><a href="#observed-significance-level-p-value" id="toc-observed-significance-level-p-value" class="nav-link" data-scroll-target="#observed-significance-level-p-value">Observed significance level: <span class="math inline">\(p\)</span> value</a>
+  <ul class="collapse">
+  <li><a href="#decision-rule-p-values" id="toc-decision-rule-p-values" class="nav-link" data-scroll-target="#decision-rule-p-values">Decision rule: <span class="math inline">\(p\)</span> values</a></li>
+  </ul></li>
+  <li><a href="#p-value-two-tailed-case-example" id="toc-p-value-two-tailed-case-example" class="nav-link" data-scroll-target="#p-value-two-tailed-case-example"><span class="math inline">\(p\)</span> value: two tailed case example</a></li>
+  <li><a href="#comparing-two-means-independent-sampling" id="toc-comparing-two-means-independent-sampling" class="nav-link" data-scroll-target="#comparing-two-means-independent-sampling">Comparing two means: independent sampling</a>
+  <ul class="collapse">
+  <li><a href="#conditions-required-for-valid-large-sample-inferences-about-mu_1---mu_2" id="toc-conditions-required-for-valid-large-sample-inferences-about-mu_1---mu_2" class="nav-link" data-scroll-target="#conditions-required-for-valid-large-sample-inferences-about-mu_1---mu_2">Conditions required for valid large-sample inferences about <span class="math inline">\((\mu_1 - \mu_2)\)</span></a></li>
+  </ul></li>
+  <li><a href="#comparing-two-means-population-sampling" id="toc-comparing-two-means-population-sampling" class="nav-link" data-scroll-target="#comparing-two-means-population-sampling">Comparing two means: population sampling</a>
+  <ul class="collapse">
+  <li><a href="#large-sample-hypothesis-for-mu_1---mu_2" id="toc-large-sample-hypothesis-for-mu_1---mu_2" class="nav-link" data-scroll-target="#large-sample-hypothesis-for-mu_1---mu_2">Large sample hypothesis for <span class="math inline">\((\mu_1 - \mu_2)\)</span></a></li>
+  <li><a href="#small-sample-hypothesis-for-mu_1---mu_2-when-sigma_1-sigma_2" id="toc-small-sample-hypothesis-for-mu_1---mu_2-when-sigma_1-sigma_2" class="nav-link" data-scroll-target="#small-sample-hypothesis-for-mu_1---mu_2-when-sigma_1-sigma_2">Small sample hypothesis for <span class="math inline">\((\mu_1 - \mu_2)\)</span> when <span class="math inline">\(\sigma_1 = \sigma_2\)</span></a></li>
+  <li><a href="#small-sample-hypothesis-for-mu_1---mu_2-when-sigma_1-neq-sigma_2" id="toc-small-sample-hypothesis-for-mu_1---mu_2-when-sigma_1-neq-sigma_2" class="nav-link" data-scroll-target="#small-sample-hypothesis-for-mu_1---mu_2-when-sigma_1-neq-sigma_2">Small sample hypothesis for <span class="math inline">\((\mu_1 - \mu_2)\)</span> when <span class="math inline">\(\sigma_1 \neq \sigma_2\)</span></a></li>
+  <li><a href="#comparing-two-means-paired-difference-experiments" id="toc-comparing-two-means-paired-difference-experiments" class="nav-link" data-scroll-target="#comparing-two-means-paired-difference-experiments">Comparing two means: paired difference experiments</a></li>
   </ul></li>
   </ul></li>
   </ul>
@@ -287,6 +307,236 @@ z = \frac{\bar{x}-2400}{\sigma_{\bar{x}}}=\frac{2460-2400}{200/\sqrt{50}}=\frac{
 <p><span class="math display">\[
 z = \frac{\bar{x}-\mu}{\sigma_{\bar{x}}}=\frac{11.851-12}{0.512/\sqrt{100}}=\frac{-.149}{.512/10}=-2.91
 \]</span></p>
+<div class="cell">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="768"></p>
+<figcaption>Large sample two tailed test.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>The decision rule for large sample two tailed <span class="math inline">\(z\)</span> test is if the calculate value of <span class="math inline">\(z\)</span> is greater than the table value of <span class="math inline">\(z\)</span> we should reject the <span class="math inline">\(H_0\)</span>.</p>
+<p>##Small sample test: <span class="math inline">\(t\)</span>-test</p>
+</section>
+<section id="example-small-sample-two-tailed-test" class="level3">
+<h3 class="anchored" data-anchor-id="example-small-sample-two-tailed-test">Example: Small sample two tailed test</h3>
+<p>The owner of the local bar states that the average number of times he sees each of his customers during the month is 5. In order to validate his statement, he randomly selects 10 of his customers and determines the number of drinks each of them had during the previous year. He got the following values for 10 customers in his sample: 9, 10, 8, 4, 8, 3, 0, 10, 15, 9. Do the data supports his claim that the average number of times he sees a customer is 5?\</p>
+<p><strong>Null hypothesis</strong></p>
+<p><span class="math display">\[
+H_0: \mu = 5
+\]</span></p>
+<p>The mean of the population the sample equals to 5.</p>
+<p><strong>Alternative hypothesis</strong></p>
+<p><span class="math display">\[
+H_1: \mu \neq 5
+\]</span></p>
+<p>The mean of the population the sample is not equal to 5. This is a non-directional hypothesis and be evaluated by two-tailed test.</p>
+</section>
+<section id="example-small-sample-one-tailed-test" class="level3">
+<h3 class="anchored" data-anchor-id="example-small-sample-one-tailed-test">Example: Small sample one tailed test</h3>
+<p><span class="math display">\[
+H_1: \mu &gt; 5
+\]</span></p>
+<p>The mean of the population the sample represents is greater than 5.</p>
+<p><span class="math display">\[
+H_1: \mu &lt; 5
+\]</span></p>
+<p>The mean of the population the sample represents is less than 5.</p>
+<p>The directional hypotheses are to be evaluated by one-tailed test.</p>
+<p>The test statistic for one sample t-test is,</p>
+<p><span class="math display">\[
+t= \frac{\bar{X}-\mu}{s_{\bar{X}}}
+\]</span></p>
+<p>where, the mean of <span class="math inline">\(X\)</span> is,</p>
+<p><span class="math display">\[
+\bar{X} = \frac{\Sigma X}{n} = \frac{76}{10} = 7.6
+\]</span></p>
+<p>and, the standard error of the population mean is,</p>
+<p><span class="math display">\[
+s_{\bar{X}}=\frac{\tilde{s}}{\sqrt{n}}
+\]</span></p>
+<p>where, the standard deviation of the sample, which can be expressed as,</p>
+<p><span class="math display">\[
+\tilde{s}=\sqrt{\frac{\Sigma X^2 - \frac{(\Sigma X)^2}{n}}{n-1}}=\sqrt{\frac{740 - \frac{(76)^2}{10}}{9}}=4.25
+\]</span></p>
+<p>So, out <em>t-statistic</em> would be,</p>
+<p><span class="math display">\[
+t= \frac{7.6 - 5}{1.34} = 1.94
+\]</span></p>
+<p>This is the <strong>calculated value of t-statistic</strong>. To decide on the hypothesis, we need to compare it with the <strong>table value of t-statistic</strong>.</p>
+<p>The hypothesis is also to be tested at a given level of significance and a degrees of freedom of <span class="math inline">\(n-1\)</span>.</p>
+</section>
+</section>
+<section id="decision-rule-onetwo-tailed-test" class="level2">
+<h2 class="anchored" data-anchor-id="decision-rule-onetwo-tailed-test">Decision rule: One/Two tailed test</h2>
+<ul>
+<li>In case of non-directional hypothesis, the null hypothesis can be rejected if the calculated <strong>absolute</strong> value is equal to or greater than the two-tailed tabled value.</li>
+<li>In case of directional hypothesis, where we are testing if the population mean is greater than the value in the null hypothesis, the the null hypothesis can be rejected if the calculated t value is positive and that is greater than the tabled one-tailed t value.</li>
+<li>In case of directional hypothesis, where we are testing if the population mean is less than the value in the null hypothesis, the null hypothesis can be rejected if the calculated t value is <strong>negative</strong> and the absolute value of calculated t is equal or greater than the tabled one-tailed t value.</li>
+</ul>
+</section>
+<section id="type-i-and-type-ii-error" class="level2">
+<h2 class="anchored" data-anchor-id="type-i-and-type-ii-error">Type I and Type II error</h2>
+<p>The Type I error occurs if the researcher rejects the null hypothesis in favour of the alternative hypothesis when, in fact, <span class="math inline">\(H_0\)</span> is true. The probability of committing a Type I error is denoted by <span class="math inline">\(\alpha\)</span>.</p>
+<p>The Type II error occurs if the researcher accepts the null hypothesis when, in fact, <span class="math inline">\(H_0\)</span> is false, The probability of committing a Type II error is denoted by <span class="math inline">\(\beta\)</span></p>
+</section>
+<section id="observed-significance-level-p-value" class="level2">
+<h2 class="anchored" data-anchor-id="observed-significance-level-p-value">Observed significance level: <span class="math inline">\(p\)</span> value</h2>
+<p>The observed significance level, or <span class="math inline">\(p\)</span>-value, for a specific statistical test is the probability (assuming <span class="math inline">\(H_0\)</span> is true of observing a value of the test statistics that is at least as contradictory to the null hypothesis, and supporting of the alternative hypothesis, as the actual one computed from the sample data.</p>
+<p>For example, the value of the test statistic computed for the sample of <span class="math inline">\(n=50\)</span> sections of sewer pipe was <span class="math inline">\(z=2.12\)</span>. Because the test is one-tailed, our <span class="math inline">\(H_a:\mu &gt; 2400\)</span>. The observed significance level <span class="math inline">\(p\)</span>-value for this test is,</p>
+<p><span class="math display">\[
+$p$-value $= \mathbb{P}(z&gt;2.12)$.
+\]</span></p>
+<p>Or equivalently the area under the standard normal curve to the right of <span class="math inline">\(z=2.12\)</span>, which is here <span class="math inline">\(0.017 (=0.5-0.483)\)</span></p>
+<section id="decision-rule-p-values" class="level3">
+<h3 class="anchored" data-anchor-id="decision-rule-p-values">Decision rule: <span class="math inline">\(p\)</span> values</h3>
+<ul>
+<li>If the test is one-tailed, the <span class="math inline">\(p\)</span> value is equal to the tail area beyond <span class="math inline">\(z\)</span> in the same direction as the alternative hypothesis. Thus, if the alternative hypothesis is of the form <span class="math inline">\(&gt;\)</span>, the <span class="math inline">\(p\)</span>-value is the area to the right of, or above, the observed <span class="math inline">\(z\)</span>-value. Conversely, if the alternative is of the form <span class="math inline">\(&lt;\)</span>, the <span class="math inline">\(p\)</span>-value is the area to the left of, or below, the observed <span class="math inline">\(z\)</span>-value.</li>
+<li>If the test is two tailed, the <span class="math inline">\(p\)</span> value is equal to the twice the tail area beyond the observed <span class="math inline">\(z\)</span>-value in the direction of <span class="math inline">\(z\)</span>, i.e.&nbsp;if <span class="math inline">\(z\)</span> is positive, the <span class="math inline">\(p\)</span> value is the twice the area to the right of, or above, the observed <span class="math inline">\(z\)</span> value.</li>
+</ul>
+</section>
+</section>
+<section id="p-value-two-tailed-case-example" class="level2">
+<h2 class="anchored" data-anchor-id="p-value-two-tailed-case-example"><span class="math inline">\(p\)</span> value: two tailed case example</h2>
+<p>Let the two tailed hypothesis,</p>
+<p><span class="math display">\[
+H_0: \mu=12
+\]</span></p>
+<p>against the alternative hypothesis,</p>
+<p><span class="math display">\[
+H_1: \mu \neq 12
+\]</span></p>
+<p>The observed value of the test statistics is <span class="math inline">\(z=-2.91\)</span>, and any value of <span class="math inline">\(z\)</span> less than <span class="math inline">\(-2.91\)</span> or greater than <span class="math inline">\(2.91\)</span> would be more contradictory to <span class="math inline">\(H_0\)</span>. Therefore, the observed significance level for the test is,</p>
+<p><span class="math display">\[
+p-value= \mathbb{P}(|z|&gt;2.91)
+\]</span></p>
+<p>Thus, we calculate the area below the observed <span class="math inline">\(z\)</span>-value and double it, ie. <span class="math inline">\(0.0018 \times 2 = 0.0036\)</span>.</p>
+</section>
+<section id="comparing-two-means-independent-sampling" class="level2">
+<h2 class="anchored" data-anchor-id="comparing-two-means-independent-sampling">Comparing two means: independent sampling</h2>
+<section id="conditions-required-for-valid-large-sample-inferences-about-mu_1---mu_2" class="level3">
+<h3 class="anchored" data-anchor-id="conditions-required-for-valid-large-sample-inferences-about-mu_1---mu_2">Conditions required for valid large-sample inferences about <span class="math inline">\((\mu_1 - \mu_2)\)</span></h3>
+<ul>
+<li>The two samples are randomly selected in an independent manner from the two target populations.</li>
+<li>The sample sizes, <span class="math inline">\(n_1\)</span> and <span class="math inline">\(n_2\)</span> are both large (i.e.&nbsp;<span class="math inline">\(n \geq 30\)</span> and <span class="math inline">\(n_2 \geq 30\)</span>. Due to the Central limit theorem, this condition guarantees that the sampling distribution of <span class="math inline">\((\bar{x}_1 - \bar{x}_2)\)</span> will be approximately normal regardless of the shapes of the underlying probability distribution of the populations. Also, <span class="math inline">\(s_1^2\)</span> and <span class="math inline">\(s_2^2\)</span> will provide good approximations to <span class="math inline">\(\sigma_1^2\)</span> and <span class="math inline">\(\sigma_2^2\)</span> when the samples are both large.</li>
+</ul>
+</section>
+</section>
+<section id="comparing-two-means-population-sampling" class="level2">
+<h2 class="anchored" data-anchor-id="comparing-two-means-population-sampling">Comparing two means: population sampling</h2>
+<p>** Properties of the sampling distribution of <span class="math inline">\(\bar{x}_1 - \bar{x}_2\)</span>**</p>
+<ul>
+<li>The mean of the sampling distribution <span class="math inline">\((\bar{x}_1 - \bar{x}_2)\)</span> is <span class="math inline">\((\mu_1 - \mu_2)\)</span>.</li>
+<li>If the two samples are independent, the standard deviation of the sampling distribution is <span class="math display">\[
+  \sigma_{(\bar{x}_1 - \bar{x}_2)} = \sqrt{\frac{\sigma_1^2}{n_1}+\frac{\sigma_2^2}{n_2}}
+  \]</span></li>
+</ul>
+<p>** Large sample CI for <span class="math inline">\((\mu_1 - \mu_2)\)</span>**</p>
+<p><span class="math display">\[
+(\bar{x}_1-\bar{x}_2) \pm z_{\alpha/2}\sigma_{(\bar{x}_1-\bar{x}_2)} = (\bar{x}_1-\bar{x}_2) \pm z_{\alpha/2}\sqrt{\frac{\sigma_1^2}{n_1}+\frac{\sigma_2^2}{n_2}}
+\]</span></p>
+<section id="large-sample-hypothesis-for-mu_1---mu_2" class="level3">
+<h3 class="anchored" data-anchor-id="large-sample-hypothesis-for-mu_1---mu_2">Large sample hypothesis for <span class="math inline">\((\mu_1 - \mu_2)\)</span></h3>
+<p><strong>Hypothesis for one-tailed test:</strong></p>
+<p><span class="math display">\[
+\begin{aligned}
+H_0 : (\mu_1 - \mu_2) &amp;= D_0 \\
+H_1 : (\mu_1 - \mu_2) &amp;&lt; D_0 \\
+H_1 : (\mu_1 - \mu_2) &amp;&gt; D_0
+\end{aligned}
+\]</span></p>
+<p><strong>Hypothesis for two-tailed test:</strong></p>
+<p><span class="math display">\[
+\begin{aligned}
+H_0 : (\mu_1 - \mu_2) &amp;= D_0 \\
+H_1 : (\mu_1 - \mu_2) &amp;\neq D_0
+\end{aligned}
+\]</span></p>
+<p>where <span class="math inline">\(D_0\)</span> is the hypothesized difference between the means. This difference is often hypothesized to be equal to zero.</p>
+<p><strong>Test statistic:</strong></p>
+<p><span class="math display">\[
+z = \frac{(\bar{x}_1 - \bar{x}_2)-D_0}{\sigma_{\bar{x}_1-\bar{x}_2}}
+\]</span></p>
+<p>where:</p>
+<p><span class="math display">\[
+\sigma_{\bar{x}_1-\bar{x}_2} = \sqrt{\frac{\sigma_1^2}{n_1}+\frac{\sigma_2^2}{n_2}} \approx \sqrt{\frac{s_1^2}{n_1}+\frac{s_2^2}{n_2}}
+\]</span></p>
+<p><strong>Rejection region:</strong></p>
+<ul>
+<li>If <span class="math inline">\(z &lt; z_{\alpha}\)</span>, or <span class="math inline">\(z &gt; z_{\alpha}\)</span> when <span class="math inline">\(H_1 : (\mu_1 - \mu_2) &gt; D_0\)</span>.</li>
+<li>In the case of a two-tailed test, <span class="math inline">\(|z| &gt; z_{\alpha/2}\)</span>.</li>
+</ul>
+</section>
+<section id="small-sample-hypothesis-for-mu_1---mu_2-when-sigma_1-sigma_2" class="level3">
+<h3 class="anchored" data-anchor-id="small-sample-hypothesis-for-mu_1---mu_2-when-sigma_1-sigma_2">Small sample hypothesis for <span class="math inline">\((\mu_1 - \mu_2)\)</span> when <span class="math inline">\(\sigma_1 = \sigma_2\)</span></h3>
+<p><strong>Conditions required for valid small-sample inferences about <span class="math inline">\((\mu_1 - \mu_2)\)</span>:</strong></p>
+<ul>
+<li>The two samples are randomly selected in an independent manner from the two target populations.</li>
+<li>Both sampled populations have distributions that are approximately normal.</li>
+<li>The population variances are equal, i.e., <span class="math inline">\(\sigma_1^2 = \sigma_2^2\)</span>.</li>
+</ul>
+<p>Since we assume the two populations have equal variances (<span class="math inline">\(\sigma_1^2 = \sigma_2^2 = \sigma^2\)</span>), it is reasonable to use the information contained in both samples to construct a <strong>pooled sample estimator of <span class="math inline">\(\sigma^2\)</span></strong> for use in CI and test statistics.</p>
+<p>Thus, if <span class="math inline">\(s_1^2\)</span> and <span class="math inline">\(s_2^2\)</span> are the two sample variances (both estimating the variance <span class="math inline">\(\sigma^2\)</span> common to both populations), the pooled estimator of <span class="math inline">\(\sigma^2\)</span>, denoted as <span class="math inline">\(s_p^2\)</span>, is:</p>
+<p><span class="math display">\[
+s_p^2 = \frac{(n_1 - 1)s_1^2+(n_2 - 1)s_2^2}{(n_1-1)+(n_2-1)} = \frac{(n_1 - 1)s_1^2+(n_2 - 1)s_2^2}{n_1+n_2-2}
+\]</span></p>
+<p><strong>Small sample CI for <span class="math inline">\((\mu_1 - \mu_2)\)</span> (Independent samples):</strong></p>
+<p><span class="math display">\[
+(\bar{x}_1 - \bar{x}_2) \pm t_{\alpha/2}\sqrt{s_p^2 \left( \frac{1}{n_1}+\frac{1}{n_2}\right)}
+\]</span></p>
+<p>where <span class="math inline">\(t_{\alpha/2}\)</span> is based on <span class="math inline">\((n_1+n_2-2)\)</span> degrees of freedom. The test statistic is:</p>
+<p><span class="math display">\[
+t = \frac{(\bar{x}_1 - \bar{x}_2)-D_0}{\sqrt{s_p^2 \left( \frac{1}{n_1}+\frac{1}{n_2}\right)}}
+\]</span></p>
+</section>
+<section id="small-sample-hypothesis-for-mu_1---mu_2-when-sigma_1-neq-sigma_2" class="level3">
+<h3 class="anchored" data-anchor-id="small-sample-hypothesis-for-mu_1---mu_2-when-sigma_1-neq-sigma_2">Small sample hypothesis for <span class="math inline">\((\mu_1 - \mu_2)\)</span> when <span class="math inline">\(\sigma_1 \neq \sigma_2\)</span></h3>
+<p><strong>When the sample sizes are equal (<span class="math inline">\(n_1 = n_2\)</span>):</strong></p>
+<ul>
+<li><strong>Confidence interval:</strong></li>
+</ul>
+<p><span class="math display">\[
+(\bar{x}_1 - \bar{x}_2) \pm t_{\alpha/2}\sqrt{\frac{s_1^2 + s_2^2}{n}}
+\]</span></p>
+<ul>
+<li><strong>Test statistic:</strong></li>
+</ul>
+<p><span class="math display">\[
+t = \frac{\bar{x}_1 - \bar{x}_2}{\sqrt{\frac{s_1^2 + s_2^2}{n}}}
+\]</span></p>
+<p>where <span class="math inline">\(t\)</span> is based on <span class="math inline">\(\nu = n_1 + n_2 - 2 = 2(n-1)\)</span> degrees of freedom.</p>
+<p><strong>When the sample sizes are not equal (<span class="math inline">\(n_1 \neq n_2\)</span>):</strong></p>
+<ul>
+<li><strong>Confidence interval:</strong></li>
+</ul>
+<p><span class="math display">\[
+(\bar{x}_1 - \bar{x}_2) \pm t_{\alpha/2}\sqrt{\frac{s_1^2}{n_1}+\frac{s_2^2}{n_2}}
+\]</span></p>
+<ul>
+<li><strong>Test statistic:</strong></li>
+</ul>
+<p><span class="math display">\[
+t = \frac{\bar{x}_1 - \bar{x}_2}{\sqrt{\frac{s_1^2}{n_1}+\frac{s_2^2}{n_2}}}
+\]</span></p>
+<p>where <span class="math inline">\(t\)</span> is based on <span class="math inline">\(\nu = \frac{\frac{s_1^2}{n_1}+\frac{s_2^2}{n_2}}{\frac{s_1^2/n_1}{n_1-1}+\frac{s_2^2/n_2}{n_2-1}}\)</span> degrees of freedom.</p>
+</section>
+<section id="comparing-two-means-paired-difference-experiments" class="level3">
+<h3 class="anchored" data-anchor-id="comparing-two-means-paired-difference-experiments">Comparing two means: paired difference experiments</h3>
+<p>In the paired/matched sample case, the standard <span class="math inline">\(t\)</span>-test is invalid because the assumption of independent samples is violated. To solve this problem, we create a column containing the difference between two samples <span class="math inline">\(x_1\)</span> and <span class="math inline">\(x_2\)</span>. We then use the mean of the sample mean difference <span class="math inline">\(\bar{d}\)</span> to draw our inference.</p>
+<p><strong>Hypotheses:</strong></p>
+<p><span class="math display">\[
+\begin{aligned}
+H_0: \mu_d &amp;= 0 \quad [\text{i.e., } (\mu_1 - \mu_2)=0] \\
+H_1: \mu_d &amp;\neq 0 \quad [\text{i.e., } (\mu_1 - \mu_2) \neq 0]
+\end{aligned}
+\]</span></p>
+<p><strong>Test statistic:</strong></p>
+<p><span class="math display">\[
+t = \frac{\bar{d}-D}{s_d/\sqrt{n_d}}
+\]</span></p>
+<p>where <span class="math inline">\(s_d\)</span> is the sample standard deviation of the differences. The hypothesis is to be tested by using <span class="math inline">\((n_d - 1)\)</span> degrees of freedom.</p>
 
 
 </section>
