@@ -283,6 +283,7 @@ Percentiles are frequently used to describe the results of achievements test sco
 
 ### Visualizing Skewness & Kurtosis Impact
 
+
 ```{r}
 #| echo: false
 #| message: false
@@ -323,10 +324,12 @@ ggplot(df_dist, aes(x = Value, fill = Distribution)) +
 To determine whether data is normally distributed based on sample skewness and excess kurtosis:
 
 1. **Rules of Thumb for Acceptable Normality**
+
    - **Skewness:** Values between $-0.5$ and $+0.5$ indicate near symmetry; values between $-1.0$ and $+1.0$ are generally acceptable for parametric statistics.
    - **Excess Kurtosis:** Values between $-1.0$ and $+1.0$ indicate a near-normal tail structure.
 
 2. **Standardized Z-Score Method**
+
    Calculate $Z$-scores for skewness ($Z_{\text{skew}}$) and kurtosis ($Z_{\text{kurt}}$):
    $$Z_{\text{skew}} = \frac{\text{Skewness}}{\text{SE}_{\text{skew}}}$$
    Where $\text{SE}_{\text{skew}} \approx \sqrt{\frac{6}{N}}$. If $|Z_{\text{skew}}| > 1.96$ or $|Z_{\text{kurt}}| > 1.96$ at a $5\%$ significance level ($\alpha = 0.05$), the distribution deviates significantly from normality.
@@ -338,7 +341,7 @@ Graphical representations of data provide intuitive visual summaries of distribu
 
 ## Barplot
 
-**Definition:** A **barplot** (or bar chart) is a graphical display that represents categorical data using rectangular bars, where the length or height of each bar is proportional to the count, frequency, or percentage of observations falling into each category.
+A **barplot** (or bar chart) is a graphical display that represents categorical data using rectangular bars, where the length or height of each bar is proportional to the count, frequency, or percentage of observations falling into each category.
 
 ```{r}
 #| echo: false
@@ -375,7 +378,7 @@ ggplot(df_bar, aes(x = reorder(Category, -Sales), y = Sales, fill = Category)) +
 
 ## Time series plot
 
-**Definition:** A **time series plot** is a line chart where observations recorded sequentially over regular time intervals are plotted against time on the horizontal axis. It is used to analyze patterns such as secular trends, seasonality, cyclical fluctuations, and irregular variations over time.
+A **time series plot** is a line chart where observations recorded sequentially over regular time intervals are plotted against time on the horizontal axis. It is used to analyze patterns such as secular trends, seasonality, cyclical fluctuations, and irregular variations over time.
 
 ```{r}
 #| echo: false
@@ -413,7 +416,7 @@ ggplot(df_ts, aes(x = Date, y = Revenue)) +
 
 ## Stacked bar plot
 
-**Definition:** A **stacked bar plot** extends a standard bar plot by dividing each bar into sub-bars representing sub-categories within the main category. It allows simultaneous comparison of total quantities and internal compositions.
+A **stacked bar plot** extends a standard bar plot by dividing each bar into sub-bars representing sub-categories within the main category. It allows simultaneous comparison of total quantities and internal compositions.
 
 - **Normal (Absolute) Stacked Bar Plot:** Displays the raw counts or values stacked vertically. The height of the entire bar represents the total aggregate frequency across all sub-categories.
 - **100% Stacked Bar Plot:** Normalizes every bar to 100% (or proportion 1.0). Each sub-bar represents the relative percentage contribution of that sub-category within its parent group, making it easy to compare proportion structures regardless of differing total group sizes.
