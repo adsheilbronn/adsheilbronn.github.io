@@ -9,7 +9,7 @@
 <meta name="author" content="Haseeb Mahmud">
 <meta name="dcterms.date" content="2026-09-26">
 
-<title>Advanced Data Science - Descriptive statistics</title>
+<title>Advanced Data Science - Hypothesis Testing</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -102,7 +102,7 @@ window.Quarto = {
 <link rel="stylesheet" href="../../styles.css">
 </head>
 
-<body class="nav-fixed fullcontent">
+<body class="nav-fixed">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top quarto-banner">
@@ -175,7 +175,61 @@ window.Quarto = {
   </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#measures-of-central-tendency" id="toc-measures-of-central-tendency" class="nav-link active" data-scroll-target="#measures-of-central-tendency">Measures of central Tendency</a>
+  <ul class="collapse">
+  <li><a href="#arithmetic-mean" id="toc-arithmetic-mean" class="nav-link" data-scroll-target="#arithmetic-mean">Arithmetic mean</a>
+  <ul class="collapse">
+  <li><a href="#some-comments-about-the-arithmetic-mean" id="toc-some-comments-about-the-arithmetic-mean" class="nav-link" data-scroll-target="#some-comments-about-the-arithmetic-mean">Some comments about the arithmetic mean</a></li>
+  </ul></li>
+  <li><a href="#median" id="toc-median" class="nav-link" data-scroll-target="#median">Median</a>
+  <ul class="collapse">
+  <li><a href="#median-some-comments" id="toc-median-some-comments" class="nav-link" data-scroll-target="#median-some-comments">Median: some comments</a></li>
+  </ul></li>
+  <li><a href="#mode" id="toc-mode" class="nav-link" data-scroll-target="#mode">Mode</a>
+  <ul class="collapse">
+  <li><a href="#mode-some-comments" id="toc-mode-some-comments" class="nav-link" data-scroll-target="#mode-some-comments">Mode: some comments</a></li>
+  </ul></li>
+  <li><a href="#relationship-mean-median-mode" id="toc-relationship-mean-median-mode" class="nav-link" data-scroll-target="#relationship-mean-median-mode">Relationship: mean, Median, Mode</a></li>
+  </ul></li>
+  <li><a href="#measures-of-dispersion" id="toc-measures-of-dispersion" class="nav-link" data-scroll-target="#measures-of-dispersion">Measures of dispersion</a>
+  <ul class="collapse">
+  <li><a href="#range" id="toc-range" class="nav-link" data-scroll-target="#range">Range</a></li>
+  <li><a href="#variance-and-standard-deviation" id="toc-variance-and-standard-deviation" class="nav-link" data-scroll-target="#variance-and-standard-deviation">Variance and standard deviation</a>
+  <ul class="collapse">
+  <li><a href="#variance-and-standard-deviation-example" id="toc-variance-and-standard-deviation-example" class="nav-link" data-scroll-target="#variance-and-standard-deviation-example">Variance and standard deviation: Example</a></li>
+  <li><a href="#characteristics-of-deviation-measures" id="toc-characteristics-of-deviation-measures" class="nav-link" data-scroll-target="#characteristics-of-deviation-measures">Characteristics of deviation measures</a></li>
+  </ul></li>
+  <li><a href="#the-coefficient-of-variation" id="toc-the-coefficient-of-variation" class="nav-link" data-scroll-target="#the-coefficient-of-variation">The coefficient of variation</a></li>
+  </ul></li>
+  <li><a href="#confidence-intervals" id="toc-confidence-intervals" class="nav-link" data-scroll-target="#confidence-intervals">Confidence Intervals</a>
+  <ul class="collapse">
+  <li><a href="#confidence-interval-large-sample" id="toc-confidence-interval-large-sample" class="nav-link" data-scroll-target="#confidence-interval-large-sample">Confidence interval: large sample</a></li>
+  <li><a href="#central-limit-theorem" id="toc-central-limit-theorem" class="nav-link" data-scroll-target="#central-limit-theorem">Central limit theorem</a></li>
+  </ul></li>
+  <li><a href="#covariance-and-correlation" id="toc-covariance-and-correlation" class="nav-link" data-scroll-target="#covariance-and-correlation">Covariance and correlation</a>
+  <ul class="collapse">
+  <li><a href="#percentiles" id="toc-percentiles" class="nav-link" data-scroll-target="#percentiles">Percentiles</a></li>
+  </ul></li>
+  <li><a href="#descriptive-statistics-using-graphics" id="toc-descriptive-statistics-using-graphics" class="nav-link" data-scroll-target="#descriptive-statistics-using-graphics">Descriptive Statistics using Graphics</a>
+  <ul class="collapse">
+  <li><a href="#barplot" id="toc-barplot" class="nav-link" data-scroll-target="#barplot">Barplot</a></li>
+  <li><a href="#time-series-plot" id="toc-time-series-plot" class="nav-link" data-scroll-target="#time-series-plot">Time series plot</a></li>
+  <li><a href="#stacked-bar-plot" id="toc-stacked-bar-plot" class="nav-link" data-scroll-target="#stacked-bar-plot">Stacked bar plot</a></li>
+  <li><a href="#histogram" id="toc-histogram" class="nav-link" data-scroll-target="#histogram">Histogram</a></li>
+  <li><a href="#q-q-plot" id="toc-q-q-plot" class="nav-link" data-scroll-target="#q-q-plot">Q-Q plot</a></li>
+  <li><a href="#box-whisker-plot" id="toc-box-whisker-plot" class="nav-link" data-scroll-target="#box-whisker-plot">Box whisker plot</a>
+  <ul class="collapse">
+  <li><a href="#explanation-of-box-whisker-components" id="toc-explanation-of-box-whisker-components" class="nav-link" data-scroll-target="#explanation-of-box-whisker-components">Explanation of Box-Whisker Components</a></li>
+  </ul></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
 <!-- main -->
 <main class="content quarto-banner-title-block" id="quarto-document-content">
 
