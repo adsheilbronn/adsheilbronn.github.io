@@ -418,7 +418,6 @@ s_{xy} = \frac{\sum_{i=1}^n (x_i - \bar{x})(y_i - \bar{y})}{n - 1} = \frac{180}{
 <p>The numerical magnitude of covariance depends entirely on the <strong>measurement units</strong> of <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>.</p>
 <p>For example, if study hours are converted to study <em>minutes</em> (<span class="math inline">\(X \times 60\)</span>), the covariance increases by a factor of 60 (<span class="math inline">\(s_{xy} = 2700\)</span>), even though the strength of the underlying relationship remains identical!</p>
 <p>Because covariance is unbounded (<span class="math inline">\(-\infty &lt; s_{xy} &lt; \infty\)</span>), it cannot tell us <strong>how strong</strong> the association is. To solve this limitation, we standardize covariance to obtain the <strong>Correlation Coefficient</strong>.</p>
-<hr>
 </section>
 </section>
 </section>
@@ -434,7 +433,6 @@ s_{xy} = \frac{\sum_{i=1}^n (x_i - \bar{x})(y_i - \bar{y})}{n - 1} = \frac{180}{
 <li><strong>Kendall’s Tau (<span class="math inline">\(\tau\)</span>)</strong></li>
 <li><strong>Spearman’s Rank Correlation (<span class="math inline">\(\rho\)</span>)</strong></li>
 </ol>
-<hr>
 <section id="pearson-correlation-coefficient-r" class="level2">
 <h2 class="anchored" data-anchor-id="pearson-correlation-coefficient-r">2.1 Pearson Correlation Coefficient (<span class="math inline">\(r\)</span>)</h2>
 <section id="concept" class="level3">
@@ -502,7 +500,6 @@ t = \frac{r \sqrt{n - 2}}{\sqrt{1 - r^2}} \sim t_{n-2}
 </div>
 </div>
 </div>
-<hr>
 </section>
 </section>
 <section id="kendalls-tau-tau" class="level2">
@@ -568,7 +565,6 @@ Z = \frac{3 \tau \sqrt{n(n - 1)}}{\sqrt{2(2n + 5)}} \sim N(0, 1)
 </div>
 </div>
 </div>
-<hr>
 </section>
 </section>
 <section id="spearmans-rho-rho" class="level2">
@@ -629,7 +625,6 @@ t = \frac{r_s \sqrt{n - 2}}{\sqrt{1 - r_s^2}} \sim t_{n-2}
 </div>
 </div>
 </div>
-<hr>
 </section>
 </section>
 </section>
@@ -795,7 +790,6 @@ t = \frac{r_s \sqrt{n - 2}}{\sqrt{1 - r_s^2}} \sim t_{n-2}
 <li><strong>Always plot your raw data</strong> before calculating summary metrics or running regression models.</li>
 <li>Anscombe’s Quartet and the Datasaurus Dozen demonstrate that identical correlation values (<span class="math inline">\(r = -0.06\)</span>) can arise from a Dinosaur shape, concentric circles, star shapes, or grid structures!</li>
 </ol>
-<hr>
 </section>
 </section>
 </section>
@@ -819,10 +813,6 @@ t = \frac{r_s \sqrt{n - 2}}{\sqrt{1 - r_s^2}} \sim t_{n-2}
 <section id="confounding-third-variable-problem-z-to-x-and-z-to-y" class="level3">
 <h3 class="anchored" data-anchor-id="confounding-third-variable-problem-z-to-x-and-z-to-y">2. Confounding / Third-Variable Problem (<span class="math inline">\(Z \to X\)</span> and <span class="math inline">\(Z \to Y\)</span>)</h3>
 <p>An unobserved third variable <span class="math inline">\(Z\)</span> (a <strong>confounder</strong>) causes changes in both <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> simultaneously, creating an artificial correlation between <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>.</p>
-<pre><code>       [ Confounder Z ] (e.g., Summer Temperature)
-          /         \
-         v           v
-[ Ice Cream Sales X ] [ Drowning Incidents Y ]</code></pre>
 <ul>
 <li><strong>Example:</strong> Ice cream consumption (<span class="math inline">\(X\)</span>) is strongly positively correlated with drowning incidents (<span class="math inline">\(Y\)</span>).</li>
 <li><strong>The Reality:</strong> Eating ice cream does not cause drowning. The underlying confounder is <strong>outdoor temperature (<span class="math inline">\(Z\)</span>)</strong>. On warm summer days, more people buy ice cream and more people go swimming, leading to higher drowning risks.</li>
@@ -842,7 +832,6 @@ t = \frac{r_s \sqrt{n - 2}}{\sqrt{1 - r_s^2}} \sim t_{n-2}
 <ul>
 <li><strong>Example:</strong> Academic confidence (<span class="math inline">\(X\)</span>) and academic performance (<span class="math inline">\(Y\)</span>) reinforce one another over time.</li>
 </ul>
-<hr>
 </section>
 </section>
 <section id="how-to-establish-causation-in-scientific-research" class="level2">
