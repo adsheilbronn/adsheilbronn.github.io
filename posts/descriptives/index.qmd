@@ -263,6 +263,75 @@ The $p$-th percentile of a set of $n$-measurements arranged in order of magnitud
 
 Percentiles are frequently used to describe the results of achievements test scores and the ranking of a person in comparison to the rest of the people taking the examination. Specific percentile of interest are the 25th, 50th and 75th percentiles; often called the lower quantile, the middle quantile (median) and the upper quantile respectively. Similarly, if we divide the data by 10 parts then we refer every part as *deciles*.
 
+## 3. Skewness and Kurtosis
+
+**Skewness** measures the asymmetry of a probability distribution around its mean:
+
+- **Zero Skewness:** Symmetric distribution, where mean, median, and mode coincide (e.g., standard normal distribution).
+
+- **Positive (Right) Skewness:** Long tail extending to the right ($\text{mode} \le \text{median} \le \text{mean}$).
+
+- **Negative (Left) Skewness:** Long tail extending to the left ($\text{mean} \le \text{median} \le \text{mode}$).
+
+**Kurtosis** measures the tail heaviness and peakedness relative to a normal distribution:
+
+- **Mesokurtic (Normal):** Excess kurtosis $\approx 0$ (Standard Kurtosis $= 3$).
+
+- **Leptokurtic (Heavy-tailed / High Peak):** Excess kurtosis $> 0$; higher probability of extreme values or outliers.
+
+- **Platykurtic (Light-tailed / Flat Peak):** Excess kurtosis $< 0$; fewer extreme outliers.
+
+### Visualizing Skewness & Kurtosis Impact
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| fig-width: 7
+#| fig-height: 4.5
+#| fig-align: center
+
+set.seed(42)
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+library(e1071)
+
+n_samples <- 10000
+
+df_dist <- data.frame(
+  Symmetric = rnorm(n_samples, mean = 0, sd = 1),
+  Right_Skewed = rchisq(n_samples, df = 3),
+  Heavy_Tailed = rt(n_samples, df = 3) # Leptokurtic
+) %>%
+  pivot_longer(cols = everything(), names_to = "Distribution", values_to = "Value")
+
+ggplot(df_dist, aes(x = Value, fill = Distribution)) +
+  geom_density(alpha = 0.5) +
+  facet_wrap(~ Distribution, scales = "free") +
+  theme_minimal() +
+  labs(
+    title = "Impact of Skewness and Kurtosis on Distribution Curves",
+    x = "Value",
+    y = "Density"
+  ) +
+  theme(legend.position = "none")
+```
+
+### Assessing Normality via Skewness and Kurtosis
+
+To determine whether data is normally distributed based on sample skewness and excess kurtosis:
+
+1. **Rules of Thumb for Acceptable Normality**
+   - **Skewness:** Values between $-0.5$ and $+0.5$ indicate near symmetry; values between $-1.0$ and $+1.0$ are generally acceptable for parametric statistics.
+   - **Excess Kurtosis:** Values between $-1.0$ and $+1.0$ indicate a near-normal tail structure.
+
+2. **Standardized Z-Score Method**
+   Calculate $Z$-scores for skewness ($Z_{\text{skew}}$) and kurtosis ($Z_{\text{kurt}}$):
+   $$Z_{\text{skew}} = \frac{\text{Skewness}}{\text{SE}_{\text{skew}}}$$
+   Where $\text{SE}_{\text{skew}} \approx \sqrt{\frac{6}{N}}$. If $|Z_{\text{skew}}| > 1.96$ or $|Z_{\text{kurt}}| > 1.96$ at a $5\%$ significance level ($\alpha = 0.05$), the distribution deviates significantly from normality.
+
+
 # Descriptive Statistics using Graphics
 
 Graphical representations of data provide intuitive visual summaries of distributions, patterns, trends, and relationships. Unlike numerical descriptive measures (such as mean or standard deviation), graphical methods allow researchers to quickly spot outliers, skewness, multimodal behavior, and temporal trends.
