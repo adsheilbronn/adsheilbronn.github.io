@@ -493,9 +493,9 @@ ggplot(df_qq, aes(sample = Value)) +
   )
 ```
 
-## Box whisker plot
+## Box whisker plot and violin plot
 
-**Definition:** A **box-whisker plot** (or boxplot) provides a concise visual summary of a continuous variable's distribution based on its five-number summary: minimum, first quartile ($Q_1$), median ($Q_2$), third quartile ($Q_3$), and maximum.
+A **box-whisker plot** (or boxplot) provides a concise visual summary of a continuous variable's distribution based on its five-number summary: minimum, first quartile ($Q_1$), median ($Q_2$), third quartile ($Q_3$), and maximum.
 
 ```{r}
 #| echo: false
@@ -551,3 +551,42 @@ ggplot(df_box, aes(x = Group, y = Value, fill = Group)) +
 
 4. **Outliers:**
    - Data points located beyond the whiskers (less than $Q_1 - 1.5 \times IQR$ or greater than $Q_3 + 1.5 \times IQR$) are identified as **outliers** and plotted individually as distinct points (highlighted in red above).
+
+A **violin plot** combines a box plot with a kernel density plot. It mirrors a smooth density curve along a central axis, illustrating where data points are most concentrated.
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| fig-width: 7
+#| fig-height: 4.5
+#| fig-align: center
+
+# Simulate bimodal and unimodal data
+n <- 300
+data_unimodal <- rnorm(n, mean = 50, sd = 10)
+data_bimodal <- c(rnorm(n / 2, mean = 35, sd = 5), rnorm(n / 2, mean = 65, sd = 5))
+
+df_box_violin <- data.frame(
+  Value = c(data_unimodal, data_bimodal),
+  Group = rep(c("Unimodal Group", "Bimodal Group"), each = n)
+)
+
+# Violin plot with overlaid boxplot
+ggplot(df_box_violin, aes(x = Group, y = Value, fill = Group)) +
+  geom_violin(alpha = 0.6, trim = FALSE) +
+  geom_boxplot(width = 0.15, fill = "white", outlier.colour = "red") +
+  theme_minimal() +
+  labs(
+    title = "Comparison of Violin Plot and Overlaid Box Plot",
+    x = "Group",
+    y = "Values"
+  ) +
+  theme(legend.position = "none")
+```
+
+### Key Differences
+
+- Bimodal/Multimodal Data: A box plot might mask a bimodal distribution as a single wide box, whereas a violin plot clearly shows multiple peaks ("bumps").
+
+- Sample Density: Violin plots illustrate data density and probability distribution, while box plots emphasize summary statistics and interquartile ranges (IQR).
