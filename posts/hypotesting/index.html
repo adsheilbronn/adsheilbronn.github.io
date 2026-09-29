@@ -2,19 +2,25 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.554">
+<meta name="generator" content="quarto-1.10.18">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Haseeb Mahmud">
 <meta name="dcterms.date" content="2026-09-28">
 
-<title>Advanced Data Science - Hypothesis Testing</title>
+<title>Hypothesis Testing – Advanced Data Science</title>
 <style>
-code{white-space: pre-wrap;}
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 span.smallcaps{font-variant: small-caps;}
-div.columns{display: flex; gap: min(4vw, 1.5em);}
-div.column{flex: auto; overflow-x: auto;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
@@ -32,15 +38,16 @@ ul.task-list li input[type="checkbox"] {
 <script src="../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../">
-<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-55617497126496852ff9f5a59253c640.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -69,8 +76,8 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
 
 <script type="text/javascript">
 const typesetMath = (el) => {
@@ -83,7 +90,7 @@ const typesetMath = (el) => {
     var macros = [];
     for (var i = 0; i < mathElements.length; i++) {
       var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
         window.katex.render(texText.data, mathElements[i], {
           displayMode: mathElements[i].classList.contains('display'),
           throwOnError: false,
@@ -102,7 +109,7 @@ window.Quarto = {
 <link rel="stylesheet" href="../../styles.css">
 </head>
 
-<body class="nav-fixed">
+<body class="nav-fixed quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top quarto-banner">
@@ -114,7 +121,7 @@ window.Quarto = {
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
@@ -135,7 +142,7 @@ window.Quarto = {
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
-          <div class="quarto-navbar-tools">
+            <div class="quarto-navbar-tools">
 </div>
       </div> <!-- /container-fluid -->
     </nav>
@@ -191,29 +198,6 @@ window.Quarto = {
   <ul class="collapse">
   <li><a href="#example-large-sample-one-tailed-test" id="toc-example-large-sample-one-tailed-test" class="nav-link" data-scroll-target="#example-large-sample-one-tailed-test">Example: Large sample one tailed test</a></li>
   <li><a href="#example-large-sample-two-tailed-test" id="toc-example-large-sample-two-tailed-test" class="nav-link" data-scroll-target="#example-large-sample-two-tailed-test">Example: Large sample two tailed test</a></li>
-  <li><a href="#example-small-sample-two-tailed-test" id="toc-example-small-sample-two-tailed-test" class="nav-link" data-scroll-target="#example-small-sample-two-tailed-test">Example: Small sample two tailed test</a></li>
-  <li><a href="#example-small-sample-one-tailed-test" id="toc-example-small-sample-one-tailed-test" class="nav-link" data-scroll-target="#example-small-sample-one-tailed-test">Example: Small sample one tailed test</a></li>
-  </ul></li>
-  <li><a href="#decision-rule-onetwo-tailed-test" id="toc-decision-rule-onetwo-tailed-test" class="nav-link" data-scroll-target="#decision-rule-onetwo-tailed-test">Decision rule: One/Two tailed test</a>
-  <ul class="collapse">
-  <li><a href="#example-spss" id="toc-example-spss" class="nav-link" data-scroll-target="#example-spss">Example: SPSS</a></li>
-  </ul></li>
-  <li><a href="#type-i-and-type-ii-error" id="toc-type-i-and-type-ii-error" class="nav-link" data-scroll-target="#type-i-and-type-ii-error">Type I and Type II error</a></li>
-  <li><a href="#observed-significance-level-p-value" id="toc-observed-significance-level-p-value" class="nav-link" data-scroll-target="#observed-significance-level-p-value">Observed significance level: <span class="math inline">\(p\)</span> value</a>
-  <ul class="collapse">
-  <li><a href="#decision-rule-p-values" id="toc-decision-rule-p-values" class="nav-link" data-scroll-target="#decision-rule-p-values">Decision rule: <span class="math inline">\(p\)</span> values</a></li>
-  </ul></li>
-  <li><a href="#p-value-two-tailed-case-example" id="toc-p-value-two-tailed-case-example" class="nav-link" data-scroll-target="#p-value-two-tailed-case-example"><span class="math inline">\(p\)</span> value: two tailed case example</a></li>
-  <li><a href="#p-value-two-tailed-case-spss-example" id="toc-p-value-two-tailed-case-spss-example" class="nav-link" data-scroll-target="#p-value-two-tailed-case-spss-example"><span class="math inline">\(p\)</span> value: two tailed case SPSS example</a></li>
-  <li><a href="#comparing-two-means-independent-sampling" id="toc-comparing-two-means-independent-sampling" class="nav-link" data-scroll-target="#comparing-two-means-independent-sampling">Comparing two means: independent sampling</a></li>
-  <li><a href="#comparing-two-means-population-sampling" id="toc-comparing-two-means-population-sampling" class="nav-link" data-scroll-target="#comparing-two-means-population-sampling">Comparing two means: population sampling</a>
-  <ul class="collapse">
-  <li><a href="#large-sample-hypothesis-for-mu_1---mu_2" id="toc-large-sample-hypothesis-for-mu_1---mu_2" class="nav-link" data-scroll-target="#large-sample-hypothesis-for-mu_1---mu_2">Large sample hypothesis for <span class="math inline">\((\mu_1 - \mu_2)\)</span></a></li>
-  <li><a href="#small-sample-hypothesis-for-mu_1---mu_2-when-sigma_1-sigma_2" id="toc-small-sample-hypothesis-for-mu_1---mu_2-when-sigma_1-sigma_2" class="nav-link" data-scroll-target="#small-sample-hypothesis-for-mu_1---mu_2-when-sigma_1-sigma_2">Small sample hypothesis for <span class="math inline">\((\mu_1 - \mu_2)\)</span> when <span class="math inline">\(\sigma_1 = \sigma_2\)</span></a></li>
-  <li><a href="#small-sample-hypothesis-for-mu_1---mu_2-when-sigma_1-neq-sigma_2" id="toc-small-sample-hypothesis-for-mu_1---mu_2-when-sigma_1-neq-sigma_2" class="nav-link" data-scroll-target="#small-sample-hypothesis-for-mu_1---mu_2-when-sigma_1-neq-sigma_2">Small sample hypothesis for <span class="math inline">\((\mu_1 - \mu_2)\)</span> when <span class="math inline">\(\sigma_1 \neq \sigma_2\)</span></a></li>
-  <li><a href="#spss-example" id="toc-spss-example" class="nav-link" data-scroll-target="#spss-example">SPSS Example</a></li>
-  <li><a href="#comparing-two-means-paired-difference-experiments" id="toc-comparing-two-means-paired-difference-experiments" class="nav-link" data-scroll-target="#comparing-two-means-paired-difference-experiments">Comparing two means: paired difference experiments</a></li>
-  <li><a href="#spss-example-1" id="toc-spss-example-1" class="nav-link" data-scroll-target="#spss-example-1">SPSS Example</a></li>
   </ul></li>
   </ul></li>
   </ul>
@@ -291,7 +275,7 @@ z = \frac{\bar{x}-2400}{\sigma_{\bar{x}}}=\frac{2460-2400}{200/\sqrt{50}}=\frac{
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="index_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid figure-img" width="768"></p>
-<figcaption>Bivariate linear regression of Miles Per Gallon (mpg) on Vehicle Weight (wt).</figcaption>
+<figcaption>One sample hypothesis test.</figcaption>
 </figure>
 </div>
 </div>
@@ -310,251 +294,6 @@ z = \frac{\bar{x}-2400}{\sigma_{\bar{x}}}=\frac{2460-2400}{200/\sqrt{50}}=\frac{
 <p><span class="math display">\[
 z = \frac{\bar{x}-\mu}{\sigma_{\bar{x}}}=\frac{11.851-12}{0.512/\sqrt{100}}=\frac{-.149}{.512/10}=-2.91
 \]</span></p>
-<p>The decision rule for large sample two tailed <span class="math inline">\(z\)</span> test is if the calculate value of <span class="math inline">\(z\)</span> is greater than the table value of <span class="math inline">\(z\)</span> we should reject the <span class="math inline">\(H_0\)</span>.</p>
-<p>##Small sample test: <span class="math inline">\(t\)</span>-test</p>
-</section>
-<section id="example-small-sample-two-tailed-test" class="level3">
-<h3 class="anchored" data-anchor-id="example-small-sample-two-tailed-test">Example: Small sample two tailed test</h3>
-<p>The owner of the local bar states that the average number of times he sees each of his customers during the month is 5. In order to validate his statement, he randomly selects 10 of his customers and determines the number of drinks each of them had during the previous year. He got the following values for 10 customers in his sample: 9, 10, 8, 4, 8, 3, 0, 10, 15, 9. Do the data supports his claim that the average number of times he sees a customer is 5?\</p>
-<p><strong>Null hypothesis</strong></p>
-<p><span class="math display">\[
-H_0: \mu = 5
-\]</span></p>
-<p>The mean of the population the sample equals to 5.</p>
-<p><strong>Alternative hypothesis</strong></p>
-<p><span class="math display">\[
-H_1: \mu \neq 5
-\]</span></p>
-<p>The mean of the population the sample is not equal to 5. This is a non-directional hypothesis and be evaluated by two-tailed test.</p>
-</section>
-<section id="example-small-sample-one-tailed-test" class="level3">
-<h3 class="anchored" data-anchor-id="example-small-sample-one-tailed-test">Example: Small sample one tailed test</h3>
-<p><span class="math display">\[
-H_1: \mu &gt; 5
-\]</span></p>
-<p>The mean of the population the sample represents is greater than 5.</p>
-<p><span class="math display">\[
-H_1: \mu &lt; 5
-\]</span></p>
-<p>The mean of the population the sample represents is less than 5.</p>
-<p>The directional hypotheses are to be evaluated by one-tailed test.</p>
-<p>The test statistic for one sample t-test is,</p>
-<p><span class="math display">\[
-t= \frac{\bar{X}-\mu}{s_{\bar{X}}}
-\]</span></p>
-<p>where, the mean of <span class="math inline">\(X\)</span> is,</p>
-<p><span class="math display">\[
-\bar{X} = \frac{\Sigma X}{n} = \frac{76}{10} = 7.6
-\]</span></p>
-<p>and, the standard error of the population mean is,</p>
-<p><span class="math display">\[
-s_{\bar{X}}=\frac{\tilde{s}}{\sqrt{n}}
-\]</span></p>
-<p>where, the standard deviation of the sample, which can be expressed as,</p>
-<p><span class="math display">\[
-\tilde{s}=\sqrt{\frac{\Sigma X^2 - \frac{(\Sigma X)^2}{n}}{n-1}}=\sqrt{\frac{740 - \frac{(76)^2}{10}}{9}}=4.25
-\]</span></p>
-<p>So, out <em>t-statistic</em> would be,</p>
-<p><span class="math display">\[
-t= \frac{7.6 - 5}{1.34} = 1.94
-\]</span></p>
-<p>This is the <strong>calculated value of t-statistic</strong>. To decide on the hypothesis, we need to compare it with the <strong>table value of t-statistic</strong>.</p>
-<p>The hypothesis is also to be tested at a given level of significance and a degrees of freedom of <span class="math inline">\(n-1\)</span>.</p>
-</section>
-</section>
-<section id="decision-rule-onetwo-tailed-test" class="level2">
-<h2 class="anchored" data-anchor-id="decision-rule-onetwo-tailed-test">Decision rule: One/Two tailed test</h2>
-<ul>
-<li>In case of non-directional hypothesis, the null hypothesis can be rejected if the calculated <strong>absolute</strong> value is equal to or greater than the two-tailed tabled value.</li>
-<li>In case of directional hypothesis, where we are testing if the population mean is greater than the value in the null hypothesis, the the null hypothesis can be rejected if the calculated t value is positive and that is greater than the tabled one-tailed t value.</li>
-<li>In case of directional hypothesis, where we are testing if the population mean is less than the value in the null hypothesis, the null hypothesis can be rejected if the calculated t value is <strong>negative</strong> and the absolute value of calculated t is equal or greater than the tabled one-tailed t value.</li>
-</ul>
-<section id="example-spss" class="level3">
-<h3 class="anchored" data-anchor-id="example-spss">Example: SPSS</h3>
-<section id="problem-consider-the-album-sales-data-again.-the-music-band-leader-is-thinking-whether-they-are-spending-too-much-in-advertisement-compare-to-the-industry.-they-have-got-to-know-that-on-average-the-industry-spends-500000-euro-per-year.-so-the-band-members-are-wondering-whether-their-spending-is-statistically-different-from-the-industry." class="level4">
-<h4 class="anchored" data-anchor-id="problem-consider-the-album-sales-data-again.-the-music-band-leader-is-thinking-whether-they-are-spending-too-much-in-advertisement-compare-to-the-industry.-they-have-got-to-know-that-on-average-the-industry-spends-500000-euro-per-year.-so-the-band-members-are-wondering-whether-their-spending-is-statistically-different-from-the-industry.">Problem Consider the Album sales data again. The music band leader is thinking whether they are spending too much in advertisement compare to the industry. They have got to know that on average the industry spends 500,000 euro per year. So, the band members are wondering whether their spending is statistically different from the industry.</h4>
-<p>####Solution: To test this, we need to go to Analyze <span class="math inline">\(&gt;\)</span> Compare means <span class="math inline">\(&gt;\)</span> One sample T test. Select the variable we want to test. Here it is Advertisement budget. Put the test value <span class="math inline">\(500\)</span> in the input box at the bottom. Confirm the confidence level by clicking Options. We assume a <span class="math inline">\(95\%\)</span> confidence interval. Click paste and the code will look like as follows,</p>
-<p>Dataset: Album Sales.sav</p>
-<p>Figure</p>
-<p>The resulting output shows (figure XX) that our calculation <span class="math inline">\(t\)</span> value is 3.332, which is larger than 1.96, which means we are rejecting the null hypothesis that there is no significant difference between the band’s budget and the industry average budget.</p>
-</section>
-</section>
-</section>
-<section id="type-i-and-type-ii-error" class="level2">
-<h2 class="anchored" data-anchor-id="type-i-and-type-ii-error">Type I and Type II error</h2>
-<p>The Type I error occurs if the researcher rejects the null hypothesis in favour of the alternative hypothesis when, in fact, <span class="math inline">\(H_0\)</span> is true. The probability of committing a Type I error is denoted by <span class="math inline">\(\alpha\)</span>.</p>
-<p>The Type II error occurs if the researcher accepts the null hypothesis when, in fact, <span class="math inline">\(H_0\)</span> is false, The probability of committing a Type II error is denoted by <span class="math inline">\(\beta\)</span></p>
-<p>Figure</p>
-</section>
-<section id="observed-significance-level-p-value" class="level2">
-<h2 class="anchored" data-anchor-id="observed-significance-level-p-value">Observed significance level: <span class="math inline">\(p\)</span> value</h2>
-<p>The observed significance level, or <span class="math inline">\(p\)</span>-value, for a specific statistical test is the probability (assuming <span class="math inline">\(H_0\)</span> is true of observing a value of the test statistics that is at least as contradictory to the null hypothesis, and supporting of the alternative hypothesis, as the actual one computed from the sample data.</p>
-<p>For example, the value of the test statistic computed for the sample of <span class="math inline">\(n=50\)</span> sections of sewer pipe was <span class="math inline">\(z=2.12\)</span>. Because the test is one-tailed, our <span class="math inline">\(H_a:\mu &gt; 2400\)</span>. The observed significance level <span class="math inline">\(p\)</span>-value for this test is,</p>
-<p><span class="math display">\[
-$p$-value $= \mathbb{P}(z&gt;2.12)$.
-\]</span></p>
-<p>Or equivalently the area under the standard normal curve to the right of <span class="math inline">\(z=2.12\)</span>, which is here <span class="math inline">\(0.017 (=0.5-0.483)\)</span></p>
-<section id="decision-rule-p-values" class="level3">
-<h3 class="anchored" data-anchor-id="decision-rule-p-values">Decision rule: <span class="math inline">\(p\)</span> values</h3>
-<ul>
-<li>If the test is one-tailed, the <span class="math inline">\(p\)</span> value is equal to the tail area beyond <span class="math inline">\(z\)</span> in the same direction as the alternative hypothesis. Thus, if the alternative hypothesis is of the form <span class="math inline">\(&gt;\)</span>, the <span class="math inline">\(p\)</span>-value is the area to the right of, or above, the observed <span class="math inline">\(z\)</span>-value. Conversely, if the alternative is of the form <span class="math inline">\(&lt;\)</span>, the <span class="math inline">\(p\)</span>-value is the area to the left of, or below, the observed <span class="math inline">\(z\)</span>-value.</li>
-<li>If the test is two tailed, the <span class="math inline">\(p\)</span> value is equal to the twice the tail area beyond the observed <span class="math inline">\(z\)</span>-value in the direction of <span class="math inline">\(z\)</span>, i.e.&nbsp;if <span class="math inline">\(z\)</span> is positive, the <span class="math inline">\(p\)</span> value is the twice the area to the right of, or above, the observed <span class="math inline">\(z\)</span> value.</li>
-</ul>
-</section>
-</section>
-<section id="p-value-two-tailed-case-example" class="level2">
-<h2 class="anchored" data-anchor-id="p-value-two-tailed-case-example"><span class="math inline">\(p\)</span> value: two tailed case example</h2>
-<p>Let the two tailed hypothesis,</p>
-<p><span class="math display">\[
-H_0: \mu=12
-\]</span></p>
-<p>against the alternative hypothesis,</p>
-<p><span class="math display">\[
-H_1: \mu \neq 12
-\]</span></p>
-<p>The observed value of the test statistics is <span class="math inline">\(z=-2.91\)</span>, and any value of <span class="math inline">\(z\)</span> less than <span class="math inline">\(-2.91\)</span> or greater than <span class="math inline">\(2.91\)</span> would be more contradictory to <span class="math inline">\(H_0\)</span>. Therefore, the observed significance level for the test is,</p>
-<p><span class="math display">\[
-p-value= \mathbb{P}(|z|&gt;2.91)
-\]</span></p>
-<p>Thus, we calculate the area below the observed <span class="math inline">\(z\)</span>-value and double it, ie. <span class="math inline">\(0.0018 \times 2 = 0.0036\)</span>.</p>
-</section>
-<section id="p-value-two-tailed-case-spss-example" class="level2">
-<h2 class="anchored" data-anchor-id="p-value-two-tailed-case-spss-example"><span class="math inline">\(p\)</span> value: two tailed case SPSS example</h2>
-<p>The <span class="math inline">\(p\)</span> value of t-test is reported along with t-test statistic. In out t-test (figure: <span class="math inline">\(\ref{fig:304}\)</span>) output based on data, the reported <span class="math inline">\(p\)</span>-value is <span class="math inline">\(0.001\)</span>, which is too low to accept the null hypothesis.</p>
-</section>
-<section id="comparing-two-means-independent-sampling" class="level2">
-<h2 class="anchored" data-anchor-id="comparing-two-means-independent-sampling">Comparing two means: independent sampling</h2>
-<p></p>
-<ul>
-<li>The two samples are randomly selected in an independent manner from the two target populations.</li>
-<li>The sample sizes, <span class="math inline">\(n_1\)</span> and <span class="math inline">\(n_2\)</span> are both large (i.e.&nbsp;<span class="math inline">\(n \geq 30\)</span> and <span class="math inline">\(n_2 \geq 30\)</span>. Due to the Central limit theorem, this condition guarantees that the sampling distribution of <span class="math inline">\((\bar{x}_1 - \bar{x}_2)\)</span> will be approximately normal regardless of the shapes of the underlying probability distribution of the populations. Also, <span class="math inline">\(s_1^2\)</span> and <span class="math inline">\(s_2^2\)</span> will provide good approximations to <span class="math inline">\(\sigma_1^2\)</span> and <span class="math inline">\(\sigma_2^2\)</span> when the samples are both large.</li>
-</ul>
-</section>
-<section id="comparing-two-means-population-sampling" class="level2">
-<h2 class="anchored" data-anchor-id="comparing-two-means-population-sampling">Comparing two means: population sampling</h2>
-<p>** Properties of the sampling distribution of <span class="math inline">\(\bar{x}_1 - \bar{x}_2\)</span>**</p>
-<ul>
-<li>The mean of the sampling distribution <span class="math inline">\((\bar{x}_1 - \bar{x}_2)\)</span> is <span class="math inline">\((\mu_1 - \mu_2)\)</span>.</li>
-<li>If the two samples are independent, the standard deviation of the sampling distribution is <span class="math display">\[
-  \sigma_{(\bar{x}_1 - \bar{x}_2)} = \sqrt{\frac{\sigma_1^2}{n_1}+\frac{\sigma_2^2}{n_2}}
-  \]</span></li>
-</ul>
-<p>** Large sample CI for <span class="math inline">\((\mu_1 - \mu_2)\)</span>**</p>
-<p><span class="math display">\[
-(\bar{x}_1-\bar{x}_2) \pm z_{\alpha/2}\sigma_{(\bar{x}_1-\bar{x}_2)} = (\bar{x}_1-\bar{x}_2) \pm z_{\alpha/2}\sqrt{\frac{\sigma_1^2}{n_1}+\frac{\sigma_2^2}{n_2}}
-\]</span></p>
-<section id="large-sample-hypothesis-for-mu_1---mu_2" class="level3">
-<h3 class="anchored" data-anchor-id="large-sample-hypothesis-for-mu_1---mu_2">Large sample hypothesis for <span class="math inline">\((\mu_1 - \mu_2)\)</span></h3>
-<p><strong>Hypothesis for one-tailed test:</strong></p>
-<p><span class="math display">\[
-\begin{aligned}
-H_0 : (\mu_1 - \mu_2) &amp;= D_0 \\
-H_1 : (\mu_1 - \mu_2) &amp;&lt; D_0 \\
-H_1 : (\mu_1 - \mu_2) &amp;&gt; D_0
-\end{aligned}
-\]</span></p>
-<p><strong>Hypothesis for two-tailed test:</strong></p>
-<p><span class="math display">\[
-\begin{aligned}
-H_0 : (\mu_1 - \mu_2) &amp;= D_0 \\
-H_1 : (\mu_1 - \mu_2) &amp;\neq D_0
-\end{aligned}
-\]</span></p>
-<p>where <span class="math inline">\(D_0\)</span> is the hypothesized difference between the means. This difference is often hypothesized to be equal to zero.</p>
-<p><strong>Test statistic:</strong></p>
-<p><span class="math display">\[
-z = \frac{(\bar{x}_1 - \bar{x}_2)-D_0}{\sigma_{\bar{x}_1-\bar{x}_2}}
-\]</span></p>
-<p>where:</p>
-<p><span class="math display">\[
-\sigma_{\bar{x}_1-\bar{x}_2} = \sqrt{\frac{\sigma_1^2}{n_1}+\frac{\sigma_2^2}{n_2}} \approx \sqrt{\frac{s_1^2}{n_1}+\frac{s_2^2}{n_2}}
-\]</span></p>
-<p><strong>Rejection region:</strong></p>
-<ul>
-<li>If <span class="math inline">\(z &lt; z_{\alpha}\)</span>, or <span class="math inline">\(z &gt; z_{\alpha}\)</span> when <span class="math inline">\(H_1 : (\mu_1 - \mu_2) &gt; D_0\)</span>.</li>
-<li>In the case of a two-tailed test, <span class="math inline">\(|z| &gt; z_{\alpha/2}\)</span>.</li>
-</ul>
-</section>
-<section id="small-sample-hypothesis-for-mu_1---mu_2-when-sigma_1-sigma_2" class="level3">
-<h3 class="anchored" data-anchor-id="small-sample-hypothesis-for-mu_1---mu_2-when-sigma_1-sigma_2">Small sample hypothesis for <span class="math inline">\((\mu_1 - \mu_2)\)</span> when <span class="math inline">\(\sigma_1 = \sigma_2\)</span></h3>
-<p><strong>Conditions required for valid small-sample inferences about <span class="math inline">\((\mu_1 - \mu_2)\)</span>:</strong></p>
-<ul>
-<li>The two samples are randomly selected in an independent manner from the two target populations.</li>
-<li>Both sampled populations have distributions that are approximately normal.</li>
-<li>The population variances are equal, i.e., <span class="math inline">\(\sigma_1^2 = \sigma_2^2\)</span>.</li>
-</ul>
-<p>Since we assume the two populations have equal variances (<span class="math inline">\(\sigma_1^2 = \sigma_2^2 = \sigma^2\)</span>), it is reasonable to use the information contained in both samples to construct a <strong>pooled sample estimator of <span class="math inline">\(\sigma^2\)</span></strong> for use in CI and test statistics.</p>
-<p>Thus, if <span class="math inline">\(s_1^2\)</span> and <span class="math inline">\(s_2^2\)</span> are the two sample variances (both estimating the variance <span class="math inline">\(\sigma^2\)</span> common to both populations), the pooled estimator of <span class="math inline">\(\sigma^2\)</span>, denoted as <span class="math inline">\(s_p^2\)</span>, is:</p>
-<p><span class="math display">\[
-s_p^2 = \frac{(n_1 - 1)s_1^2+(n_2 - 1)s_2^2}{(n_1-1)+(n_2-1)} = \frac{(n_1 - 1)s_1^2+(n_2 - 1)s_2^2}{n_1+n_2-2}
-\]</span></p>
-<p><strong>Small sample CI for <span class="math inline">\((\mu_1 - \mu_2)\)</span> (Independent samples):</strong></p>
-<p><span class="math display">\[
-(\bar{x}_1 - \bar{x}_2) \pm t_{\alpha/2}\sqrt{s_p^2 \left( \frac{1}{n_1}+\frac{1}{n_2}\right)}
-\]</span></p>
-<p>where <span class="math inline">\(t_{\alpha/2}\)</span> is based on <span class="math inline">\((n_1+n_2-2)\)</span> degrees of freedom. The test statistic is:</p>
-<p><span class="math display">\[
-t = \frac{(\bar{x}_1 - \bar{x}_2)-D_0}{\sqrt{s_p^2 \left( \frac{1}{n_1}+\frac{1}{n_2}\right)}}
-\]</span></p>
-</section>
-<section id="small-sample-hypothesis-for-mu_1---mu_2-when-sigma_1-neq-sigma_2" class="level3">
-<h3 class="anchored" data-anchor-id="small-sample-hypothesis-for-mu_1---mu_2-when-sigma_1-neq-sigma_2">Small sample hypothesis for <span class="math inline">\((\mu_1 - \mu_2)\)</span> when <span class="math inline">\(\sigma_1 \neq \sigma_2\)</span></h3>
-<p><strong>When the sample sizes are equal (<span class="math inline">\(n_1 = n_2\)</span>):</strong></p>
-<ul>
-<li><strong>Confidence interval:</strong></li>
-</ul>
-<p><span class="math display">\[
-(\bar{x}_1 - \bar{x}_2) \pm t_{\alpha/2}\sqrt{\frac{s_1^2 + s_2^2}{n}}
-\]</span></p>
-<ul>
-<li><strong>Test statistic:</strong></li>
-</ul>
-<p><span class="math display">\[
-t = \frac{\bar{x}_1 - \bar{x}_2}{\sqrt{\frac{s_1^2 + s_2^2}{n}}}
-\]</span></p>
-<p>where <span class="math inline">\(t\)</span> is based on <span class="math inline">\(\nu = n_1 + n_2 - 2 = 2(n-1)\)</span> degrees of freedom.</p>
-<p><strong>When the sample sizes are not equal (<span class="math inline">\(n_1 \neq n_2\)</span>):</strong></p>
-<ul>
-<li><strong>Confidence interval:</strong></li>
-</ul>
-<p><span class="math display">\[
-(\bar{x}_1 - \bar{x}_2) \pm t_{\alpha/2}\sqrt{\frac{s_1^2}{n_1}+\frac{s_2^2}{n_2}}
-\]</span></p>
-<ul>
-<li><strong>Test statistic:</strong></li>
-</ul>
-<p><span class="math display">\[
-t = \frac{\bar{x}_1 - \bar{x}_2}{\sqrt{\frac{s_1^2}{n_1}+\frac{s_2^2}{n_2}}}
-\]</span></p>
-<p>where <span class="math inline">\(t\)</span> is based on <span class="math inline">\(\nu = \frac{\frac{s_1^2}{n_1}+\frac{s_2^2}{n_2}}{\frac{s_1^2/n_1}{n_1-1}+\frac{s_2^2/n_2}{n_2-1}}\)</span> degrees of freedom.</p>
-</section>
-<section id="spss-example" class="level3">
-<h3 class="anchored" data-anchor-id="spss-example">SPSS Example</h3>
-<p><strong>Dataset:</strong> <code>bankloan.sav</code></p>
-<p>The bank manager wants to decide whether the income of the client makes any difference in the default behavior of a client. He found that the average income of his clients is 47 thousand euros. He wants to see if there exists any difference between above-average income earners and lower-than-average income earners in default behavior. To differentiate, he needs to do a two-sample independent <span class="math inline">\(t\)</span>-test, where the first sample consists of clients with above-average income and the second sample consists of people with lower-than-average income.</p>
-<p>We assume a null hypothesis here that there exists no difference between the two groups at a <span class="math inline">\(5\%\)</span> significance level. For both equal variance and unequal variance assumptions, the absolute value of the calculated <span class="math inline">\(t\)</span>-value is greater than the table value of <span class="math inline">\(1.96\)</span>, thus rejecting our null hypothesis that there exists no difference between the two groups. In other words, the difference between the two groups based on income level is statistically significant in their default history.</p>
-</section>
-<section id="comparing-two-means-paired-difference-experiments" class="level3">
-<h3 class="anchored" data-anchor-id="comparing-two-means-paired-difference-experiments">Comparing two means: paired difference experiments</h3>
-<p>In the paired/matched sample case, the standard <span class="math inline">\(t\)</span>-test is invalid because the assumption of independent samples is violated. To solve this problem, we create a column containing the difference between two samples <span class="math inline">\(x_1\)</span> and <span class="math inline">\(x_2\)</span>. We then use the mean of the sample mean difference <span class="math inline">\(\bar{d}\)</span> to draw our inference.</p>
-<p><strong>Hypotheses:</strong></p>
-<p><span class="math display">\[
-\begin{aligned}
-H_0: \mu_d &amp;= 0 \quad [\text{i.e., } (\mu_1 - \mu_2)=0] \\
-H_1: \mu_d &amp;\neq 0 \quad [\text{i.e., } (\mu_1 - \mu_2) \neq 0]
-\end{aligned}
-\]</span></p>
-<p><strong>Test statistic:</strong></p>
-<p><span class="math display">\[
-t = \frac{\bar{d}-D}{s_d/\sqrt{n_d}}
-\]</span></p>
-<p>where <span class="math inline">\(s_d\)</span> is the sample standard deviation of the differences. The hypothesis is to be tested by using <span class="math inline">\((n_d - 1)\)</span> degrees of freedom.</p>
-</section>
-<section id="spss-example-1" class="level3">
-<h3 class="anchored" data-anchor-id="spss-example-1">SPSS Example</h3>
-<p><strong>Dataset:</strong> <code>bankloan.sav</code></p>
-<p>Suppose the bank manager wants to see if there exists any difference between credit card debts and other debts. To check the null hypothesis that there exists no difference at <span class="math inline">\(5\%\)</span>, we compare credit card debt with other debts.</p>
-<p>The calculated absolute value of <span class="math inline">\(t\)</span> is far above the table value, which indicates the null hypothesis is rejected and thereby we can say there exists a difference in credit card debt and other debts.</p>
 
 
 </section>
@@ -563,43 +302,58 @@ t = \frac{\bar{d}-D}{s_d/\sqrt{n_d}}
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
-window.document.addEventListener("DOMContentLoaded", function (event) {
-  const toggleBodyColorMode = (bsSheetEl) => {
-    const mode = bsSheetEl.getAttribute("data-mode");
-    const bodyEl = window.document.querySelector("body");
-    if (mode === "dark") {
-      bodyEl.classList.add("quarto-dark");
-      bodyEl.classList.remove("quarto-light");
-    } else {
-      bodyEl.classList.add("quarto-light");
-      bodyEl.classList.remove("quarto-dark");
-    }
-  }
-  const toggleBodyColorPrimary = () => {
-    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
-    if (bsSheetEl) {
-      toggleBodyColorMode(bsSheetEl);
-    }
-  }
-  toggleBodyColorPrimary();  
-  const icon = "";
-  const anchorJS = new window.AnchorJS();
-  anchorJS.options = {
-    placement: 'right',
-    icon: icon
-  };
-  anchorJS.add('.anchored');
-  const isCodeAnnotation = (el) => {
-    for (const clz of el.classList) {
-      if (clz.startsWith('code-annotation-')) {                     
-        return true;
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
       }
+      return false;
     }
-    return false;
-  }
-  const clipboard = new window.ClipboardJS('.code-copy-button', {
-    text: function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
       for (const childEl of codeEl.children) {
         if (isCodeAnnotation(childEl)) {
           childEl.remove();
@@ -607,184 +361,184 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       }
       return codeEl.innerText;
     }
-  });
-  clipboard.on('success', function(e) {
-    // button target
-    const button = e.trigger;
-    // don't keep focus
-    button.blur();
-    // flash "checked"
-    button.classList.add('code-copy-button-checked');
-    var currentTitle = button.getAttribute("title");
-    button.setAttribute("title", "Copied!");
-    let tooltip;
-    if (window.bootstrap) {
-      button.setAttribute("data-bs-toggle", "tooltip");
-      button.setAttribute("data-bs-placement", "left");
-      button.setAttribute("data-bs-title", "Copied!");
-      tooltip = new bootstrap.Tooltip(button, 
-        { trigger: "manual", 
-          customClass: "code-copy-button-tooltip",
-          offset: [0, -8]});
-      tooltip.show();    
-    }
-    setTimeout(function() {
-      if (tooltip) {
-        tooltip.hide();
-        button.removeAttribute("data-bs-title");
-        button.removeAttribute("data-bs-toggle");
-        button.removeAttribute("data-bs-placement");
-      }
-      button.setAttribute("title", currentTitle);
-      button.classList.remove('code-copy-button-checked');
-    }, 1000);
-    // clear code selection
-    e.clearSelection();
-  });
-    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-    var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp("https:\/\/adsheilbronn\.github\.io\/");
-    var isInternal = (href) => {
-        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
-    }
-    // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
-    for (var i=0; i<links.length; i++) {
-      const link = links[i];
-      if (!isInternal(link.href)) {
-        // undo the damage that might have been done by quarto-nav.js in the case of
-        // links that we want to consider external
-        if (link.dataset.originalHref !== undefined) {
-          link.href = link.dataset.originalHref;
-        }
-      }
-    }
-  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
-    const config = {
-      allowHTML: true,
-      maxWidth: 500,
-      delay: 100,
-      arrow: false,
-      appendTo: function(el) {
-          return el.parentElement;
-      },
-      interactive: true,
-      interactiveBorder: 10,
-      theme: 'quarto',
-      placement: 'bottom-start',
-    };
-    if (contentFn) {
-      config.content = contentFn;
-    }
-    if (onTriggerFn) {
-      config.onTrigger = onTriggerFn;
-    }
-    if (onUntriggerFn) {
-      config.onUntrigger = onUntriggerFn;
-    }
-    window.tippy(el, config); 
-  }
-  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
-  for (var i=0; i<noterefs.length; i++) {
-    const ref = noterefs[i];
-    tippyHover(ref, function() {
-      // use id or data attribute instead here
-      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
-      try { href = new URL(href).hash; } catch {}
-      const id = href.replace(/^#\/?/, "");
-      const note = window.document.getElementById(id);
-      if (note) {
-        return note.innerHTML;
-      } else {
-        return "";
-      }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
     });
-  }
-  const xrefs = window.document.querySelectorAll('a.quarto-xref');
-  const processXRef = (id, note) => {
-    // Strip column container classes
-    const stripColumnClz = (el) => {
-      el.classList.remove("page-full", "page-columns");
-      if (el.children) {
-        for (const child of el.children) {
-          stripColumnClz(child);
-        }
-      }
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
     }
-    stripColumnClz(note)
-    if (id === null || id.startsWith('sec-')) {
-      // Special case sections, only their first couple elements
-      const container = document.createElement("div");
-      if (note.children && note.children.length > 2) {
-        container.appendChild(note.children[0].cloneNode(true));
-        for (let i = 1; i < note.children.length; i++) {
-          const child = note.children[i];
-          if (child.tagName === "P" && child.innerText === "") {
-            continue;
-          } else {
-            container.appendChild(child.cloneNode(true));
-            break;
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/adsheilbronn\.github\.io\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
           }
         }
-        if (window.Quarto?.typesetMath) {
-          window.Quarto.typesetMath(container);
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
         }
-        return container.innerHTML
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
       } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
         if (window.Quarto?.typesetMath) {
           window.Quarto.typesetMath(note);
         }
-        return note.innerHTML;
-      }
-    } else {
-      // Remove any anchor links if they are present
-      const anchorLink = note.querySelector('a.anchorjs-link');
-      if (anchorLink) {
-        anchorLink.remove();
-      }
-      if (window.Quarto?.typesetMath) {
-        window.Quarto.typesetMath(note);
-      }
-      // TODO in 1.5, we should make sure this works without a callout special case
-      if (note.classList.contains("callout")) {
-        return note.outerHTML;
-      } else {
-        return note.innerHTML;
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
       }
     }
-  }
-  for (var i=0; i<xrefs.length; i++) {
-    const xref = xrefs[i];
-    tippyHover(xref, undefined, function(instance) {
-      instance.disable();
-      let url = xref.getAttribute('href');
-      let hash = undefined; 
-      if (url.startsWith('#')) {
-        hash = url;
-      } else {
-        try { hash = new URL(url).hash; } catch {}
-      }
-      if (hash) {
-        const id = hash.replace(/^#\/?/, "");
-        const note = window.document.getElementById(id);
-        if (note !== null) {
-          try {
-            const html = processXRef(id, note.cloneNode(true));
-            instance.setContent(html);
-          } finally {
-            instance.enable();
-            instance.show();
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
           }
         } else {
-          // See if we can fetch this
-          fetch(url.split('#')[0])
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
           .then(res => res.text())
           .then(html => {
             const parser = new DOMParser();
             const htmlDoc = parser.parseFromString(html, "text/html");
-            const note = htmlDoc.getElementById(id);
+            const note = htmlDoc.querySelector('main.content');
             if (note !== null) {
-              const html = processXRef(id, note);
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
               instance.setContent(html);
             } 
           }).finally(() => {
@@ -792,185 +546,161 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             instance.show();
           });
         }
-      } else {
-        // See if we can fetch a full url (with no hash to target)
-        // This is a special case and we should probably do some content thinning / targeting
-        fetch(url)
-        .then(res => res.text())
-        .then(html => {
-          const parser = new DOMParser();
-          const htmlDoc = parser.parseFromString(html, "text/html");
-          const note = htmlDoc.querySelector('main.content');
-          if (note !== null) {
-            // This should only happen for chapter cross references
-            // (since there is no id in the URL)
-            // remove the first header
-            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
-              note.children[0].remove();
-            }
-            const html = processXRef(null, note);
-            instance.setContent(html);
-          } 
-        }).finally(() => {
-          instance.enable();
-          instance.show();
-        });
-      }
-    }, function(instance) {
-    });
-  }
-      let selectedAnnoteEl;
-      const selectorForAnnotation = ( cell, annotation) => {
-        let cellAttr = 'data-code-cell="' + cell + '"';
-        let lineAttr = 'data-code-annotation="' +  annotation + '"';
-        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
-        return selector;
-      }
-      const selectCodeLines = (annoteEl) => {
-        const doc = window.document;
-        const targetCell = annoteEl.getAttribute("data-target-cell");
-        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
-        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
-        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
-        const lineIds = lines.map((line) => {
-          return targetCell + "-" + line;
-        })
-        let top = null;
-        let height = null;
-        let parent = null;
-        if (lineIds.length > 0) {
-            //compute the position of the single el (top and bottom and make a div)
-            const el = window.document.getElementById(lineIds[0]);
-            top = el.offsetTop;
-            height = el.offsetHeight;
-            parent = el.parentElement.parentElement;
-          if (lineIds.length > 1) {
-            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
-            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
-            height = bottom - top;
-          }
-          if (top !== null && height !== null && parent !== null) {
-            // cook up a div (if necessary) and position it 
-            let div = window.document.getElementById("code-annotation-line-highlight");
-            if (div === null) {
-              div = window.document.createElement("div");
-              div.setAttribute("id", "code-annotation-line-highlight");
-              div.style.position = 'absolute';
-              parent.appendChild(div);
-            }
-            div.style.top = top - 2 + "px";
-            div.style.height = height + 4 + "px";
-            div.style.left = 0;
-            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
-            if (gutterDiv === null) {
-              gutterDiv = window.document.createElement("div");
-              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
-              gutterDiv.style.position = 'absolute';
-              const codeCell = window.document.getElementById(targetCell);
-              const gutter = codeCell.querySelector('.code-annotation-gutter');
-              gutter.appendChild(gutterDiv);
-            }
-            gutterDiv.style.top = top - 2 + "px";
-            gutterDiv.style.height = height + 4 + "px";
-          }
-          selectedAnnoteEl = annoteEl;
-        }
-      };
-      const unselectCodeLines = () => {
-        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
-        elementsIds.forEach((elId) => {
-          const div = window.document.getElementById(elId);
-          if (div) {
-            div.remove();
-          }
-        });
-        selectedAnnoteEl = undefined;
-      };
-        // Handle positioning of the toggle
-    window.addEventListener(
-      "resize",
-      throttle(() => {
-        elRect = undefined;
-        if (selectedAnnoteEl) {
-          selectCodeLines(selectedAnnoteEl);
-        }
-      }, 10)
-    );
-    function throttle(fn, ms) {
-    let throttle = false;
-    let timer;
-      return (...args) => {
-        if(!throttle) { // first call gets through
-            fn.apply(this, args);
-            throttle = true;
-        } else { // all the others get throttled
-            if(timer) clearTimeout(timer); // cancel #2
-            timer = setTimeout(() => {
-              fn.apply(this, args);
-              timer = throttle = false;
-            }, ms);
-        }
-      };
-    }
-      // Attach click handler to the DT
-      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
-      for (const annoteDlNode of annoteDls) {
-        annoteDlNode.addEventListener('click', (event) => {
-          const clickedEl = event.target;
-          if (clickedEl !== selectedAnnoteEl) {
-            unselectCodeLines();
-            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
-            if (activeEl) {
-              activeEl.classList.remove('code-annotation-active');
-            }
-            selectCodeLines(clickedEl);
-            clickedEl.classList.add('code-annotation-active');
-          } else {
-            // Unselect the line
-            unselectCodeLines();
-            clickedEl.classList.remove('code-annotation-active');
-          }
-        });
-      }
-  const findCites = (el) => {
-    const parentEl = el.parentElement;
-    if (parentEl) {
-      const cites = parentEl.dataset.cites;
-      if (cites) {
-        return {
-          el,
-          cites: cites.split(' ')
-        };
-      } else {
-        return findCites(el.parentElement)
-      }
-    } else {
-      return undefined;
-    }
-  };
-  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
-  for (var i=0; i<bibliorefs.length; i++) {
-    const ref = bibliorefs[i];
-    const citeInfo = findCites(ref);
-    if (citeInfo) {
-      tippyHover(citeInfo.el, function() {
-        var popup = window.document.createElement('div');
-        citeInfo.cites.forEach(function(cite) {
-          var citeDiv = window.document.createElement('div');
-          citeDiv.classList.add('hanging-indent');
-          citeDiv.classList.add('csl-entry');
-          var biblioDiv = window.document.getElementById('ref-' + cite);
-          if (biblioDiv) {
-            citeDiv.innerHTML = biblioDiv.innerHTML;
-          }
-          popup.appendChild(citeDiv);
-        });
-        return popup.innerHTML;
+      }, function(instance) {
       });
     }
-  }
-});
-</script>
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
 </div> <!-- /content -->
 
 
