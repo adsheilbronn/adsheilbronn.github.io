@@ -334,6 +334,46 @@ To determine whether data is normally distributed based on sample skewness and e
    $$Z_{\text{skew}} = \frac{\text{Skewness}}{\text{SE}_{\text{skew}}}$$
    Where $\text{SE}_{\text{skew}} \approx \sqrt{\frac{6}{N}}$. If $|Z_{\text{skew}}| > 1.96$ or $|Z_{\text{kurt}}| > 1.96$ at a $5\%$ significance level ($\alpha = 0.05$), the distribution deviates significantly from normality.
 
+## Shapiro-Wilk Test of Normality
+
+The Shapiro-Wilk Test evaluates the null hypothesis ($H_0$) that a sample comes from a normally distributed population.
+
+Null Hypothesis ($H_0$): The data are normally distributed.
+
+Alternative Hypothesis ($H_1$): The data are not normally distributed.
+
+A $p$-value lower than the chosen threshold ($\alpha = 0.05$) leads to rejecting $H_0$, indicating significant deviation from a normal distribution.
+
+Let's plot two samples of $n = 100$: one from a standard normal distribution and another from an exponential distribution.
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| fig-width: 7
+#| fig-height: 4.5
+#| fig-align: center
+
+set.seed(123)
+sample_norm <- rnorm(100, mean = 50, sd = 10)
+sample_exp <- rexp(100, rate = 0.1)
+
+test_norm <- shapiro.test(sample_norm)
+test_exp <- shapiro.test(sample_exp)
+
+results_df <- data.frame(
+  Dataset = c("Simulated Normal Sample", "Simulated Exponential Sample"),
+  Statistic_W = c(round(test_norm$statistic, 4), round(test_exp$statistic, 4)),
+  p_value = c(round(test_norm$p.value, 4), format.pval(test_exp$p.value, digits = 4)),
+  Interpretation = c(
+    ifelse(test_norm$p.value > 0.05, "Fail to reject H0 (Data appears Normal)", "Reject H0 (Non-Normal)"),
+    ifelse(test_exp$p.value > 0.05, "Fail to reject H0 (Data appears Normal)", "Reject H0 (Non-Normal)")
+  )
+)
+
+knitr::kable(results_df, caption = "Shapiro-Wilk Test Results")
+```
+
 
 # Descriptive Statistics using Graphics
 
