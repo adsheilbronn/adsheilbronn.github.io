@@ -222,10 +222,9 @@ window.Quarto = {
   <li><a href="#stacked-bar-plot" id="toc-stacked-bar-plot" class="nav-link" data-scroll-target="#stacked-bar-plot">Stacked bar plot</a></li>
   <li><a href="#histogram-and-density-plot" id="toc-histogram-and-density-plot" class="nav-link" data-scroll-target="#histogram-and-density-plot">Histogram and density plot</a></li>
   <li><a href="#q-q-plot" id="toc-q-q-plot" class="nav-link" data-scroll-target="#q-q-plot">Q-Q plot</a></li>
-  <li><a href="#box-whisker-plot-and-violin-plot" id="toc-box-whisker-plot-and-violin-plot" class="nav-link" data-scroll-target="#box-whisker-plot-and-violin-plot">Box whisker plot and violin plot</a>
+  <li><a href="#box-whisker-plot" id="toc-box-whisker-plot" class="nav-link" data-scroll-target="#box-whisker-plot">Box whisker plot</a>
   <ul class="collapse">
   <li><a href="#explanation-of-box-whisker-components" id="toc-explanation-of-box-whisker-components" class="nav-link" data-scroll-target="#explanation-of-box-whisker-components">Explanation of Box-Whisker Components</a></li>
-  <li><a href="#key-differences" id="toc-key-differences" class="nav-link" data-scroll-target="#key-differences">Key Differences</a></li>
   </ul></li>
   </ul></li>
   </ul>
@@ -639,9 +638,9 @@ Cov (x, y) = \frac{\sum(x_i - \bar{x})(y_i - \bar{y})}{n}
 </div>
 </div>
 </section>
-<section id="box-whisker-plot-and-violin-plot" class="level2">
-<h2 class="anchored" data-anchor-id="box-whisker-plot-and-violin-plot">Box whisker plot and violin plot</h2>
-<p>A <strong>box-whisker plot</strong> (or boxplot) provides a concise visual summary of a continuous variable’s distribution based on its five-number summary: minimum, first quartile (<span class="math inline">\(Q_1\)</span>), median (<span class="math inline">\(Q_2\)</span>), third quartile (<span class="math inline">\(Q_3\)</span>), and maximum.</p>
+<section id="box-whisker-plot" class="level2">
+<h2 class="anchored" data-anchor-id="box-whisker-plot">Box whisker plot</h2>
+<p><strong>Definition:</strong> A <strong>box-whisker plot</strong> (or boxplot) provides a concise visual summary of a continuous variable’s distribution based on its five-number summary: minimum, first quartile (<span class="math inline">\(Q_1\)</span>), median (<span class="math inline">\(Q_2\)</span>), third quartile (<span class="math inline">\(Q_3\)</span>), and maximum.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -654,44 +653,27 @@ Cov (x, y) = \frac{\sum(x_i - \bar{x})(y_i - \bar{y})}{n}
 <section id="explanation-of-box-whisker-components" class="level3">
 <h3 class="anchored" data-anchor-id="explanation-of-box-whisker-components">Explanation of Box-Whisker Components</h3>
 <ol type="1">
-<li><strong>The Central Box (Interquartile Range - IQR)</strong>
+<li><strong>The Central Box (Interquartile Range - IQR):</strong>
 <ul>
 <li>The lower edge of the box represents the <strong>First Quartile (<span class="math inline">\(Q_1\)</span> / 25th percentile)</strong>.</li>
 <li>The upper edge represents the <strong>Third Quartile (<span class="math inline">\(Q_3\)</span> / 75th percentile)</strong>.</li>
 <li>The span between <span class="math inline">\(Q_1\)</span> and <span class="math inline">\(Q_3\)</span> is the <strong>Interquartile Range (<span class="math inline">\(IQR = Q_3 - Q_1\)</span>)</strong>, which contains the central 50% of the data.</li>
 </ul></li>
-<li><strong>The Median Line (<span class="math inline">\(Q_2\)</span>)</strong>
+<li><strong>The Median Line (<span class="math inline">\(Q_2\)</span>):</strong>
 <ul>
 <li>The line drawn across the inside of the box marks the <strong>Median (50th percentile)</strong>.</li>
 <li>A median centered within the box suggests a symmetric distribution; a median closer to <span class="math inline">\(Q_1\)</span> indicates positive (right) skewness, while a median closer to <span class="math inline">\(Q_3\)</span> indicates negative (left) skewness.</li>
 </ul></li>
-<li><strong>Whiskers</strong>
+<li><strong>Whiskers:</strong>
 <ul>
 <li>Lines extending from the top and bottom of the box are called <strong>whiskers</strong>.</li>
 <li>By default (Tukey boxplot convention), whiskers extend to the furthest data points within <span class="math inline">\(1.5 \times IQR\)</span> from <span class="math inline">\(Q_1\)</span> and <span class="math inline">\(Q_3\)</span>: <span class="math display">\[\text{Lower Whisker Limit} = Q_1 - 1.5 \times IQR\]</span> <span class="math display">\[\text{Upper Whisker Limit} = Q_3 + 1.5 \times IQR\]</span></li>
 </ul></li>
-<li><strong>Outliers</strong>
+<li><strong>Outliers:</strong>
 <ul>
 <li>Data points located beyond the whiskers (less than <span class="math inline">\(Q_1 - 1.5 \times IQR\)</span> or greater than <span class="math inline">\(Q_3 + 1.5 \times IQR\)</span>) are identified as <strong>outliers</strong> and plotted individually as distinct points (highlighted in red above).</li>
 </ul></li>
 </ol>
-<p>A <strong>violin plot</strong> combines a box plot with a kernel density plot. It mirrors a smooth density curve along a central axis, illustrating where data points are most concentrated.</p>
-<div class="cell" data-layout-align="center">
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-</section>
-<section id="key-differences" class="level3">
-<h3 class="anchored" data-anchor-id="key-differences">Key Differences</h3>
-<ul>
-<li><p>Bimodal/Multimodal Data: A box plot might mask a bimodal distribution as a single wide box, whereas a violin plot clearly shows multiple peaks (“bumps”).</p></li>
-<li><p>Sample Density: Violin plots illustrate data density and probability distribution, while box plots emphasize summary statistics and interquartile ranges (IQR).</p></li>
-</ul>
 
 
 </section>
