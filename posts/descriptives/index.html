@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Haseeb Mahmud">
-<meta name="dcterms.date" content="2026-09-26">
+<meta name="dcterms.date" content="2026-09-28">
 
 <title>Advanced Data Science - Descriptive Statistics</title>
 <style>
@@ -144,7 +144,7 @@ window.Quarto = {
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">Descriptive statistics</h1>
+      <h1 class="title">Descriptive Statistics</h1>
                                 <div class="quarto-categories">
                 <div class="quarto-category">Statistics</div>
               </div>
@@ -164,7 +164,7 @@ window.Quarto = {
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">September 26, 2026</p>
+        <p class="date">September 28, 2026</p>
       </div>
     </div>
     
@@ -220,7 +220,7 @@ window.Quarto = {
   <li><a href="#barplot" id="toc-barplot" class="nav-link" data-scroll-target="#barplot">Barplot</a></li>
   <li><a href="#time-series-plot" id="toc-time-series-plot" class="nav-link" data-scroll-target="#time-series-plot">Time series plot</a></li>
   <li><a href="#stacked-bar-plot" id="toc-stacked-bar-plot" class="nav-link" data-scroll-target="#stacked-bar-plot">Stacked bar plot</a></li>
-  <li><a href="#histogram" id="toc-histogram" class="nav-link" data-scroll-target="#histogram">Histogram</a></li>
+  <li><a href="#histogram-and-density-plot" id="toc-histogram-and-density-plot" class="nav-link" data-scroll-target="#histogram-and-density-plot">Histogram and density plot</a></li>
   <li><a href="#q-q-plot" id="toc-q-q-plot" class="nav-link" data-scroll-target="#q-q-plot">Q-Q plot</a></li>
   <li><a href="#box-whisker-plot" id="toc-box-whisker-plot" class="nav-link" data-scroll-target="#box-whisker-plot">Box whisker plot</a>
   <ul class="collapse">
@@ -601,9 +601,9 @@ Cov (x, y) = \frac{\sum(x_i - \bar{x})(y_i - \bar{y})}{n}
 </div>
 </div>
 </section>
-<section id="histogram" class="level2">
-<h2 class="anchored" data-anchor-id="histogram">Histogram</h2>
-<p><strong>Definition:</strong> A <strong>histogram</strong> is a graphical display of the probability distribution of a continuous quantitative variable. The range of values is divided into a series of contiguous, non-overlapping intervals called <strong>bins</strong>. The height of each rectangle corresponds to the frequency or density of data points falling into that bin.</p>
+<section id="histogram-and-density-plot" class="level2">
+<h2 class="anchored" data-anchor-id="histogram-and-density-plot">Histogram and density plot</h2>
+<p>A <strong>histogram</strong> is a graphical display of the probability distribution of a continuous quantitative variable. The range of values is divided into a series of contiguous, non-overlapping intervals called <strong>bins</strong>. The height of each rectangle corresponds to the frequency or density of data points falling into that bin.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -613,15 +613,26 @@ Cov (x, y) = \frac{\sum(x_i - \bar{x})(y_i - \bar{y})}{n}
 </div>
 </div>
 </div>
-</section>
-<section id="q-q-plot" class="level2">
-<h2 class="anchored" data-anchor-id="q-q-plot">Q-Q plot</h2>
-<p><strong>Definition:</strong> A <strong>Quantile-Quantile (Q-Q) plot</strong> is a diagnostic scatter plot used to assess whether an empirical sample dataset originates from a theoretical reference distribution (most commonly the Normal Distribution). It plots the empirical sample quantiles on the vertical axis against the theoretical quantiles on the horizontal axis. If the dataset follows the assumed distribution, the points will fall closely along the 45-degree reference line (<span class="math inline">\(y = x\)</span>).</p>
+<p>A histogram visualizes the frequency of data within pre-specified numerical ranges (“bins”). Because bin widths can heavily influence the visual output, histograms display a discrete representation of raw counts.</p>
+<p>A density plot is a smooth, continuous curve representing the probability density function (PDF) of the underlying data. It estimates the probability of a random variable falling within a given range, where the total area under the density curve equals <span class="math inline">\(1\)</span>.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="index_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="q-q-plot" class="level2">
+<h2 class="anchored" data-anchor-id="q-q-plot">Q-Q plot</h2>
+<p>A <strong>Quantile-Quantile (Q-Q) plot</strong> is a diagnostic scatter plot used to assess whether an empirical sample dataset originates from a theoretical reference distribution (most commonly the Normal Distribution). It plots the empirical sample quantiles on the vertical axis against the theoretical quantiles on the horizontal axis. If the dataset follows the assumed distribution, the points will fall closely along the 45-degree reference line (<span class="math inline">\(y = x\)</span>).</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -634,7 +645,7 @@ Cov (x, y) = \frac{\sum(x_i - \bar{x})(y_i - \bar{y})}{n}
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="720"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="720"></p>
 </figure>
 </div>
 </div>
