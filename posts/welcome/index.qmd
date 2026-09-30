@@ -1,8 +1,20 @@
 ---
-title: "Course Requirement"
-author: "Haseeb"
-date: "2026-09-23"
-categories: [news]
+title: "Course Outline"
+author: "Haseeb Mahmud"
+date: "2026-09-30"
+categories: [News]
+image: "image.jpg"
+toc: true
+toc-depth: 3
+execute:
+  warning: false
+  message: false
+format:
+  html:
+    code-fold: false
+    fig-width: 8
+    fig-height: 5
+    fig-align: center
 ---
 
 ## Course structure
@@ -10,7 +22,7 @@ categories: [news]
 +-----------------+------------------------------------------+
 |                 |                                          |
 +=================+==========================================+
-| Course name     | Applied Data Science (256151, SPO BA 6)  |
+| Course name     | Applied Data Science  |
 +-----------------+------------------------------------------+
 | Semester        | 3                                        |
 +-----------------+------------------------------------------+
@@ -22,7 +34,7 @@ categories: [news]
 +-----------------+------------------------------------------+
 | Language        | English                                  |
 +-----------------+------------------------------------------+
-| Workload        | 125 hours (60 classroom + 65 self-study) |
+| Workload        | 30 classroom + 32.5 self-study           |
 +-----------------+------------------------------------------+
 | ECTS points     | 5                                        |
 +-----------------+------------------------------------------+

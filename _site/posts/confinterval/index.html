@@ -9,7 +9,7 @@
 <meta name="author" content="Haseeb Mahmud">
 <meta name="dcterms.date" content="2026-09-28">
 
-<title>Advanced Data Science - Confidence Interval</title>
+<title>Applied Data Science - Confidence Interval</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -102,7 +102,7 @@ window.Quarto = {
 <link rel="stylesheet" href="../../styles.css">
 </head>
 
-<body class="nav-fixed fullcontent">
+<body class="nav-fixed">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top quarto-banner">
@@ -110,7 +110,7 @@ window.Quarto = {
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="../../index.html">
-    <span class="navbar-title">Advanced Data Science</span>
+    <span class="navbar-title">Applied Data Science</span>
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
@@ -175,7 +175,32 @@ window.Quarto = {
   </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#confidence-intervals-large-samples" id="toc-confidence-intervals-large-samples" class="nav-link active" data-scroll-target="#confidence-intervals-large-samples">Confidence Intervals: Large samples</a>
+  <ul class="collapse">
+  <li><a href="#ci-for-a-mu-normal-z-statistic" id="toc-ci-for-a-mu-normal-z-statistic" class="nav-link" data-scroll-target="#ci-for-a-mu-normal-z-statistic">CI for a <span class="math inline">\(\mu\)</span>: Normal <span class="math inline">\(z\)</span>-statistic</a></li>
+  <li><a href="#example" id="toc-example" class="nav-link" data-scroll-target="#example">Example</a></li>
+  <li><a href="#example-spss" id="toc-example-spss" class="nav-link" data-scroll-target="#example-spss">Example: SPSS</a></li>
+  <li><a href="#commonly-used-values-of-z_alpha2" id="toc-commonly-used-values-of-z_alpha2" class="nav-link" data-scroll-target="#commonly-used-values-of-z_alpha2">Commonly used values of <span class="math inline">\(z_{\alpha/2}\)</span></a></li>
+  </ul></li>
+  <li><a href="#confidence-intervals-small-samples" id="toc-confidence-intervals-small-samples" class="nav-link" data-scroll-target="#confidence-intervals-small-samples">Confidence Intervals: Small samples</a>
+  <ul class="collapse">
+  <li><a href="#ci-for-small-samples-students-t-statistic" id="toc-ci-for-small-samples-students-t-statistic" class="nav-link" data-scroll-target="#ci-for-small-samples-students-t-statistic">CI for small samples: Student’s <span class="math inline">\(t\)</span> statistic</a></li>
+  <li><a href="#degrees-of-freedom-in-t-distribution" id="toc-degrees-of-freedom-in-t-distribution" class="nav-link" data-scroll-target="#degrees-of-freedom-in-t-distribution">Degrees of freedom in <span class="math inline">\(t\)</span> distribution</a></li>
+  <li><a href="#example-1" id="toc-example-1" class="nav-link" data-scroll-target="#example-1">Example</a>
+  <ul class="collapse">
+  <li><a href="#problem" id="toc-problem" class="nav-link" data-scroll-target="#problem">Problem</a></li>
+  <li><a href="#solution" id="toc-solution" class="nav-link" data-scroll-target="#solution">Solution</a></li>
+  </ul></li>
+  <li><a href="#example-spss-1" id="toc-example-spss-1" class="nav-link" data-scroll-target="#example-spss-1">Example: SPSS</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
 <!-- main -->
 <main class="content quarto-banner-title-block" id="quarto-document-content">
 
