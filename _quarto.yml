@@ -2,7 +2,7 @@ project:
   type: website
 
 website:
-  title: "Advanced Data Science"
+  title: "Applied Data Science"
   navbar:
     right:
       - about.qmd

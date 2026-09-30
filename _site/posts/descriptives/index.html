@@ -219,6 +219,7 @@ window.Quarto = {
   <li><a href="#visualizing-skewness-kurtosis-impact" id="toc-visualizing-skewness-kurtosis-impact" class="nav-link" data-scroll-target="#visualizing-skewness-kurtosis-impact">Visualizing Skewness &amp; Kurtosis Impact</a></li>
   <li><a href="#assessing-normality-via-skewness-and-kurtosis" id="toc-assessing-normality-via-skewness-and-kurtosis" class="nav-link" data-scroll-target="#assessing-normality-via-skewness-and-kurtosis">Assessing Normality via Skewness and Kurtosis</a></li>
   </ul></li>
+  <li><a href="#shapiro-wilk-test-of-normality" id="toc-shapiro-wilk-test-of-normality" class="nav-link" data-scroll-target="#shapiro-wilk-test-of-normality">Shapiro-Wilk Test of Normality</a></li>
   </ul></li>
   <li><a href="#descriptive-statistics-using-graphics" id="toc-descriptive-statistics-using-graphics" class="nav-link" data-scroll-target="#descriptive-statistics-using-graphics">Descriptive Statistics using Graphics</a>
   <ul class="collapse">
@@ -590,14 +591,58 @@ Cov (x, y) = \frac{\sum(x_i - \bar{x})(y_i - \bar{y})}{n}
 <h3 class="anchored" data-anchor-id="assessing-normality-via-skewness-and-kurtosis">Assessing Normality via Skewness and Kurtosis</h3>
 <p>To determine whether data is normally distributed based on sample skewness and excess kurtosis:</p>
 <ol type="1">
-<li><strong>Rules of Thumb for Acceptable Normality</strong>
+<li><p><strong>Rules of Thumb for Acceptable Normality</strong></p>
 <ul>
 <li><strong>Skewness:</strong> Values between <span class="math inline">\(-0.5\)</span> and <span class="math inline">\(+0.5\)</span> indicate near symmetry; values between <span class="math inline">\(-1.0\)</span> and <span class="math inline">\(+1.0\)</span> are generally acceptable for parametric statistics.</li>
 <li><strong>Excess Kurtosis:</strong> Values between <span class="math inline">\(-1.0\)</span> and <span class="math inline">\(+1.0\)</span> indicate a near-normal tail structure.</li>
 </ul></li>
-<li><strong>Standardized Z-Score Method</strong> Calculate <span class="math inline">\(Z\)</span>-scores for skewness (<span class="math inline">\(Z_{\text{skew}}\)</span>) and kurtosis (<span class="math inline">\(Z_{\text{kurt}}\)</span>): <span class="math display">\[Z_{\text{skew}} = \frac{\text{Skewness}}{\text{SE}_{\text{skew}}}\]</span> Where <span class="math inline">\(\text{SE}_{\text{skew}} \approx \sqrt{\frac{6}{N}}\)</span>. If <span class="math inline">\(|Z_{\text{skew}}| &gt; 1.96\)</span> or <span class="math inline">\(|Z_{\text{kurt}}| &gt; 1.96\)</span> at a <span class="math inline">\(5\%\)</span> significance level (<span class="math inline">\(\alpha = 0.05\)</span>), the distribution deviates significantly from normality.</li>
+<li><p><strong>Standardized Z-Score Method</strong></p>
+<p>Calculate <span class="math inline">\(Z\)</span>-scores for skewness (<span class="math inline">\(Z_{\text{skew}}\)</span>) and kurtosis (<span class="math inline">\(Z_{\text{kurt}}\)</span>): <span class="math display">\[Z_{\text{skew}} = \frac{\text{Skewness}}{\text{SE}_{\text{skew}}}\]</span> Where <span class="math inline">\(\text{SE}_{\text{skew}} \approx \sqrt{\frac{6}{N}}\)</span>. If <span class="math inline">\(|Z_{\text{skew}}| &gt; 1.96\)</span> or <span class="math inline">\(|Z_{\text{kurt}}| &gt; 1.96\)</span> at a <span class="math inline">\(5\%\)</span> significance level (<span class="math inline">\(\alpha = 0.05\)</span>), the distribution deviates significantly from normality.</p></li>
 </ol>
 </section>
+</section>
+<section id="shapiro-wilk-test-of-normality" class="level2">
+<h2 class="anchored" data-anchor-id="shapiro-wilk-test-of-normality">Shapiro-Wilk Test of Normality</h2>
+<p>The Shapiro-Wilk Test evaluates the null hypothesis (<span class="math inline">\(H_0\)</span>) that a sample comes from a normally distributed population.</p>
+<p>Null Hypothesis (<span class="math inline">\(H_0\)</span>): The data are normally distributed.</p>
+<p>Alternative Hypothesis (<span class="math inline">\(H_1\)</span>): The data are not normally distributed.</p>
+<p>A <span class="math inline">\(p\)</span>-value lower than the chosen threshold (<span class="math inline">\(\alpha = 0.05\)</span>) leads to rejecting <span class="math inline">\(H_0\)</span>, indicating significant deviation from a normal distribution.</p>
+<p>Let’s plot two samples of <span class="math inline">\(n = 100\)</span>: one from a standard normal distribution and another from an exponential distribution.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<table class="table table-sm table-striped small">
+<caption>Shapiro-Wilk Test Results</caption>
+<colgroup>
+<col style="width: 31%">
+<col style="width: 13%">
+<col style="width: 10%">
+<col style="width: 43%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Dataset</th>
+<th style="text-align: right;">Statistic_W</th>
+<th style="text-align: left;">p_value</th>
+<th style="text-align: left;">Interpretation</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Simulated Normal Sample</td>
+<td style="text-align: right;">0.9939</td>
+<td style="text-align: left;">0.9349</td>
+<td style="text-align: left;">Fail to reject H0 (Data appears Normal)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Simulated Exponential Sample</td>
+<td style="text-align: right;">0.8740</td>
+<td style="text-align: left;">1.016e-07</td>
+<td style="text-align: left;">Reject H0 (Non-Normal)</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </section>
 </section>
 <section id="descriptive-statistics-using-graphics" class="level1">
@@ -605,12 +650,12 @@ Cov (x, y) = \frac{\sum(x_i - \bar{x})(y_i - \bar{y})}{n}
 <p>Graphical representations of data provide intuitive visual summaries of distributions, patterns, trends, and relationships. Unlike numerical descriptive measures (such as mean or standard deviation), graphical methods allow researchers to quickly spot outliers, skewness, multimodal behavior, and temporal trends.</p>
 <section id="barplot" class="level2">
 <h2 class="anchored" data-anchor-id="barplot">Barplot</h2>
-<p><strong>Definition:</strong> A <strong>barplot</strong> (or bar chart) is a graphical display that represents categorical data using rectangular bars, where the length or height of each bar is proportional to the count, frequency, or percentage of observations falling into each category.</p>
+<p>A <strong>barplot</strong> (or bar chart) is a graphical display that represents categorical data using rectangular bars, where the length or height of each bar is proportional to the count, frequency, or percentage of observations falling into each category.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -618,12 +663,12 @@ Cov (x, y) = \frac{\sum(x_i - \bar{x})(y_i - \bar{y})}{n}
 </section>
 <section id="time-series-plot" class="level2">
 <h2 class="anchored" data-anchor-id="time-series-plot">Time series plot</h2>
-<p><strong>Definition:</strong> A <strong>time series plot</strong> is a line chart where observations recorded sequentially over regular time intervals are plotted against time on the horizontal axis. It is used to analyze patterns such as secular trends, seasonality, cyclical fluctuations, and irregular variations over time.</p>
+<p>A <strong>time series plot</strong> is a line chart where observations recorded sequentially over regular time intervals are plotted against time on the horizontal axis. It is used to analyze patterns such as secular trends, seasonality, cyclical fluctuations, and irregular variations over time.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="720"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="720"></p>
 </figure>
 </div>
 </div>
@@ -631,7 +676,7 @@ Cov (x, y) = \frac{\sum(x_i - \bar{x})(y_i - \bar{y})}{n}
 </section>
 <section id="stacked-bar-plot" class="level2">
 <h2 class="anchored" data-anchor-id="stacked-bar-plot">Stacked bar plot</h2>
-<p><strong>Definition:</strong> A <strong>stacked bar plot</strong> extends a standard bar plot by dividing each bar into sub-bars representing sub-categories within the main category. It allows simultaneous comparison of total quantities and internal compositions.</p>
+<p>A <strong>stacked bar plot</strong> extends a standard bar plot by dividing each bar into sub-bars representing sub-categories within the main category. It allows simultaneous comparison of total quantities and internal compositions.</p>
 <ul>
 <li><strong>Normal (Absolute) Stacked Bar Plot:</strong> Displays the raw counts or values stacked vertically. The height of the entire bar represents the total aggregate frequency across all sub-categories.</li>
 <li><strong>100% Stacked Bar Plot:</strong> Normalizes every bar to 100% (or proportion 1.0). Each sub-bar represents the relative percentage contribution of that sub-category within its parent group, making it easy to compare proportion structures regardless of differing total group sizes.</li>
@@ -640,7 +685,7 @@ Cov (x, y) = \frac{\sum(x_i - \bar{x})(y_i - \bar{y})}{n}
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="912"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="912"></p>
 </figure>
 </div>
 </div>
@@ -653,7 +698,7 @@ Cov (x, y) = \frac{\sum(x_i - \bar{x})(y_i - \bar{y})}{n}
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -664,7 +709,7 @@ Cov (x, y) = \frac{\sum(x_i - \bar{x})(y_i - \bar{y})}{n}
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -677,7 +722,7 @@ Cov (x, y) = \frac{\sum(x_i - \bar{x})(y_i - \bar{y})}{n}
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -690,7 +735,7 @@ Cov (x, y) = \frac{\sum(x_i - \bar{x})(y_i - \bar{y})}{n}
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="720"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="720"></p>
 </figure>
 </div>
 </div>
@@ -724,7 +769,7 @@ Cov (x, y) = \frac{\sum(x_i - \bar{x})(y_i - \bar{y})}{n}
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672"></p>
 </figure>
 </div>
 </div>

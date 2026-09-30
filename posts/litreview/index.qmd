@@ -2,9 +2,21 @@
 title: "Literature Review"
 author: "Haseeb Mahmud"
 date: "2026-09-28"
-categories: [Research Methodology]
+categories: [Statistics]
 image: "image.jpg"
+toc: true
+toc-depth: 3
+execute:
+  warning: false
+  message: false
+format:
+  html:
+    code-fold: false
+    fig-width: 8
+    fig-height: 5
+    fig-align: center
 ---
+
 # Literature review
 
 ## A continuous process
