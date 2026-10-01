@@ -46,7 +46,7 @@ A research method is a way of conducting and implementing research. The term 'me
 
 ## Why is research conducted
 
-Research is conducted for a number of reasons, which in turn depend on the objectives of any particular 'research problem'. It may be to find out something we do not already know or to enhance our understanding of phenomena that we already know something about. In the business arena, however, research tends to be undertaken in order to achieve one or more of the following objectives [@adams_research_2014]:
+Research is conducted for a number of reasons, which in turn depend on the objectives of any particular 'research problem'. It may be to find out something we do not already know or to enhance our understanding of phenomena that we already know something about. In the business arena, however, research tends to be undertaken in order to achieve one or more of the following objectives [@saunder2019]:
 
 -   To gain a competitive advantage
 -   To test new products and services
@@ -71,7 +71,7 @@ Researchers usually handle numerous problems and apply research methods to obtai
 
 ## The research process
 
-![The Research process (@saunders_research_2019)](SCR-20221004-gg4.png){#fig-res_process}
+![The Research process (@saunder2019)](SCR-20221004-gg4.png){#fig-res_process}
 
 ## The hallmarks of scientific research
 
