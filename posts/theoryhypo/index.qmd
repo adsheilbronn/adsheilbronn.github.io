@@ -2,7 +2,7 @@
 title: "Theoretical Framework and Hypothesis Development"
 author: "Haseeb Mahmud"
 date: "2026-09-28"
-categories: [Statistics]
+categories: [Reseach Methods]
 image: "image.jpg"
 toc: true
 toc-depth: 3

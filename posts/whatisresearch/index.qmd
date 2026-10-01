@@ -3,7 +3,7 @@ title: "On Research"
 author: "Haseeb Mahmud"
 date: "2026-09-28"
 categories: [Statistics]
-image: "image.jpg"
+image: "thumbnail.jpg"
 toc: true
 toc-depth: 3
 bibliography: export.bib
