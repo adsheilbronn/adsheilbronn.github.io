@@ -702,3 +702,85 @@ ggplot(df_box_violin, aes(x = Group, y = Value, fill = Group)) +
 - Bimodal/Multimodal Data: A box plot might mask a bimodal distribution as a single wide box, whereas a violin plot clearly shows multiple peaks ("bumps").
 
 - Sample Density: Violin plots illustrate data density and probability distribution, while box plots emphasize summary statistics and interquartile ranges (IQR).
+
+
+# Jamovi
+
+Here is the output: 
+
+$:::: adjustbox
+max size=
+
+::: {#tbl:Table_Descriptives}
+                            Fuel Type          Mileage
+  ------------------------- ----------- --------------
+  N                         Diesel              344.00
+                            Electric            325.00
+                            Petrol              331.00
+  Missing                   Diesel                0.00
+                            Electric              0.00
+                            Petrol                0.00
+  Mean                      Diesel            98804.60
+                            Electric          99639.63
+                            Petrol            93114.27
+  95% CI mean lower bound   Diesel            92333.13
+                            Electric          93234.14
+                            Petrol            86791.29
+  95% CI mean upper bound   Diesel           105276.07
+                            Electric         106045.11
+                            Petrol            99437.26
+  Median                    Diesel            96552.00
+                            Electric          98035.00
+                            Petrol            86332.00
+  Mode                      Diesel         56.00$^{a}$
+                            Electric      319.00$^{a}$
+                            Petrol        246.00$^{a}$
+  Sum                       Diesel             3.40e+7
+                            Electric           3.24e+7
+                            Petrol             3.08e+7
+  Standard deviation        Diesel            61023.78
+                            Electric          58697.59
+                            Petrol            58478.02
+  Variance                  Diesel             3.72e+9
+                            Electric           3.45e+9
+                            Petrol             3.42e+9
+  IQR                       Diesel           116444.25
+                            Electric         105840.00
+                            Petrol            94604.50
+  Range                     Diesel           199811.00
+                            Electric         199202.00
+                            Petrol           198522.00
+  Minimum                   Diesel               56.00
+                            Electric            319.00
+                            Petrol              246.00
+  Maximum                   Diesel           199867.00
+                            Electric         199521.00
+                            Petrol           198768.00
+  Skewness                  Diesel                0.05
+                            Electric              0.07
+                            Petrol                0.14
+  Std. error skewness       Diesel                0.13
+                            Electric              0.14
+                            Petrol                0.13
+  Kurtosis                  Diesel               -1.31
+                            Electric             -1.26
+                            Petrol               -1.17
+  Std. error kurtosis       Diesel                0.26
+                            Electric              0.27
+                            Petrol                0.27
+  Shapiro-Wilk W            Diesel                0.94
+                            Electric              0.95
+                            Petrol                0.95
+  Shapiro-Wilk p            Diesel             \< .001
+                            Electric           \< .001
+                            Petrol             \< .001
+
+  : Descriptives
+:::
+::::
+
+::: tablenotes
+*Note.* The CI of the mean assumes sample means follow a t-distribution
+with N - 1 degrees of freedom\
+$^{a}$ More than one mode exists, only the first is reported\
+:::
