@@ -6,6 +6,7 @@ categories: [Statistics]
 image: "image.jpg"
 toc: true
 toc-depth: 3
+bibliography: export.bib
 execute:
   warning: false
   message: false
@@ -62,22 +63,21 @@ In considering the content of the critical review, the researcher will therefore
 
 ### Steps in Literature review
 
-[![Literature review process. Source: Riedly(2018)](lit_review_process.png)](https://www.amazon.co.uk/Literature-Review-Step-step-Students/dp/1412934265)
-
+[![Literature review process. Source: @ridley_literature_2011](lit_review_process.png)]
 
 ### Summarizing findings
 
 We can start collecting and summarizing the literature in excel spreadsheets.
 
-[![Example: Summarized literature. Source: Charmarbagwala (2004)](literature_review_list.png)](https://openknowledge.worldbank.org/handle/10986/20224)
+[![Example: Summarized literature. Source: @charmarbagwala_determinants_2004](literature_review_list.png)]
 
 Summary findings can be organized in the spreadsheet too.
 
-[![Example: Summarized literature. Source: Charmarbagwala (2004)](literature_review_findings.png)](https://openknowledge.worldbank.org/handle/10986/20224)
+[![Example: Summarized literature. Source: charmarbagwala_determinants_2004](literature_review_findings.png)]
 
 Another approach could be using [mindmap](https://www.google.com/search?q=mindmap&newwindow=1&sxsrf=AOaemvIoVQqJYRE2wdmDFQkpsamskwwelA:1632123735585&source=lnms&tbm=isch&sa=X&sqi=2&ved=2ahUKEwiDofTbho3zAhVXFlkFHXsdBj4Q_AUoAXoECAEQAw&biw=1745&bih=881&dpr=1.1) like softwares.
 
-![XX](Unbenannt.PNG)
+![Mindmap](Unbenannt.PNG)
 
 
 ### Develop a critical approach
