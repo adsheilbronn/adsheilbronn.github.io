@@ -22,7 +22,7 @@ format:
 
 When listening to the radio, watching the television or reading a daily newspaper it is difficult to avoid the term 'research'. The results of 'research' are all around us. A debate about the findings of a recent poll of people's opinions inevitably includes a discussion of 'research', normally referring to the way in which the data were collected. Politicians often justify their policy decisions on the basis of 'research'. Newspapers report the findings of research companies' surveys. Documentary programs tell us about 'research findings', and advertisers may highlight the 'results of research' to encourage you to buy a particular product or brand. However, we believe that what these examples really emphasizes is the wide range of meanings given to the term 'research' in everyday speech.
 
-@willman argues that many of these everyday uses of the term 'research' are not research in the true meaning of the word. As part of this, he highlights ways in which the term is used wrongly:
+@walliman_your_2005 argues that many of these everyday uses of the term 'research' are not research in the true meaning of the word. As part of this, he highlights ways in which the term is used wrongly:
 
 -   just collecting facts or information with no clear purpose;
 -   reassembling and reordering facts or information without interpretation;
@@ -46,7 +46,7 @@ A research method is a way of conducting and implementing research. The term 'me
 
 ## Why is research conducted
 
-Research is conducted for a number of reasons, which in turn depend on the objectives of any particular 'research problem'. It may be to find out something we do not already know or to enhance our understanding of phenomena that we already know something about. In the business arena, however, research tends to be undertaken in order to achieve one or more of the following objectives [@saunder2019]:
+Research is conducted for a number of reasons, which in turn depend on the objectives of any particular 'research problem'. It may be to find out something we do not already know or to enhance our understanding of phenomena that we already know something about. In the business arena, however, research tends to be undertaken in order to achieve one or more of the following objectives [@saunders_research_2019]:
 
 -   To gain a competitive advantage
 -   To test new products and services
@@ -71,7 +71,7 @@ Researchers usually handle numerous problems and apply research methods to obtai
 
 ## The research process
 
-![The Research process (@saunder2019)](SCR-20221004-gg4.png){#fig-res_process}
+![The Research process (@saunders_research_2019)](SCR-20221004-gg4.png){#fig-res_process}
 
 ## The hallmarks of scientific research
 
