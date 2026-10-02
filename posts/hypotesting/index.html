@@ -213,6 +213,11 @@ window.Quarto = {
   <li><a href="#comparing-two-means-paired-difference-experiments" id="toc-comparing-two-means-paired-difference-experiments" class="nav-link" data-scroll-target="#comparing-two-means-paired-difference-experiments">Comparing two means: paired difference experiments</a></li>
   </ul></li>
   </ul></li>
+  <li><a href="#categorical-data-analysis-classification-based-on-number-of-qualitative" id="toc-categorical-data-analysis-classification-based-on-number-of-qualitative" class="nav-link" data-scroll-target="#categorical-data-analysis-classification-based-on-number-of-qualitative">Categorical data analysis Classification based on number of qualitative</a>
+  <ul class="collapse">
+  <li><a href="#one-way-table" id="toc-one-way-table" class="nav-link" data-scroll-target="#one-way-table">One way table</a></li>
+  <li><a href="#two-way-contingency-table" id="toc-two-way-contingency-table" class="nav-link" data-scroll-target="#two-way-contingency-table">Two way contingency table</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -537,9 +542,286 @@ H_1: \mu_d &amp;\neq 0 \quad [\text{i.e., } (\mu_1 - \mu_2) \neq 0]
 t = \frac{\bar{d}-D}{s_d/\sqrt{n_d}}
 \]</span></p>
 <p>where <span class="math inline">\(s_d\)</span> is the sample standard deviation of the differences. The hypothesis is to be tested by using <span class="math inline">\((n_d - 1)\)</span> degrees of freedom.</p>
-
-
 </section>
+</section>
+</section>
+<section id="categorical-data-analysis-classification-based-on-number-of-qualitative" class="level1">
+<h1>Categorical data analysis Classification based on number of qualitative</h1>
+<p>variables</p>
+<ol type="1">
+<li><p>One qualitative variable</p>
+<ul>
+<li><p>Two levels (Success or failure) - Binomial</p></li>
+<li><p>Three or more levels <span class="math inline">\((1, 2, 3, \ldots, k)\)</span> - Multinomial,<br>
+Target parameters: <span class="math inline">\(p_1, p_2, p_3, \ldots, p_k\)</span><br>
+<span class="math inline">\(H_0: p_1 = p_10, p_2 = p_20, \ldots, p_k = p_{k0}\)</span><br>
+Test statistic: <span class="math inline">\(\frac{(O_i - E_i)^2}{E_i}\)</span>, where, <span class="math inline">\(E_i = n(p_{i0})\)</span><br>
+Assumption, <span class="math inline">\(n\)</span> large, i.e.&nbsp;all <span class="math inline">\(E_i \geq 5\)</span>.</p></li>
+</ul></li>
+<li><p>Two qualitative variable: Test for independence (Contingency table)</p>
+<ul>
+<li><span class="math inline">\(H_0:2\)</span>, 2 QLs are independent<br>
+<span class="math inline">\(H_0:2\)</span>, 2 QLs are dependent<br>
+Test statistic: <span class="math inline">\(\frac{(O_i - E_i)^2}{E_i}\)</span>, where, <span class="math inline">\(E_i = n(p_{i0})\)</span><br>
+Assumption: <span class="math inline">\(n\)</span> large i.e.&nbsp;all <span class="math inline">\(E_{ij} \geq 5\)</span>. :::</li>
+</ul></li>
+</ol>
+<section id="one-way-table" class="level2">
+<h2 class="anchored" data-anchor-id="one-way-table">One way table</h2>
+<p>One-way table In the general case of <span class="math inline">\(K\)</span> categories, suppose that the <span class="math inline">\(H_0\)</span> specifies <span class="math inline">\(\mathbb{P}_1, \mathbb{P}_2, \ldots, \mathbb{P}_K\)</span> for the probabilies that an observation fall into the categories. Assuming, the probabilies are mutually exclusive and collectively exhaustive, the sum of probabilies must be 1.</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Category</th>
+<th style="text-align: center;">1</th>
+<th style="text-align: center;">2</th>
+<th style="text-align: center;"><span class="math inline">\(\ldots\)</span></th>
+<th style="text-align: center;">K</th>
+<th style="text-align: center;">Total</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Observed number</td>
+<td style="text-align: center;"><span class="math inline">\(O_1\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(O_2\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\ldots\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(O_K\)</span></td>
+<td style="text-align: center;">n</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Probability (under <span class="math inline">\(H_0\)</span>)</td>
+<td style="text-align: center;"><span class="math inline">\(\mathbb{P}_1\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\mathbb{P}_2\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\ldots\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\mathbb{P}_K\)</span></td>
+<td style="text-align: center;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Expected number (under <span class="math inline">\(H_0\)</span>)</td>
+<td style="text-align: center;"><span class="math inline">\(E_1=n\mathbb{P}_1\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(E_2=n\mathbb{P}_2\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\ldots\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(E_K=n\mathbb{P}_K\)</span></td>
+<td style="text-align: center;">n</td>
+</tr>
+</tbody>
+</table>
+<p><span class="math display">\[H_0: \mathbb{P}_1 = \mathbb{P}_{1,0}, \mathbb{P}_2 = \mathbb{P}_{2,0} = \ldots = \mathbb{P}_k = \mathbb{P}_{k,0}\]</span> where, <span class="math inline">\(\mathbb{P}_{1,0}, \mathbb{P}_{2,0} = \ldots = \mathbb{P}_{k,0}\)</span> represent the hypothesized values of the Multinomial probabilies. The <span class="math inline">\(H_1\)</span> is: at least one of the multinomial probabilities does not equal its hypothesized value. Reject hypothesis if: <span class="math inline">\(\chi^2 &gt; \chi^2_\alpha\)</span></p>
+<p>One-way table A random sample of <span class="math inline">\(n\)</span> observations, each of which can be classified into exactly one of <span class="math inline">\(K\)</span> categories, is selected. Suppose the observed numbers in each category are <span class="math inline">\(O_1\)</span>, <span class="math inline">\(O_2\)</span>, <span class="math inline">\(\ldots\)</span>, <span class="math inline">\(O_K\)</span>. If a null hypothesis (<span class="math inline">\(H_0\)</span>) specifies probabilities <span class="math inline">\(P_1, P_2, \ldots, P_K\)</span> for an observation falling into each of these categories, the expected numbers in the categories, under <span class="math inline">\(H_0\)</span>, would be as follows:</p>
+<p><span class="math display">\[E_i = n\mathbb{P}_i\]</span> for <span class="math inline">\(i = 1, 2, \ldots, K\)</span>.</p>
+<p>If the null hypothesis is true and the sample size is large enough that the expected values are at least 5, then the random variable associated with <span class="math display">\[\chi^2 = \mathlarger{\sum}_{i = 1}^K \frac{(O_i-E_i)^2}{E_i}\]</span> is known as <strong>chi-square random variable</strong>, and has, to a good approximation, a chi-square distribution with <span class="math inline">\((K-1)\)</span> degress of freedom.</p>
+<p>One-way table Suppose that the Hershey Company wants to determine if customers have a preference for any of the following four candy bars: A, Mr.&nbsp;Goodbar; B, Hershey’s Milk Chocolate; C, Hershey’s Special Dark Mildly Sweet Chocolate; or D, Krackel. From a random sample of 200 people, it was found that 43 preferred Mr.&nbsp;Goodbar; 53 preferred Hershey’s Milk Chocolate; 60 preferred Hershey’s Special Dark Mildly Sweet Chocolate, and the remainder preferred Krackel. Test the null hypothesis that customers have no preference for any of the four candy bars against the alternative hypothesis that customers have a preference for at least one of the candy bars.</p>
+<p><strong>Solution</strong>: The null hypothesis states that customers have no preference for any of the four candy bars (A, B, C, and D). That is, all four candy bars are equally preferred: <span class="math display">\[H_0: P_A = P_B = P_C = P_D = 0.25\]</span> Since the null hypothesis states that each candy bar is preferred by <span class="math inline">\(25\%\)</span> of the customers, it follows that each of the expected values will be 50: <span class="math display">\[E_i= nP_i = 200 \times 0.25 = 50\]</span></p>
+<p>One-way table</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th style="text-align: center;">Type</th>
+<th style="text-align: center;"><span class="math inline">\(O_i\)</span></th>
+<th style="text-align: center;"><span class="math inline">\(E_i\)</span></th>
+<th style="text-align: center;"><span class="math inline">\((O_i-E_i)\)</span></th>
+<th style="text-align: center;"><span class="math inline">\((O_i-E_i)^2\)</span></th>
+<th style="text-align: center;"><span class="math inline">\((O_i-E_i)^2/E_i\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">A</td>
+<td style="text-align: center;">43</td>
+<td style="text-align: center;">50</td>
+<td style="text-align: center;">-7</td>
+<td style="text-align: center;">49</td>
+<td style="text-align: center;">0.98</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">B</td>
+<td style="text-align: center;">53</td>
+<td style="text-align: center;">50</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">9</td>
+<td style="text-align: center;">0.18</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">C</td>
+<td style="text-align: center;">60</td>
+<td style="text-align: center;">50</td>
+<td style="text-align: center;">10</td>
+<td style="text-align: center;">100</td>
+<td style="text-align: center;">2</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">D</td>
+<td style="text-align: center;">44</td>
+<td style="text-align: center;">50</td>
+<td style="text-align: center;">-6</td>
+<td style="text-align: center;">36</td>
+<td style="text-align: center;">0.72</td>
+</tr>
+</tbody>
+</table>
+<p>The chi-square test statistic is <span class="math inline">\(\chi^2 = \sum [(O_i-E_i)^2/E_i]= 3.88\)</span>. From <span class="math inline">\(\chi^2\)</span>-table, assuming <span class="math inline">\(df = K - 1 = 3\)</span>, we find that the table value at <span class="math inline">\(5\%\)</span> is 7.81473. That means, we fail to reject the null hypothesis and conclude that the data are not statistically significant to conclude that customers have a preference for at least one of these candy bars. We must be careful not to conclude that all four candy bars are equally preferred; we can state only that the evidence does not support a preference.</p>
+</section>
+<section id="two-way-contingency-table" class="level2">
+<h2 class="anchored" data-anchor-id="two-way-contingency-table">Two way contingency table</h2>
+<p>Contingency table Suppose that a sample is taken from a population and the members can be uniquely cross-classified according to a pair of characteristics, A and B. The hypothesis to be tested is of no association or dependence in the population between possession of characteristic A and possession of characteristic B. For example,</p>
+<ul>
+<li><p>A travel agency may want to know if there is any relationship between a client’s gender and the method used to make an airline reservation.</p></li>
+<li><p>An accounting firm may want to examine the relationship between the age of people and the type of income tax return filed by these individuals.</p></li>
+<li><p>A marketing research company may test if a customer’s choice of cereal is in some way dependent on the color of the cereal box.</p></li>
+</ul>
+<p>Contingency table Assume that there are <span class="math inline">\(r\)</span> categories for <span class="math inline">\(A\)</span> and <span class="math inline">\(c\)</span> categories for <span class="math inline">\(B\)</span>, so a total of <span class="math inline">\(rc\)</span> cross-classifications is possible. The number of sample observations belonging to both the <span class="math inline">\(i\)</span>-th category of <span class="math inline">\(A\)</span> and the <span class="math inline">\(j\)</span>-th category of <span class="math inline">\(B\)</span> will be denoted as <span class="math inline">\(O_{ij}\)</span>, where <span class="math inline">\(i=1,2, \ldots r\)</span>, and <span class="math inline">\(j= 1, 2, \ldots c\)</span>. The following table is called <span class="math inline">\(r \times c\)</span> contingency table.</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th></th>
+<th style="text-align: center;">Characterstic B</th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Characterstic A</td>
+<td style="text-align: center;">1</td>
+<td>2</td>
+<td><span class="math inline">\(\ldots\)</span></td>
+<td>c</td>
+<td>Total</td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td style="text-align: center;"><span class="math inline">\(O_{11}\)</span></td>
+<td><span class="math inline">\(O_{12}\)</span></td>
+<td><span class="math inline">\(\ldots\)</span></td>
+<td><span class="math inline">\(O_{1c}\)</span></td>
+<td><span class="math inline">\(R_1\)</span></td>
+</tr>
+<tr class="odd">
+<td>2</td>
+<td style="text-align: center;"><span class="math inline">\(O_{22}\)</span></td>
+<td><span class="math inline">\(O_{22}\)</span></td>
+<td><span class="math inline">\(\ldots\)</span></td>
+<td><span class="math inline">\(O_{2c}\)</span></td>
+<td><span class="math inline">\(R_2\)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\vdots\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\vdots\)</span></td>
+<td><span class="math inline">\(\vdots\)</span></td>
+<td><span class="math inline">\(\ldots\)</span></td>
+<td><span class="math inline">\(\vdots\)</span></td>
+<td><span class="math inline">\(\vdots\)</span></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(r\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(O_{r1}\)</span></td>
+<td><span class="math inline">\(O_{r2}\)</span></td>
+<td><span class="math inline">\(\ldots\)</span></td>
+<td><span class="math inline">\(O_{rc}\)</span></td>
+<td><span class="math inline">\(R_r\)</span></td>
+</tr>
+<tr class="even">
+<td>Total</td>
+<td style="text-align: center;"><span class="math inline">\(C_1\)</span></td>
+<td><span class="math inline">\(C_2\)</span></td>
+<td><span class="math inline">\(\ldots\)</span></td>
+<td>C_c</td>
+<td><span class="math inline">\(n\)</span></td>
+</tr>
+</tbody>
+</table>
+<p><span class="math inline">\(\chi^2\)</span>: Contingency table It can be shown that under the <span class="math inline">\(H_0\)</span>, the random variable associated with <span class="math display">\[\chi^2 = \mathlarger{\sum}_{j=1}^c \mathlarger{\sum}_{i=1}^r \frac{(O_{ij}-E_{ij})^2}{E_{ij}}\]</span> has, to a good approximation, a <span class="math inline">\(\chi^2\)</span>-distribution with <span class="math inline">\((r-1)(c-1)\)</span> degrees of freedom. The approximation works well if no more than <span class="math inline">\(20\%\)</span> of the estimated expected numbers <span class="math inline">\(E_{ij}\)</span> is less than 5. Sometimes adjacent classes can be combined in order to meet this assumption.</p>
+<p>The double summation implies that the summation extends over all <span class="math inline">\(rc\)</span> cells of the table. Clearly, the <span class="math inline">\(H_0\)</span> of no association will be rejected for large absolute discrepancies between observed and expected numbers, i.e.&nbsp;for high values of the statistic.</p>
+<p>Contingency table Suppose that a sample of <span class="math inline">\(n\)</span> observations is cross-classified according to two characteristics in an <span class="math inline">\(r \times c\)</span> contingency table. Denote by <span class="math inline">\(O_{ij}\)</span> the number of observations in the cell that is in the <span class="math inline">\(i\)</span>-th row and <span class="math inline">\(j\)</span>-th column. If the null hypothesis is <span class="math inline">\(H_0\)</span>: No association exists between the two characteristics in the population, then the estimated expected number of observations in each cell under <span class="math inline">\(H_0\)</span> is,</p>
+<p><span class="math display">\[E_{ij} = \frac{R_i C_j}{n}\]</span></p>
+<p>where <span class="math inline">\(R_i\)</span> and <span class="math inline">\(C_j\)</span> are the corresponding row and column totals. A test of association at a significance level a is based on the following decision rule: reject if-</p>
+<p><span class="math display">\[\mathlarger{\sum}_{j=1}^c \mathlarger{\sum}_{i=1}^r \frac{(O_{ij}-E_{ij})^2}{E_{ij}} &gt; \chi^2_{(r-1)(c-1), \alpha}\]</span></p>
+<p>Contingency table example Suppose a study was conducted to determine whether "safety" or "sporty" comes to a person’s mind when they see or hear of a particular type of automobile: BMW, Mercedes, or Lexus. Use a <span class="math inline">\(\chi^2\)</span> test to evaluate whether the products mentioned differ in their associations and are, thus, perceived as dissimilar (which is most likely desired by the marketer).</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Automobile</th>
+<th style="text-align: left;">Sporty</th>
+<th style="text-align: left;">Safety</th>
+<th style="text-align: left;">Total</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">BMW</td>
+<td style="text-align: left;">256</td>
+<td style="text-align: left;">74</td>
+<td style="text-align: left;">330</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Mercedes</td>
+<td style="text-align: left;">41</td>
+<td style="text-align: left;">42</td>
+<td style="text-align: left;">83</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Lexus</td>
+<td style="text-align: left;">66</td>
+<td style="text-align: left;">34</td>
+<td style="text-align: left;">100</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Total</td>
+<td style="text-align: left;">363</td>
+<td style="text-align: left;">150</td>
+<td style="text-align: left;">513</td>
+</tr>
+</tbody>
+</table>
+<p>Contingency table example The null hypothesis to be tested implies that, in the population, the three types of automobiles are perceived as similar; that is, there is no association between the automobile type and customers’ perception of the car as being known for being sporty or being known for its safety. To test the null hypothesis of no association, we again ask how many observations we would expect to find in each cross-classification if that hypothesis were true.</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Automobile</th>
+<th style="text-align: left;">Sporty</th>
+<th style="text-align: left;">Safety</th>
+<th style="text-align: left;">Total</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">BMW</td>
+<td style="text-align: left;">256, <span class="math inline">\(\frac{330 \times 363}{513}=233.5\)</span></td>
+<td style="text-align: left;">74, <span class="math inline">\(\frac{330 \times 150}{513}=96.5\)</span></td>
+<td style="text-align: left;">330</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Mercedes</td>
+<td style="text-align: left;">41, <span class="math inline">\(\frac{83 \times 363}{513}=58.7\)</span></td>
+<td style="text-align: left;">42, <span class="math inline">\(\frac{83 \times 150}{513}=24.3\)</span></td>
+<td style="text-align: left;">83</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Lexus</td>
+<td style="text-align: left;">66, <span class="math inline">\(\frac{100 \times 363}{513}=70.8\)</span></td>
+<td style="text-align: left;">34, <span class="math inline">\(\frac{100 \times 15}{513}=29.2\)</span></td>
+<td style="text-align: left;">100</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Total</td>
+<td style="text-align: left;">363</td>
+<td style="text-align: left;">150</td>
+<td style="text-align: left;">513</td>
+</tr>
+</tbody>
+</table>
+<p>The test of the null hypothesis of no association is based on the magnitudes of the discrepancies between the observed numbers and those that would be expected if that hypothesis was true.</p>
+<p>Contingency table example The calculated <span class="math inline">\(\chi^2\)</span> statistics would be,</p>
+<p><span class="math display">\[\chi^2 = \frac{(256-233.5)^2}{233.5} + \frac{(74-96.5)^2}{96.5} + \frac{(41-58.7)^2}{58.7} + \frac{(42-24.3)^2}{24.3} + \frac{(66-70.8)^2}{70.8} + \frac{(34-29.2)^2}{29.2} = 26.8\]</span></p>
+<p>The degrees of freedom are <span class="math inline">\((r-1)(c-1)\)</span>. Here, there are <span class="math inline">\(r = 3\)</span> rows and <span class="math inline">\(c = 2\)</span> columns in the table, so the appropriate number of degrees of freedom is as follows:</p>
+<p><span class="math display">\[(r-1)(c-1) = (3-1)(2-1) = 2\]</span></p>
+<p>From the <span class="math inline">\(\chi^2\)</span> table, we find <span class="math inline">\(\chi^2_{2, 0.05} = 5.99147\)</span>.</p>
+<p>Therefore, the null hypothesis of no association is very clearly rejected at <span class="math inline">\(5\%\)</span> level. The evidence against this hypothesis is overwhelming.</p>
+
+
 </section>
 </section>
 
