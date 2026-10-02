@@ -65,26 +65,28 @@ In this course the students
 | Behave in an ethical and sustainable manner                                                     | The students will learn about ethical conduct in scientific research, with special emphasis on plagiarism, data manipulation, and the presentation and interpretation of results.                                                                                                                                                                                                                                                                                                                      |
 
 # Course outline
+-Descriptive Statistics
+  -	Samples and statistical distribution 
+  -Measures of central tendency 
+  -Measures of dispersion
+-	Distributions
+  - Discrete and continuous random variables
+  -Statistical distributions
+  -Standardization
+- Inferential Statistics
+  - Point estimation
+  - Interval estimation
+  - Hypothesis testing
+- Data Analysis
+  - Covariance and correlation
+  - Linear regression with OLS
+  - Assumptions for OLS estimation
+  - Logistic regression
+- Research Project
+  - Own Research Project 
+  - Practical Advice 
 
-## Theoretical part
 
-1.  What is research, formulating and clarifying the research topic
-2.  Literature review
-3.  Theoretical framework and hypothesis development
-4.  Questionnaire design
-5.  Sampling design
-6.  Measurement: scaling, reliability and validity
-
-## Applied part
-
-1.  Basic statistical concepts: descriptive statistics (numerical and graphical)
-2.  Hypothesis testing
-3.  Categorical data analysis, comparing two means
-4.  Correlation and covariance
-5.  ANOVA
-6.  Reliability analysis
-7.  Linear analysis
-8.  Logistic regression
 
 ## Software tools
 
@@ -178,28 +180,22 @@ Datasets of the course will be stored in the Datasets folder in the ILIAS. It is
 
 ## Teaching method
 
-Lectures, demonstrations and practice during the class
+- Lectures, demonstrations and practice during the class
+- Applying statistical methods in real scenario
+- Group work, going through a research project from start to finish
+- Learning tools to apply statistical concepts in real life data
+- Your score is determined by a partial exam and a paper.
 
-Applying statistical methods in real scenario
+# Grade 	
+- Partial Exam (50 percent)
+  - Individual written assignment
+  - Partial exam covers chapter 1-4
+  - Date and time to be determined: 45 Min
+- Paper (50 percent)
+  - Group research project
+  - Presentation of the research question and submission of the research paper
+  - Pages: 8–10 pages (±1 page) per group member, main body excluding bibliography and appendix; based on the HHN guidelines for academic writing
+  - Paper Submission: Friday after last session, 3 pm
+  - Presentation: Last session
 
-Group work, going through a research project from start to finish
-
-Learning tools to apply statistical concepts in real life data
-
-## Exam form and evaluation
-
-The final grade will be a combination of the result from a research project and a classroom examination.
-
-- **Research project (50% of the final grade):** Theoretical and empirical model including theory, research question/hypotheses, detailed derivation of hypotheses from the literature, methodology, descriptive results, model variables and regression analysis, scientific discussion, literature (minimum requirement: seven scientific references (journal articles), APA citation style), plus submission of dataset and syntax (final evaluations and model) + output regression analysis. Format: Presentation on the last lecture date with PowerPoint presentation and paper (max. 8 pages without appendix)
-
-- **Individual test (50% of the final grade):** Date and time will be announced later
-
-## Grading
-
-- Midterm (individual performance): 50%\
-  90-minute open book exam\
-  (FAQ: Do I have to pass it to get the pass mark for the course?\
-  Answer: No.
-
-- Paper + Group presentation (group evaluation): 50%\
-  Students have to pass it!
+**Note:** If you withdraw (i.e., if you refuse to participate in the presentation once a topic has been assigned to you) given that you are officially registered for the course and fail. (Study and examination regulation §10a (4) and (6) as well as §12 (1).) 

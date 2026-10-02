@@ -956,9 +956,11 @@ Shapiro-Wilk $W$ and $p$-value
     - Electric: $W = 0.95$, $p < .001$
     - Petrol: $W = 0.95$, $p < .001$
   
-  Interpretation: 
+Interpretation
     - Shapiro-Wilk $W$ evaluates how closely the sample distribution matches a normal distribution ($W = 1.00$ indicates a perfect normal fit).
+    
     - Shapiro-Wilk $p$-value tests the null hypothesis that the data is normally distributed.
+    
     - Because $p < .001$ for all three groups, the null hypothesis of normality is rejected at standard significance levels ($\alpha = .05$). The mileage data is significantly non-normal (driven primarily by the flat, platykurtic shape).
 
 ### Key Takeaway for Further Analysis
