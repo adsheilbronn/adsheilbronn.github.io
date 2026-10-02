@@ -219,6 +219,141 @@ $$
 = \mathbb{P} \left(\bar{x}-z_{\alpha/2} \frac{\sigma}{\sqrt{n}} < \mu < \bar{x}+z_{\alpha/2}\frac{\sigma}{\sqrt{n}}\right)
 $$
 
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| fig-width: 7
+#| fig-height: 4.5
+#| fig-align: center
+
+
+###
+# Load required libraries
+if (!requireNamespace("ggplot2", quietly = TRUE)) install.packages("ggplot2")
+if (!requireNamespace("patchwork", quietly = TRUE)) install.packages("patchwork")
+if (!requireNamespace("svglite", quietly = TRUE)) install.packages("svglite")
+if (!requireNamespace("dplyr", quietly = TRUE)) install.packages("dplyr")
+
+library(ggplot2)
+library(patchwork)
+library(svglite)
+library(dplyr)
+
+# -----------------------------------------------------------------------------
+# 1. Simulation Setup
+# -----------------------------------------------------------------------------
+set.seed(42)
+
+pop_mean <- 100       # True population mean (mu)
+pop_sd <- 15          # Population standard deviation
+n <- 35               # Sample size per draw
+num_samples <- 25     # Number of repeated samples
+se <- pop_sd / sqrt(n) # Standard Error of the Mean
+
+# Simulate repeated samples
+ci_data <- tibble(sample_id = 1:num_samples) %>%
+  rowwise() %>%
+  mutate(
+    sample_values = list(rnorm(n, mean = pop_mean, sd = pop_sd)),
+    sample_mean = mean(sample_values),
+    sample_se = sd(sample_values) / sqrt(n),
+    t_crit = qt(0.975, df = n - 1),
+    lower_ci = sample_mean - t_crit * sample_se,
+    upper_ci = sample_mean + t_crit * sample_se,
+    contains_mu = (lower_ci <= pop_mean) & (upper_ci >= pop_mean)
+  ) %>%
+  ungroup() %>%
+  mutate(
+    status = ifelse(contains_mu, "Contains μ", "Misses μ"),
+    sample_id = factor(sample_id, levels = rev(1:num_samples)) # Reverse for top-to-bottom order
+  )
+
+# -----------------------------------------------------------------------------
+# 2. Top Panel: Theoretical Sampling Distribution Curve
+# -----------------------------------------------------------------------------
+x_min <- pop_mean - 3.8 * se
+x_max <- pop_mean + 3.8 * se
+
+x_vals <- seq(x_min, x_max, length.out = 300)
+density_df <- data.frame(
+  x = x_vals,
+  y = dnorm(x_vals, mean = pop_mean, sd = se)
+)
+
+plot_top <- ggplot(density_df, aes(x = x, y = y)) +
+  # Shaded 95% coverage area under the sampling curve
+  geom_area(data = filter(density_df, x >= pop_mean - 1.96*se & x <= pop_mean + 1.96*se),
+            fill = "#4A90E2", alpha = 0.25) +
+  # Sampling distribution curve
+  geom_line(color = "#1F4E78", linewidth = 1.1) +
+  # Reference line for population mean
+  geom_vline(xintercept = pop_mean, linetype = "dashed", color = "black", linewidth = 0.7) +
+  # ±1.96*SE vertical markers
+  geom_vline(xintercept = c(pop_mean - 1.96*se, pop_mean + 1.96*se), 
+             color = "gray50", linetype = "dotted", linewidth = 0.6) +
+  # Annotation labels on top curve
+  annotate("text", x = pop_mean, y = max(density_df$y) * 1.08, label = "μ", 
+           size = 5, fontface = "bold") +
+  annotate("text", x = pop_mean - 1.96*se, y = max(density_df$y) * 1.08, 
+           label = "μ - 1.96·SE", size = 3.5, color = "gray30") +
+  annotate("text", x = pop_mean + 1.96*se, y = max(density_df$y) * 1.08, 
+           label = "μ + 1.96·SE", size = 3.5, color = "gray30") +
+  scale_x_continuous(limits = c(x_min, x_max)) +
+  scale_y_continuous(expand = expansion(mult = c(0, 0.15))) +
+  labs(
+    title = "Theoretical Sampling Distribution of the Mean",
+    y = "Density"
+  ) +
+  theme_minimal(base_size = 12) +
+  theme(
+    axis.title.x = element_blank(),
+    axis.text.x = element_blank(),
+    axis.ticks.x = element_blank(),
+    panel.grid.minor = element_blank(),
+    plot.title = element_text(face = "bold", size = 13, hjust = 0.5)
+  )
+
+# -----------------------------------------------------------------------------
+# 3. Bottom Panel: Confidence Interval Forest Plot
+# -----------------------------------------------------------------------------
+plot_bottom <- ggplot(ci_data, aes(x = sample_mean, y = sample_id, color = status)) +
+  # Vertical population mean line extending through all intervals
+  geom_vline(xintercept = pop_mean, linetype = "dashed", color = "black", linewidth = 0.8) +
+  # CI horizontal error bars
+  geom_errorbarh(aes(xmin = lower_ci, xmax = upper_ci), height = 0.35, linewidth = 0.8) +
+  # Point estimates (sample means)
+  geom_point(size = 2.2) +
+  scale_color_manual(values = c("Contains μ" = "#2B5C8F", "Misses μ" = "#D9534F")) +
+  scale_x_continuous(limits = c(x_min, x_max)) +
+  labs(
+    title = "95% Confidence Intervals for 25 Repeated Samples",
+    x = "Sample Means & 95% Confidence Intervals",
+    y = "Sample Number",
+    color = "Interval Status"
+  ) +
+  theme_minimal(base_size = 12) +
+  theme(
+    legend.position = "top",
+    panel.grid.minor = element_blank(),
+    plot.title = element_text(face = "bold", size = 13, hjust = 0.5),
+    axis.title.x = element_text(face = "bold", margin = margin(t = 8)),
+    axis.title.y = element_text(face = "bold")
+  )
+
+# -----------------------------------------------------------------------------
+# 4. Combine Panels & Export to SVG
+# -----------------------------------------------------------------------------
+combined_plot <- plot_top / plot_bottom + 
+  plot_layout(heights = c(1, 2.2))
+
+combined_plot
+
+```
+
+
+
 ## Central limit theorem
 
 According to the Central Limit Theorem the sampling distribution of the sample mean is approximately normal for large samples. For a $95\%$ confidence level it follows that,
@@ -784,3 +919,30 @@ max size=
 with N - 1 degrees of freedom\
 $^{a}$ More than one mode exists, only the first is reported\
 :::
+
+## Interpretation
+
+- 95% Confidence Interval (CI) of the Mean
+  - Values
+    - Diesel: [92,333.13, 105,276.07]
+    - Electric: [93,234.14, 106,045.11]
+    - Petrol: [86,791.29, 99,437.26]
+
+  Interpretation: There is 95% confidence that the true population mean mileage for each fuel type lies within these bounds. Because the confidence intervals for all three groups overlap heavily, there is no strong initial evidence of a statistically significant difference in mean mileage across the fuel types.
+
+- Interquartile Range (IQR)
+  - Values 
+    - Diesel: 116,444.25
+    - Electric: 105,840.00 
+    - Petrol: 94,604.50
+  
+  Interpretation: The IQR represents the spread of the middle 50% of the data ($Q_3 - Q_1$). Diesel vehicles have the widest middle spread (116,444.25 units), while Petrol vehicles have the narrowest (94,604.50 units). Because the mileage distributions deviate from normality, the IQR serves as a robust measure of variability alongside standard deviation.
+
+- Skewness & Std. Error of Skewness ($Z = \text{Skewness} / \text{Std. error of Skewness}$)
+  - Values
+    Diesel: Skewness = 0.05 (SE = 0.13), $Z_{\text{skew}} = 0.385$
+    Electric: Skewness = 0.07 (SE = 0.14), $Z_{\text{skew}} = 0.500$
+    Petrol: Skewness = 0.14 (SE = 0.13), $Z_{\text{skew}} = 1.077$
+
+  Interpretation: Skewness measures distribution symmetry (0 = perfectly symmetric). All three groups show slight positive (right) skewness ($0.05$ to $0.14$).Std. Error of Skewness estimates the sampling variability.Dividing skewness by its standard error gives $Z$-scores well within the standard threshold of $\pm 1.96$, indicating that the slight asymmetry in all three groups is not statistically significant.
+
