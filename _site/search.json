@@ -224,20 +224,6 @@
     "text": "Course name\nApplied Data Science |\n\n\nSemester\n3\n\n\nDozent\nHaseeb Mahmud\nhaseeb.mahmud@ext.hs-heilbronn.de\nhaseeb.mahmud@gmail.com\n\n\nVisiting hours\nBy appointment over WebEx/MS Teams\n\n\nLanguage\nEnglish\n\n\nWorkload\n30 classroom + 32.5 self-study\n\n\nECTS points\n5\n\n\nPrerequisite\nStatistics and Data Skills\n\n\n\n\n\nUsing practically relevant examples the students practice how to use a statistic software to perform statistical analysis and test models.\nIn this course the students\n\npostulate a research question using their own data or a panel data set provided by the lecturer,\npostulate hypotheses to test,\nperform statistical analysis to test their models,\nlearn to use software for their data analysis during computer lab sessions,\nwrite a scientific presentation and\npresent their results in a plenary session."
   },
   {
-    "objectID": "posts/welcome/index.html#theoretical-part",
-    "href": "posts/welcome/index.html#theoretical-part",
-    "title": "Course Outline",
-    "section": "Theoretical part",
-    "text": "Theoretical part\n\nWhat is research, formulating and clarifying the research topic\nLiterature review\nTheoretical framework and hypothesis development\nQuestionnaire design\nSampling design\nMeasurement: scaling, reliability and validity"
-  },
-  {
-    "objectID": "posts/welcome/index.html#applied-part",
-    "href": "posts/welcome/index.html#applied-part",
-    "title": "Course Outline",
-    "section": "Applied part",
-    "text": "Applied part\n\nBasic statistical concepts: descriptive statistics (numerical and graphical)\nHypothesis testing\nCategorical data analysis, comparing two means\nCorrelation and covariance\nANOVA\nReliability analysis\nLinear analysis\nLogistic regression"
-  },
-  {
     "objectID": "posts/welcome/index.html#software-tools",
     "href": "posts/welcome/index.html#software-tools",
     "title": "Course Outline",
@@ -277,21 +263,7 @@
     "href": "posts/welcome/index.html#teaching-method",
     "title": "Course Outline",
     "section": "Teaching method",
-    "text": "Teaching method\nLectures, demonstrations and practice during the class\nApplying statistical methods in real scenario\nGroup work, going through a research project from start to finish\nLearning tools to apply statistical concepts in real life data"
-  },
-  {
-    "objectID": "posts/welcome/index.html#exam-form-and-evaluation",
-    "href": "posts/welcome/index.html#exam-form-and-evaluation",
-    "title": "Course Outline",
-    "section": "Exam form and evaluation",
-    "text": "Exam form and evaluation\nThe final grade will be a combination of the result from a research project and a classroom examination.\n\nResearch project (50% of the final grade): Theoretical and empirical model including theory, research question/hypotheses, detailed derivation of hypotheses from the literature, methodology, descriptive results, model variables and regression analysis, scientific discussion, literature (minimum requirement: seven scientific references (journal articles), APA citation style), plus submission of dataset and syntax (final evaluations and model) + output regression analysis. Format: Presentation on the last lecture date with PowerPoint presentation and paper (max. 8 pages without appendix)\nIndividual test (50% of the final grade): Date and time will be announced later"
-  },
-  {
-    "objectID": "posts/welcome/index.html#grading",
-    "href": "posts/welcome/index.html#grading",
-    "title": "Course Outline",
-    "section": "Grading",
-    "text": "Grading\n\nMidterm (individual performance): 50%\n90-minute open book exam\n(FAQ: Do I have to pass it to get the pass mark for the course?\nAnswer: No.\nPaper + Group presentation (group evaluation): 50%\nStudents have to pass it!"
+    "text": "Teaching method\n\nLectures, demonstrations and practice during the class\nApplying statistical methods in real scenario\nGroup work, going through a research project from start to finish\nLearning tools to apply statistical concepts in real life data\nYour score is determined by a partial exam and a paper."
   },
   {
     "objectID": "posts/litreview/index.html",
