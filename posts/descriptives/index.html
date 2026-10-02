@@ -236,7 +236,10 @@ window.Quarto = {
   </ul></li>
   <li><a href="#jamovi" id="toc-jamovi" class="nav-link" data-scroll-target="#jamovi">Jamovi</a>
   <ul class="collapse">
-  <li><a href="#interpretation" id="toc-interpretation" class="nav-link" data-scroll-target="#interpretation">Interpretation</a></li>
+  <li><a href="#interpretation" id="toc-interpretation" class="nav-link" data-scroll-target="#interpretation">Interpretation</a>
+  <ul class="collapse">
+  <li><a href="#key-takeaway-for-further-analysis" id="toc-key-takeaway-for-further-analysis" class="nav-link" data-scroll-target="#key-takeaway-for-further-analysis">Key Takeaway for Further Analysis</a></li>
+  </ul></li>
   </ul></li>
   </ul>
 </nav>
@@ -800,10 +803,8 @@ Cov (x, y) = \frac{\sum(x_i - \bar{x})(y_i - \bar{y})}{n}
 <section id="jamovi" class="level1">
 <h1>Jamovi</h1>
 <p>Here is the output:</p>
-<p>$:::: adjustbox max size=</p>
 <div id="tbl:Table_Descriptives">
 <table class="table">
-<caption>Descriptives</caption>
 <thead>
 <tr class="header">
 <th style="text-align: left;">&nbsp;</th>
@@ -1115,7 +1116,6 @@ Cov (x, y) = \frac{\sum(x_i - \bar{x})(y_i - \bar{y})}{n}
 </tbody>
 </table>
 </div>
-<p>::::</p>
 <div class="tablenotes">
 <p><em>Note.</em>&nbsp;The CI of the mean assumes sample means follow a t-distribution with N - 1 degrees of freedom<br>
 <span class="math inline">\(^{a}\)</span>&nbsp;More than one mode exists, only the first is reported<br>
@@ -1146,12 +1146,33 @@ Cov (x, y) = \frac{\sum(x_i - \bar{x})(y_i - \bar{y})}{n}
 <p>Interpretation: The IQR represents the spread of the middle 50% of the data (<span class="math inline">\(Q_3 - Q_1\)</span>). Diesel vehicles have the widest middle spread (116,444.25 units), while Petrol vehicles have the narrowest (94,604.50 units). Because the mileage distributions deviate from normality, the IQR serves as a robust measure of variability alongside standard deviation.</p></li>
 <li><p>Skewness &amp; Std. Error of Skewness (<span class="math inline">\(Z = \text{Skewness} / \text{Std. error of Skewness}\)</span>)</p>
 <ul>
-<li>Values Diesel: Skewness = 0.05 (SE = 0.13), <span class="math inline">\(Z_{\text{skew}} = 0.385\)</span> Electric: Skewness = 0.07 (SE = 0.14), <span class="math inline">\(Z_{\text{skew}} = 0.500\)</span> Petrol: Skewness = 0.14 (SE = 0.13), <span class="math inline">\(Z_{\text{skew}} = 1.077\)</span></li>
+<li>Values
+<ul>
+<li>Diesel: Skewness = 0.05 (SE = 0.13), <span class="math inline">\(Z_{\text{skew}} = 0.385\)</span></li>
+<li>Electric: Skewness = 0.07 (SE = 0.14), <span class="math inline">\(Z_{\text{skew}} = 0.500\)</span></li>
+<li>Petrol: Skewness = 0.14 (SE = 0.13), <span class="math inline">\(Z_{\text{skew}} = 1.077\)</span></li>
+</ul></li>
 </ul>
 <p>Interpretation: Skewness measures distribution symmetry (0 = perfectly symmetric). All three groups show slight positive (right) skewness (<span class="math inline">\(0.05\)</span> to <span class="math inline">\(0.14\)</span>).Std. Error of Skewness estimates the sampling variability.Dividing skewness by its standard error gives <span class="math inline">\(Z\)</span>-scores well within the standard threshold of <span class="math inline">\(\pm 1.96\)</span>, indicating that the slight asymmetry in all three groups is not statistically significant.</p></li>
+<li><p>Kurtosis &amp; Std. Error of Kurtosis</p>
+<ul>
+<li>Values
+<ul>
+<li>Diesel: Kurtosis = -1.31 (SE = 0.26), <span class="math inline">\(Z_{\text{kurt}} = -5.038\)</span></li>
+<li>Electric: Kurtosis = -1.26 (SE = 0.27), <span class="math inline">\(Z_{\text{kurt}} = -4.667\)</span></li>
+<li>Petrol: Kurtosis = -1.17 (SE = 0.27), <span class="math inline">\(Z_{\text{kurt}} = -4.333\)</span></li>
+</ul></li>
 </ul>
+<p>Interpretation: Kurtosis measures the “peakedness” and tail weight relative to a normal distribution (0 = mesokurtic/normal). Negative values indicate a platykurtic distribution—flatter top with lighter tails, meaning values are spread relatively evenly across the range (from ~0 to 200,000).Std. Error of Kurtosis quantifies expected sampling variation.The resulting <span class="math inline">\(Z\)</span>-scores (<span class="math inline">\(Z = \text{Kurtosis} / \text{SE}\)</span>) are significantly lower than <span class="math inline">\(-1.96\)</span> across all groups (ranging from <span class="math inline">\(-4.33\)</span> to <span class="math inline">\(-5.04\)</span>). This confirms a statistically significant departure from a normal bell curve due to extreme flatness.</p></li>
+</ul>
+<p>Shapiro-Wilk <span class="math inline">\(W\)</span> and <span class="math inline">\(p\)</span>-value - Values - Diesel: <span class="math inline">\(W = 0.94\)</span>, <span class="math inline">\(p &lt; .001\)</span> - Electric: <span class="math inline">\(W = 0.95\)</span>, <span class="math inline">\(p &lt; .001\)</span> - Petrol: <span class="math inline">\(W = 0.95\)</span>, <span class="math inline">\(p &lt; .001\)</span></p>
+<p>Interpretation: - Shapiro-Wilk <span class="math inline">\(W\)</span> evaluates how closely the sample distribution matches a normal distribution (<span class="math inline">\(W = 1.00\)</span> indicates a perfect normal fit). - Shapiro-Wilk <span class="math inline">\(p\)</span>-value tests the null hypothesis that the data is normally distributed. - Because <span class="math inline">\(p &lt; .001\)</span> for all three groups, the null hypothesis of normality is rejected at standard significance levels (<span class="math inline">\(\alpha = .05\)</span>). The mileage data is significantly non-normal (driven primarily by the flat, platykurtic shape).</p>
+<section id="key-takeaway-for-further-analysis" class="level3">
+<h3 class="anchored" data-anchor-id="key-takeaway-for-further-analysis">Key Takeaway for Further Analysis</h3>
+<p>Because the assumption of normality is violated (p&lt;.001), parametric tests such as standard one-way ANOVA may be invalid unless sample sizes (N&gt;300 per group) provide sufficient robustness via the Central Limit Theorem. Non-parametric alternatives like the Kruskal-Wallis test or robust ANOVA methods are recommended for comparing mileage across fuel types.</p>
 
 
+</section>
 </section>
 </section>
 
