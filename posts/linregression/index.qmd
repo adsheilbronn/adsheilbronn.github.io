@@ -2,7 +2,7 @@
 title: "Linear Regression Analysis: From Bivariate to Multiple Regression"
 author: "Haseeb Mahmud"
 date: "2026-09-28"
-categories: [Statistics, Econometrics, R]
+categories: [Statistics]
 image: "image.jpg"
 toc: true
 toc-depth: 3

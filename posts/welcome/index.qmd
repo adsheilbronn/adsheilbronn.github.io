@@ -65,23 +65,28 @@ In this course the students
 | Behave in an ethical and sustainable manner                                                     | The students will learn about ethical conduct in scientific research, with special emphasis on plagiarism, data manipulation, and the presentation and interpretation of results.                                                                                                                                                                                                                                                                                                                      |
 
 # Course outline
+
 -Descriptive Statistics
   -	Samples and statistical distribution 
   -Measures of central tendency 
   -Measures of dispersion
+
 -	Distributions
   - Discrete and continuous random variables
   -Statistical distributions
   -Standardization
+
 - Inferential Statistics
   - Point estimation
   - Interval estimation
   - Hypothesis testing
+
 - Data Analysis
   - Covariance and correlation
   - Linear regression with OLS
   - Assumptions for OLS estimation
   - Logistic regression
+
 - Research Project
   - Own Research Project 
   - Practical Advice 
