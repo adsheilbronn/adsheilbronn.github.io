@@ -545,3 +545,21 @@ par(mfrow = c(1, 1))
 | **Adjusted $R^2$ ($\bar{R}^2$)** | $1 - (1-R^2)\frac{n-1}{n-k-1}$ | Goodness-of-fit metric penalizing non-informative added predictors. |
 | **$t$-Test Statistic** | $\frac{\hat{\beta}_j - 0}{\text{SE}(\hat{\beta}_j)}$ | Evaluates individual statistical significance of predictor $X_j$. |
 | **$F$-Test Statistic** | $\frac{\text{SSR}/k}{\text{SSE}/(n-k-1)}$ | Evaluates joint statistical significance of all $k$ slope parameters. |
+
+
+# Practice datasets
+
+Linear regression targets continuous numerical variables (e.g., predicting prices, temperatures, or scores). 
+
+- California Housing Dataset (or King County House Prices)
+    - Target Variable: Median house value.   
+    - Features: Median income, house age, average rooms, block latitude/longitude.
+- Advertising Budget Dataset
+    - Target Variable: Total product sales.   
+    - Features: Ad spend across TV, Radio, and Newspaper channels. 
+- Auto MPG Dataset (UCI Repository)
+    - Target Variable: Fuel efficiency in miles per gallon (MPG).
+    - Features: Engine displacement, horsepower, weight, acceleration, model year, origin.
+- Insurance Medical Cost Dataset
+    - Target Variable: Individual medical charges billed by health insurance.
+    - Features: Age, sex, BMI, number of children, smoking status, region.

@@ -1,0 +1,44 @@
+---
+title: "Logistic Regression Analysis"
+author: "Haseeb Mahmud"
+date: "2026-09-28"
+categories: [Statistics]
+image: "image.jpg"
+toc: true
+toc-depth: 3
+execute:
+  echo: false
+  warning: false
+  message: false
+format:
+  html:
+    fig-width: 8
+    fig-height: 5
+    fig-align: center
+---
+
+
+
+
+# Practice datasets
+
+Logistic regression targets categorical outcomes, most commonly binary classification (e.g., yes/no, default/pass).   
+
+- Titanic 
+  - Target Variable: Survival status (1 = Survived, 0 = Died). 
+  - Features: Passenger class, age, sex, fare, number of siblings/spouses aboard.
+  - Why it works: The classic benchmark dataset for binary logistic regression, demonstrating missing value imputation, interaction terms, and odds ratios.
+- Pima Indians Diabetes Dataset
+  - Target Variable: Diabetes diagnosis (1 = Positive, 0 = Negative).
+  - Features: Glucose level, blood pressure, BMI, insulin level, age, family pedigree.
+  - Why it works: Standard baseline for medical diagnostic classification; ideal for visualizing confusion matrices, ROC-AUC curves, and decision thresholds.
+  
+- Bank Marketing Dataset (UCI Repository)
+  - Target Variable: Term deposit subscription (yes / no).
+  - Features: Customer age, job type, balance, campaign call duration, previous contact outcomes.
+  - Why it works: Perfect for handling class imbalance (far more "no" responses than "yes") and evaluating precision-recall trade-offs.
+
+- Fraud Detection Dataset
+  - Target Variable: Fraudulent transaction (1 = Fraud, 0 = Legitimate).
+  - Features: Transaction amount, time, and PCA-transformed features ($V_1$ through $V_{28}$).
+  - Why it works: Highlights severe class imbalance and teaches decision boundary tuning and metric selection (F1-Score over raw Accuracy).
