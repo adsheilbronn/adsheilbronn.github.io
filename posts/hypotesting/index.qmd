@@ -97,7 +97,8 @@ Therefore, the sample mean lies $2.12\sigma_{\bar{x}}$ above the hypothetical va
 #| fig-height: 5
 #| fig-cap: "One sample hypothesis test."
 
-library(ggplot2)
+library(highcharter)
+library(dplyr)
 
 # 1. Test Parameters
 alpha <- 0.05
@@ -107,46 +108,83 @@ z_crit <- qnorm(1 - alpha)  # 1.645
 # 2. Generate Standard Normal Distribution Data
 x_vals <- seq(-4, 4, length.out = 1000)
 df_norm <- data.frame(
-  x = x_vals,
+  x = round(x_vals, 4),
   y = dnorm(x_vals)
 )
 
-# 3. Create ggplot Visualization
-ggplot(df_norm, aes(x = x, y = y)) +
-  # Draw standard normal curve
-  geom_line(color = "black", linewidth = 1) +
+# Split data into non-rejection and rejection regions for area shading
+df_main <- df_norm %>% filter(x <= z_crit)
+df_reject <- df_norm %>% filter(x >= z_crit)
+
+# 3. Create Highcharter Visualization
+highchart() %>%
+  hc_title(text = "One-Tailed Hypothesis Test for Sewer Pipe Breaking Strength") %>%
+  hc_subtitle(text = paste0("Rejection Region Shaded (&alpha; = ", alpha, ") | Calculated z = ", z_calc), useHTML = TRUE) %>%
+  hc_xAxis(
+    title = list(text = "Z-score"),
+    plotLines = list(
+      list(
+        value = z_crit,
+        color = "#E63946",
+        dashStyle = "Dot",
+        width = 2,
+        zIndex = 5,
+        label = list(
+          text = paste0("z<sub>crit</sub> = ", round(z_crit, 3)),
+          style = list(color = "#E63946", fontWeight = "bold"),
+          align = "right",
+          x = -5,
+          y = 120
+        )
+      ),
+      list(
+        value = z_calc,
+        color = "#1D3557",
+        dashStyle = "Dash",
+        width = 2.5,
+        zIndex = 5,
+        label = list(
+          text = paste0("z<sub>calc</sub> = ", z_calc),
+          style = list(color = "#1D3557", fontWeight = "bold"),
+          align = "left",
+          x = 5,
+          y = 60
+        )
+      )
+    )
+  ) %>%
+  hc_yAxis(title = list(text = "Probability Density")) %>%
   
-  # Shade Right-Tailed Rejection Region (alpha = 0.05)
-  geom_area(
-    data = subset(df_norm, x >= z_crit),
-    aes(y = y), fill = "#E63946", alpha = 0.5
-  ) +
+  # Standard normal curve (Line)
+  hc_add_series(
+    data = list_parse2(df_norm),
+    type = "line",
+    name = "Standard Normal Curve",
+    color = "#000000",
+    lineWidth = 2,
+    enableMouseTracking = TRUE
+  ) %>%
   
-  # Vertical line for the calculated test statistic (z = 2.12)
-  geom_vline(xintercept = z_calc, color = "#1D3557", linetype = "dashed", linewidth = 1.1) +
+  # Shaded Rejection Region (Area)
+  hc_add_series(
+    data = list_parse2(df_reject),
+    type = "area",
+    name = "Rejection Region (&alpha; = 0.05)",
+    color = "#E63946",
+    fillColor = "rgba(230, 57, 70, 0.5)",
+    lineWidth = 0,
+    marker = list(enabled = FALSE)
+  ) %>%
   
-  # Vertical line for the critical value (z = 1.645)
-  geom_vline(xintercept = z_crit, color = "#E63946", linetype = "dotted", linewidth = 1) +
-  
-  # Annotations
-  annotate("text", x = z_calc + 0.45, y = 0.15, 
-           label = paste0("z[calc] == ", z_calc), parse = TRUE, color = "#1D3557", fontface = "bold") +
-  annotate("text", x = z_crit + 0.5, y = 0.05, 
-           label = paste0("z[crit] == ", round(z_crit, 3)), parse = TRUE, color = "#E63946") +
-  
-  # Plot Formatting
-  labs(
-    title = "One-Tailed Hypothesis Test for Sewer Pipe Breaking Strength",
-    subtitle = paste0("Rejection Region Shaded (\u03b1 = ", alpha, ") | Calculated z = ", z_calc),
-    x = "Z-score",
-    y = "Probability Density"
-  ) +
-  theme_minimal(base_size = 13) +
-  theme(
-    plot.title = element_text(face = "bold", hjust = 0.5),
-    plot.subtitle = element_text(hjust = 0.5, color = "gray30"),
-    panel.grid.minor = element_blank()
-  )
+  # Chart options & legend styling
+  hc_tooltip(valueDecimals = 4, shared = FALSE) %>%
+  hc_plotOptions(
+    series = list(
+      marker = list(enabled = FALSE),
+      states = list(hover = list(enabled = FALSE))
+    )
+  ) %>%
+  hc_legend(enabled = TRUE)
 ```
 
 The sample mean lies $2.12\sigma_{\bar{x}}$ above the hypothesized value of $\mu$ and because this calculated value exceeds the table value 1.645, it falls in the rejection region. That is, we reject the null hypothesis. 
@@ -770,6 +808,15 @@ library(highcharter)
 set.seed(42)
 n_per_group <- 30
 
+df1 <- 3    # Numerator degrees of freedom (k - 1)
+df2 <- 116  # Denominator degrees of freedom (N - k)
+alpha <- 0.05
+f_crit <- qf(1 - alpha, df1, df2)
+
+f_vals <- seq(0, 6, length.out = 500)
+dens_vals <- df(f_vals, df1, df2)
+plot_data <- data.frame(F_val = f_vals, Density = dens_vals)
+
 # Simulate 4 group samples
 df <- data.frame(
   Group = factor(rep(c("Control", "Trt_A", "Trt_B", "Trt_C"), each = n_per_group)),
@@ -818,4 +865,5 @@ hchart(hc_data, "area", hcaes(x = x, y = y, group = Decision)) %>%
 
 ### Summary Checklist
 
-AspectJoint F-TestNull Hypothesis ($H_0$)$H_0: \mu_1 = \mu_2 = \dots = \mu_k$ (All group means are equal)Alternative Hypothesis ($H_1$)$H_1: \text{At least one } \mu_i \neq \mu_j$ (Not all means are equal)Key AdvantageEvaluates all groups at once, keeping false positive risk tied to chosen $\alpha$Decision RuleIf $F_{\text{calculated}} > F_{\text{critical}}$ (or $p < \alpha$), reject $H_0$Next Step after Rejecting $H_0$Conduct post-hoc tests (e.g., Tukey's HSD) to locate which specific means differ
+AspectJoint F-TestNull Hypothesis ($H_0$)$H_0: \mu_1 = \mu_2 = \dots = \mu_k$ (All group means are equal)Alternative Hypothesis ($H_1$)$H_1: \text{At least one } \mu_i \neq \mu_j$ (Not all means are equal)Key AdvantageEvaluates all groups at once, keeping false positive risk tied to chosen $\alpha$Decision RuleIf $F_{\text{calculated}} > F_{\text{critical}}$ (or $p < \alpha$), reject $H_0$
+Next Step after Rejecting $H_0$Conduct post-hoc tests (e.g., Tukey's HSD) to locate which specific means differ.
