@@ -210,8 +210,8 @@ $$
 #| fig-height: 5
 #| fig-cap: "Large sample two tailed test."
 
-
-library(ggplot2)
+library(highcharter)
+library(dplyr)
 
 # 1. Test Parameters
 alpha <- 0.01
@@ -222,54 +222,110 @@ z_crit_lower <- qnorm(alpha / 2)      # -2.576
 # 2. Generate Standard Normal Distribution Data
 x_vals <- seq(-4, 4, length.out = 1000)
 df_norm <- data.frame(
-  x = x_vals,
+  x = round(x_vals, 4),
   y = dnorm(x_vals)
 )
 
-# 3. Create ggplot Visualization
-ggplot(df_norm, aes(x = x, y = y)) +
-  # Draw standard normal curve
-  geom_line(color = "black", linewidth = 1) +
+# Subset data for left and right rejection regions
+df_reject_left  <- df_norm %>% filter(x <= z_crit_lower)
+df_reject_right <- df_norm %>% filter(x >= z_crit_upper)
+
+# 3. Create Highcharter Visualization
+highchart() %>%
+  hc_title(text = "Two-Tailed Hypothesis Test for Cereal Box Fill Weight") %>%
+  hc_subtitle(text = paste0("Rejection Regions Shaded (&alpha; = ", alpha, ") | Calculated z = ", z_calc), useHTML = TRUE) %>%
+  hc_xAxis(
+    title = list(text = "Z-score"),
+    plotLines = list(
+      # Left Critical Value (-z_crit)
+      list(
+        value = z_crit_lower,
+        color = "#E63946",
+        dashStyle = "Dot",
+        width = 2,
+        zIndex = 5,
+        label = list(
+          text = paste0("-z<sub>crit</sub> = ", round(z_crit_lower, 3)),
+          style = list(color = "#E63946", fontWeight = "bold"),
+          align = "right",
+          x = -5,
+          y = 120
+        )
+      ),
+      # Right Critical Value (+z_crit)
+      list(
+        value = z_crit_upper,
+        color = "#E63946",
+        dashStyle = "Dot",
+        width = 2,
+        zIndex = 5,
+        label = list(
+          text = paste0("z<sub>crit</sub> = ", round(z_crit_upper, 3)),
+          style = list(color = "#E63946", fontWeight = "bold"),
+          align = "left",
+          x = 5,
+          y = 120
+        )
+      ),
+      # Calculated Test Statistic (z_calc)
+      list(
+        value = z_calc,
+        color = "#1D3557",
+        dashStyle = "Dash",
+        width = 2.5,
+        zIndex = 5,
+        label = list(
+          text = paste0("z<sub>calc</sub> = ", z_calc),
+          style = list(color = "#1D3557", fontWeight = "bold"),
+          align = "right",
+          x = -5,
+          y = 60
+        )
+      )
+    )
+  ) %>%
+  hc_yAxis(title = list(text = "Probability Density")) %>%
   
-  # Shade Left Rejection Region (alpha / 2 = 0.005)
-  geom_area(
-    data = subset(df_norm, x <= z_crit_lower),
-    aes(y = y), fill = "#E63946", alpha = 0.5
-  ) +
+  # Standard normal curve (Line)
+  hc_add_series(
+    data = list_parse2(df_norm),
+    type = "line",
+    name = "Standard Normal Curve",
+    color = "#000000",
+    lineWidth = 2
+  ) %>%
   
-  # Shade Right Rejection Region (alpha / 2 = 0.005)
-  geom_area(
-    data = subset(df_norm, x >= z_crit_upper),
-    aes(y = y), fill = "#E63946", alpha = 0.5
-  ) +
+  # Left Shaded Rejection Region
+  hc_add_series(
+    data = list_parse2(df_reject_left),
+    type = "area",
+    name = "Left Rejection Region (&alpha;/2 = 0.005)",
+    color = "#E63946",
+    fillColor = "rgba(230, 57, 70, 0.5)",
+    lineWidth = 0,
+    linkedTo = "rejection-region"  # Group in legend
+  ) %>%
   
-  # Vertical line for calculated test statistic (z = -2.91)
-  geom_vline(xintercept = z_calc, color = "#1D3557", linetype = "dashed", linewidth = 1.1) +
+  # Right Shaded Rejection Region
+  hc_add_series(
+    data = list_parse2(df_reject_right),
+    type = "area",
+    id = "rejection-region",
+    name = "Rejection Regions (&alpha; = 0.01)",
+    color = "#E63946",
+    fillColor = "rgba(230, 57, 70, 0.5)",
+    lineWidth = 0
+  ) %>%
   
-  # Vertical lines for critical values (z = +/-2.576)
-  geom_vline(xintercept = c(z_crit_lower, z_crit_upper), color = "#E63946", linetype = "dotted", linewidth = 0.9) +
-  
-  # Annotations
-  annotate("text", x = z_calc - 0.45, y = 0.12, 
-           label = paste0("z[calc] == ", z_calc), parse = TRUE, color = "#1D3557", fontface = "bold") +
-  annotate("text", x = z_crit_lower - 0.4, y = 0.04, 
-           label = paste0("-z[crit] == ", round(z_crit_lower, 3)), parse = TRUE, color = "#E63946") +
-  annotate("text", x = z_crit_upper + 0.4, y = 0.04, 
-           label = paste0("z[crit] == ", round(z_crit_upper, 3)), parse = TRUE, color = "#E63946") +
-  
-  # Plot Formatting
-  labs(
-    title = "Two-Tailed Hypothesis Test for Cereal Box Fill Weight",
-    subtitle = paste0("Rejection Regions Shaded (\u03b1 = ", alpha, ") | Calculated z = ", z_calc),
-    x = "Z-score",
-    y = "Probability Density"
-  ) +
-  theme_minimal(base_size = 13) +
-  theme(
-    plot.title = element_text(face = "bold", hjust = 0.5),
-    plot.subtitle = element_text(hjust = 0.5, color = "gray30"),
-    panel.grid.minor = element_blank()
-  )
+  # Formatting & Interactive Controls
+  hc_tooltip(valueDecimals = 4) %>%
+  hc_plotOptions(
+    series = list(
+      marker = list(enabled = FALSE),
+      states = list(hover = list(enabled = FALSE))
+    )
+  ) %>%
+  hc_legend(enabled = TRUE)
 ```
 
 
