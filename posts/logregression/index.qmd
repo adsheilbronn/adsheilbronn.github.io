@@ -1,7 +1,7 @@
 ---
 title: "Logistic Regression Analysis"
 author: "Haseeb Mahmud"
-date: "2026-09-28"
+date: "2026-10-06"
 categories: [Statistics]
 image: "image.jpg"
 toc: true
