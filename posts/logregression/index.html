@@ -7,9 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Haseeb Mahmud">
-<meta name="dcterms.date" content="2026-09-30">
+<meta name="dcterms.date" content="2026-09-28">
 
-<title>Applied Data Science - Course Outline</title>
+<title>Applied Data Science - Logistic Regression Analysis</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -69,6 +69,35 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../../styles.css">
 </head>
@@ -115,9 +144,9 @@ ul.task-list li input[type="checkbox"] {
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">Course Outline</h1>
+      <h1 class="title">Logistic Regression Analysis</h1>
                                 <div class="quarto-categories">
-                <div class="quarto-category">News</div>
+                <div class="quarto-category">Statistics</div>
               </div>
                   </div>
   </div>
@@ -135,7 +164,7 @@ ul.task-list li input[type="checkbox"] {
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">September 30, 2026</p>
+        <p class="date">September 28, 2026</p>
       </div>
     </div>
     
@@ -151,34 +180,7 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#course-structure" id="toc-course-structure" class="nav-link active" data-scroll-target="#course-structure">Course structure</a>
-  <ul class="collapse">
-  <li><a href="#short-course-description" id="toc-short-course-description" class="nav-link" data-scroll-target="#short-course-description">Short course description</a></li>
-  </ul></li>
-  <li><a href="#intended-learning-outcomes-ilos-for-programme-and-course" id="toc-intended-learning-outcomes-ilos-for-programme-and-course" class="nav-link" data-scroll-target="#intended-learning-outcomes-ilos-for-programme-and-course">Intended learning outcomes (ILOs) for Programme and Course</a></li>
-  <li><a href="#course-outline" id="toc-course-outline" class="nav-link" data-scroll-target="#course-outline">Course outline</a>
-  <ul class="collapse">
-  <li><a href="#software-tools" id="toc-software-tools" class="nav-link" data-scroll-target="#software-tools">Software tools</a></li>
-  <li><a href="#literature" id="toc-literature" class="nav-link" data-scroll-target="#literature">Literature</a>
-  <ul class="collapse">
-  <li><a href="#recommended-literature" id="toc-recommended-literature" class="nav-link" data-scroll-target="#recommended-literature">Recommended literature</a></li>
-  </ul></li>
-  <li><a href="#hardware-requirement" id="toc-hardware-requirement" class="nav-link" data-scroll-target="#hardware-requirement">Hardware requirement</a></li>
-  <li><a href="#software-requirement" id="toc-software-requirement" class="nav-link" data-scroll-target="#software-requirement">Software requirement</a>
-  <ul class="collapse">
-  <li><a href="#jamovi" id="toc-jamovi" class="nav-link" data-scroll-target="#jamovi">Jamovi</a></li>
-  <li><a href="#vs-code" id="toc-vs-code" class="nav-link" data-scroll-target="#vs-code">VS Code</a></li>
-  <li><a href="#r-and-rstudio-optional" id="toc-r-and-rstudio-optional" class="nav-link" data-scroll-target="#r-and-rstudio-optional">R and RStudio (optional)</a></li>
-  <li><a href="#reference-manager" id="toc-reference-manager" class="nav-link" data-scroll-target="#reference-manager">Reference manager</a></li>
-  </ul></li>
-  <li><a href="#datasets" id="toc-datasets" class="nav-link" data-scroll-target="#datasets">Datasets</a>
-  <ul class="collapse">
-  <li><a href="#for-classroom-demonstrations" id="toc-for-classroom-demonstrations" class="nav-link" data-scroll-target="#for-classroom-demonstrations">For classroom demonstrations</a></li>
-  <li><a href="#popular-datasets-for-social-science-research" id="toc-popular-datasets-for-social-science-research" class="nav-link" data-scroll-target="#popular-datasets-for-social-science-research">Popular datasets for social science research</a></li>
-  </ul></li>
-  <li><a href="#teaching-method" id="toc-teaching-method" class="nav-link" data-scroll-target="#teaching-method">Teaching method</a></li>
-  </ul></li>
-  <li><a href="#grade" id="toc-grade" class="nav-link" data-scroll-target="#grade">Grade</a></li>
+  <li><a href="#practice-datasets" id="toc-practice-datasets" class="nav-link active" data-scroll-target="#practice-datasets">Practice datasets</a></li>
   </ul>
 </nav>
     </div>
@@ -189,249 +191,35 @@ ul.task-list li input[type="checkbox"] {
 
 
 
-<section id="course-structure" class="level2">
-<h2 class="anchored" data-anchor-id="course-structure">Course structure</h2>
-<table class="table">
-<colgroup>
-<col style="width: 25%">
-<col style="width: 59%">
-</colgroup>
-<tbody>
-<tr class="odd">
-<td>Course name</td>
-<td>Applied Data Science |</td>
-</tr>
-<tr class="even">
-<td>Semester</td>
-<td>3</td>
-</tr>
-<tr class="odd">
-<td>Dozent</td>
-<td>Haseeb Mahmud<br>
-haseeb.mahmud@ext.hs-heilbronn.de<br>
-haseeb.mahmud@gmail.com</td>
-</tr>
-<tr class="even">
-<td>Visiting hours</td>
-<td>By appointment over WebEx/MS Teams</td>
-</tr>
-<tr class="odd">
-<td>Language</td>
-<td>English</td>
-</tr>
-<tr class="even">
-<td>Workload</td>
-<td>30 classroom + 32.5 self-study</td>
-</tr>
-<tr class="odd">
-<td>ECTS points</td>
-<td>5</td>
-</tr>
-<tr class="even">
-<td>Prerequisite</td>
-<td>Statistics and Data Skills</td>
-</tr>
-</tbody>
-</table>
-<section id="short-course-description" class="level3">
-<h3 class="anchored" data-anchor-id="short-course-description">Short course description</h3>
-<p>Using practically relevant examples the students practice how to use a statistic software to perform statistical analysis and test models.</p>
-<p>In this course the students</p>
-<ol type="1">
-<li>postulate a research question using their own data or a panel data set provided by the lecturer,</li>
-<li>postulate hypotheses to test,</li>
-<li>perform statistical analysis to test their models,</li>
-<li>learn to use software for their data analysis during computer lab sessions,</li>
-<li>write a scientific presentation and</li>
-<li>present their results in a plenary session.</li>
-</ol>
-</section>
-</section>
-<section id="intended-learning-outcomes-ilos-for-programme-and-course" class="level1">
-<h1>Intended learning outcomes (ILOs) for Programme and Course</h1>
-<table class="table">
-<colgroup>
-<col style="width: 16%">
-<col style="width: 83%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Program Intended Learning Outcomes (ILOs)</th>
-<th>Course Intended Learning Outcomes (ILOs)</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Demonstrate profound knowledge in major fields of international business</td>
-<td>After the course the students will be able to formulate a research question, derive hypotheses based on literature, identify an appropriate research design, specify and operationalize constructs, analyze data in accordance with the hypotheses, and interpret the results. They will be familiar with and able to apply various models and methods of data analysis. The students know about probability of error, and the difference between significance and effect size when assessing results.</td>
-</tr>
-<tr class="even">
-<td>Implement conceptual knowledge and apply problem solving ability in different business contexts</td>
-<td>The students will learn how to test conceptual frameworks using empirical data. They will be able to select the appropriate statistical procedure based on the the research problem and the characteristics of the data. Students will be able of apply the knowledge acquired in the course to draw appropriate conclusions and make informed decisions in business environments based on data.</td>
-</tr>
-<tr class="odd">
-<td>Apply digital skills to effectively resolve work-related assignments</td>
-<td>The students will be able of conduct a thorough and systematic literature research using academic databases and scientific search engines. They will learn to use statistical software (e.g, Jamovi, SPSS, Python, R, Stata) effectively and appropriately to analyze data for various research questions.</td>
-</tr>
-<tr class="even">
-<td>Work effectively in intercultural teams and leverage diversity</td>
-<td>The students will work in teams to conduct a research project. They will discuss the research approach and develop a common strategy to manage the project timely and successfully. To achieve this, they will have to define milestones, allocate work packages, adhere to agreements, and reflect on their different working styles.</td>
-</tr>
-<tr class="odd">
-<td>Behave in an ethical and sustainable manner</td>
-<td>The students will learn about ethical conduct in scientific research, with special emphasis on plagiarism, data manipulation, and the presentation and interpretation of results.</td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="course-outline" class="level1">
-<h1>Course outline</h1>
+<section id="practice-datasets" class="level1">
+<h1>Practice datasets</h1>
+<p>Logistic regression targets categorical outcomes, most commonly binary classification (e.g., yes/no, default/pass).</p>
 <ul>
-<li><p>Descriptive Statistics</p>
+<li>Titanic
 <ul>
-<li>Samples and statistical distribution</li>
-<li>Measures of central tendency</li>
-<li>Measures of dispersion</li>
+<li>Target Variable: Survival status (1 = Survived, 0 = Died).</li>
+<li>Features: Passenger class, age, sex, fare, number of siblings/spouses aboard.</li>
+<li>Why it works: The classic benchmark dataset for binary logistic regression, demonstrating missing value imputation, interaction terms, and odds ratios.</li>
 </ul></li>
-<li><p>Distributions</p></li>
-<li><p>Discrete and continuous random variables -Statistical distributions -Standardization</p></li>
-<li><p>Inferential Statistics</p>
+<li>Pima Indians Diabetes Dataset
 <ul>
-<li>Point estimation</li>
-<li>Interval estimation</li>
-<li>Hypothesis testing</li>
+<li>Target Variable: Diabetes diagnosis (1 = Positive, 0 = Negative).</li>
+<li>Features: Glucose level, blood pressure, BMI, insulin level, age, family pedigree.</li>
+<li>Why it works: Standard baseline for medical diagnostic classification; ideal for visualizing confusion matrices, ROC-AUC curves, and decision thresholds.</li>
 </ul></li>
-<li><p>Data Analysis</p>
+<li>Bank Marketing Dataset (UCI Repository)
 <ul>
-<li>Covariance and correlation</li>
-<li>Linear regression with OLS</li>
-<li>Assumptions for OLS estimation</li>
-<li>Logistic regression</li>
+<li>Target Variable: Term deposit subscription (yes / no).</li>
+<li>Features: Customer age, job type, balance, campaign call duration, previous contact outcomes.</li>
+<li>Why it works: Perfect for handling class imbalance (far more “no” responses than “yes”) and evaluating precision-recall trade-offs.</li>
 </ul></li>
-<li><p>Research Project</p>
+<li>Fraud Detection Dataset
 <ul>
-<li>Own Research Project</li>
-<li>Practical Advice</li>
+<li>Target Variable: Fraudulent transaction (1 = Fraud, 0 = Legitimate).</li>
+<li>Features: Transaction amount, time, and PCA-transformed features (<span class="math inline">\(V_1\)</span> through <span class="math inline">\(V_{28}\)</span>).</li>
+<li>Why it works: Highlights severe class imbalance and teaches decision boundary tuning and metric selection (F1-Score over raw Accuracy).</li>
 </ul></li>
 </ul>
-<section id="software-tools" class="level2">
-<h2 class="anchored" data-anchor-id="software-tools">Software tools</h2>
-<ol type="1">
-<li>Jamovi</li>
-<li>VS Code</li>
-<li>Reference manager</li>
-<li>Useful file formats: Markdown, CSV</li>
-<li>R/RStudio</li>
-</ol>
-</section>
-<section id="literature" class="level2">
-<h2 class="anchored" data-anchor-id="literature">Literature</h2>
-<p><a href="https://blog.jamovi.org/2018/10/25/learning-statistics-with-jamovi.html">Learning Statistics with Jamovi . Danielle J Navarro and David R Foxcroft</a> - <a href="https://davidfoxcroft.github.io/lsj-book/">alternative link</a>.</p>
-<p><a href="https://danawanzer.github.io/stats-with-jamovi/">Statistics with Jamovi - Dana Wanzer</a></p>
-<p><a href="https://jmablog.github.io/jamovi-worksheets/">Jamovi Worksheets: Stats with Jamovi</a></p>
-<p>Atteslander, P: Methoden der empirischen Sozialforschung, Walter de Gruyter, Berlin, aktuelle Auflage.</p>
-<p>Auer, B. &amp; Rottmann, H.: Statistik und Ökonometrie für Wirtschaftswissenschaftler. Springer, Leipzig, aktuelle Auflage.</p>
-<p>Backhaus, K., Erichson, B., Gensler, S., Weiber, R &amp; Weiber, T.: Multivariate Analysemethoden – Eine anwendungsorientierte Einführung. Springer, Berlin, aktuelle Auflage.</p>
-<p>Field, A.: Discovering Statistics Using IBM SPSS Statistics. London: SAGE Publications, aktuelle Auflage.</p>
-<p>Lewis-Beck, M. S.: Applied Regression – an Introduction, SAGE Publications, Thousand Oaks CA, aktuelle Auflage.</p>
-<p>Schnell, R., Hill, P. &amp; Esser, E.: Methoden der empirischen Sozialforschung, Oldenbourg Verlag, München, aktuelle Auflage.</p>
-<section id="recommended-literature" class="level3">
-<h3 class="anchored" data-anchor-id="recommended-literature">Recommended literature</h3>
-<p>Gujarati, D., N.: Basic Econometrics. McGraw-Hill, aktuelle Auflage.</p>
-<p>Okasha, S.: Philosophy of Science: Very short introduction. Oxford: Oxford University Press, aktuelle Auflage.</p>
-<p>Pampel, F. C.: Logistic Regression. Sage University Papers Series on Quantitative Applications in the Social Sciences, 07-132. Thousand Oaks, CA: SAGE Publications, aktuelle Auflage.</p>
-<p>Porst, R.: Fragebogen – Ein Arbeitsbuch, Springer, Wiesbaden, aktuelle Auflage.</p>
-<p>Quinlan, C., Babin, B., Carr, J., Griffin, M., Zikmund, W.: Business Research Methods, Cengage Learning EMEA, aktuelle Auflage.</p>
-<p>Wooldridge, J. M.: Introductory Econometrics, Ohio: Thomson, South-Western, aktuelle Auflage.</p>
-</section>
-</section>
-<section id="hardware-requirement" class="level2">
-<h2 class="anchored" data-anchor-id="hardware-requirement">Hardware requirement</h2>
-<p>It is expected that students will work in Windows, Mac or Linux laptops in the classroom. Tablets (e.g.&nbsp;IPad) won’t work.</p>
-</section>
-<section id="software-requirement" class="level2">
-<h2 class="anchored" data-anchor-id="software-requirement">Software requirement</h2>
-<section id="jamovi" class="level3">
-<h3 class="anchored" data-anchor-id="jamovi">Jamovi</h3>
-<ul>
-<li><a href="https://docs.jamovi.org/_pages/um_1_installation.html">Download and Installation</a></li>
-</ul>
-</section>
-<section id="vs-code" class="level3">
-<h3 class="anchored" data-anchor-id="vs-code">VS Code</h3>
-<ul>
-<li><a href="https://code.visualstudio.com/docs/setup/setup-overview">Download and Installation</a></li>
-</ul>
-</section>
-<section id="r-and-rstudio-optional" class="level3">
-<h3 class="anchored" data-anchor-id="r-and-rstudio-optional">R and RStudio (optional)</h3>
-<ul>
-<li><p><a href="https://www.r-project.org/">R</a></p></li>
-<li><p><a href="https://posit.co/download/rstudio-desktop/">RStudio Desktop</a></p></li>
-</ul>
-</section>
-<section id="reference-manager" class="level3">
-<h3 class="anchored" data-anchor-id="reference-manager">Reference manager</h3>
-<ul>
-<li><p><a href="https://www.zotero.org">Zotero</a></p></li>
-<li><p><a href="https://www.mendeley.com/">Mendeley</a></p></li>
-</ul>
-</section>
-</section>
-<section id="datasets" class="level2">
-<h2 class="anchored" data-anchor-id="datasets">Datasets</h2>
-<p>Datasets of the course will be stored in the Datasets folder in the ILIAS. It is highly recommended to download and save the datasets to a local folder.</p>
-<section id="for-classroom-demonstrations" class="level3">
-<h3 class="anchored" data-anchor-id="for-classroom-demonstrations">For classroom demonstrations</h3>
-<ol type="1">
-<li><a href="https://www.kaggle.com/datasets/amjadzhour/car-price-prediction">Car pricing dataset</a></li>
-<li><a href="https://www.kaggle.com/datasets/shalmamuji/electricity-cost-prediction-dataset">Electricity cost dataset</a></li>
-<li><a href="https://www.kaggle.com/datasets/kanzariachref/medical-insurance-cost-dataset">Medical insurance dataset</a></li>
-<li><a href="https://www.kaggle.com/datasets/mikhail1681/walmart-sales">Wallmart sales dataset</a></li>
-<li><a href="https://www.kaggle.com/datasets/abhishek14398/salary-dataset-simple-linear-regression">Salary dataset</a></li>
-<li><a href="https://www.kaggle.com/datasets/nikhil7280/student-performance-multiple-linear-regression">Study performance dataset</a></li>
-<li>Datasets from reference books</li>
-<li>And many other</li>
-</ol>
-</section>
-<section id="popular-datasets-for-social-science-research" class="level3">
-<h3 class="anchored" data-anchor-id="popular-datasets-for-social-science-research">Popular datasets for social science research</h3>
-<ol type="1">
-<li><a href="https://www.europeansocialsurvey.org/">ESS</a></li>
-<li><a href="https://www.worldvaluessurvey.org">WVS</a></li>
-</ol>
-</section>
-</section>
-<section id="teaching-method" class="level2">
-<h2 class="anchored" data-anchor-id="teaching-method">Teaching method</h2>
-<ul>
-<li>Lectures, demonstrations and practice during the class</li>
-<li>Applying statistical methods in real scenario</li>
-<li>Group work, going through a research project from start to finish</li>
-<li>Learning tools to apply statistical concepts in real life data</li>
-<li>Your score is determined by a partial exam and a paper.</li>
-</ul>
-</section>
-</section>
-<section id="grade" class="level1">
-<h1>Grade</h1>
-<ul>
-<li>Partial Exam (50 percent)
-<ul>
-<li>Individual written assignment</li>
-<li>Partial exam covers chapter 1-4</li>
-<li>Date and time to be determined: 45 Min</li>
-</ul></li>
-<li>Paper (50 percent)
-<ul>
-<li>Group research project</li>
-<li>Presentation of the research question and submission of the research paper</li>
-<li>Pages: 8–10 pages (±1 page) per group member, main body excluding bibliography and appendix; based on the HHN guidelines for academic writing</li>
-<li>Paper Submission: Friday after last session, 3 pm</li>
-<li>Presentation: Last session</li>
-</ul></li>
-</ul>
-<p><strong>Note:</strong> If you withdraw (i.e., if you refuse to participate in the presentation once a topic has been assigned to you) given that you are officially registered for the course and fail. (Study and examination regulation §10a (4) and (6) as well as §12 (1).)</p>
 
 
 </section>
