@@ -17,28 +17,22 @@ format:
     fig-align: center
 ---
 
-
-
-
 # Practice datasets
 
 Logistic regression targets categorical outcomes, most commonly binary classification (e.g., yes/no, default/pass).   
 
-- Titanic 
+- Titanic: The classic benchmark dataset for binary logistic regression, demonstrating missing value imputation, interaction terms, and odds ratios. 
   - Target Variable: Survival status (1 = Survived, 0 = Died). 
   - Features: Passenger class, age, sex, fare, number of siblings/spouses aboard.
-  - Why it works: The classic benchmark dataset for binary logistic regression, demonstrating missing value imputation, interaction terms, and odds ratios.
-- Pima Indians Diabetes Dataset
+
+- Pima Indians Diabetes Dataset: Standard baseline for medical diagnostic classification; ideal for visualizing confusion matrices, ROC-AUC curves, and decision thresholds.
   - Target Variable: Diabetes diagnosis (1 = Positive, 0 = Negative).
   - Features: Glucose level, blood pressure, BMI, insulin level, age, family pedigree.
-  - Why it works: Standard baseline for medical diagnostic classification; ideal for visualizing confusion matrices, ROC-AUC curves, and decision thresholds.
   
-- Bank Marketing Dataset (UCI Repository)
+- Bank Marketing Dataset (UCI Repository): Perfect for handling class imbalance (far more "no" responses than "yes") and evaluating precision-recall trade-offs.
   - Target Variable: Term deposit subscription (yes / no).
   - Features: Customer age, job type, balance, campaign call duration, previous contact outcomes.
-  - Why it works: Perfect for handling class imbalance (far more "no" responses than "yes") and evaluating precision-recall trade-offs.
 
-- Fraud Detection Dataset
+- Fraud Detection Dataset: Highlights severe class imbalance and teaches decision boundary tuning and metric selection (F1-Score over raw Accuracy).
   - Target Variable: Fraudulent transaction (1 = Fraud, 0 = Legitimate).
   - Features: Transaction amount, time, and PCA-transformed features ($V_1$ through $V_{28}$).
-  - Why it works: Highlights severe class imbalance and teaches decision boundary tuning and metric selection (F1-Score over raw Accuracy).

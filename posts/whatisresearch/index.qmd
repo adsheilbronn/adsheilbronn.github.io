@@ -2,7 +2,7 @@
 title: "On Research"
 author: "Haseeb Mahmud"
 date: "2026-09-28"
-categories: [Statistics]
+categories: [Research Methods]
 image: "thumbnail.jpg"
 toc: true
 toc-depth: 3

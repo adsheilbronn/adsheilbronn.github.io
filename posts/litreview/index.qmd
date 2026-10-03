@@ -2,7 +2,7 @@
 title: "Literature Review"
 author: "Haseeb Mahmud"
 date: "2026-09-28"
-categories: [Statistics]
+categories: [Research Methods]
 image: "image.jpg"
 toc: true
 toc-depth: 3
