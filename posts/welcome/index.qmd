@@ -68,8 +68,8 @@ In this course the students
 
 - Descriptive Statistics
   -	Samples and statistical distribution 
-  -Measures of central tendency 
-  -Measures of dispersion
+  - Measures of central tendency 
+  - Measures of dispersion
 
 -	Distributions
   - Discrete and continuous random variables
