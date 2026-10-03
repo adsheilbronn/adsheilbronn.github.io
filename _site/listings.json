@@ -2,16 +2,16 @@
   {
     "listing": "/index.html",
     "items": [
-      "/posts/welcome/index.html",
-      "/posts/linregression/index.html",
       "/posts/logregression/index.html",
+      "/posts/linregression/index.html",
       "/posts/correlation/index.html",
+      "/posts/confinterval/index.html",
+      "/posts/hypotesting/index.html",
+      "/posts/descriptives/index.html",
       "/posts/litreview/index.html",
       "/posts/theoryhypo/index.html",
-      "/posts/confinterval/index.html",
-      "/posts/descriptives/index.html",
       "/posts/whatisresearch/index.html",
-      "/posts/hypotesting/index.html"
+      "/posts/welcome/index.html"
     ]
   }
 ]
