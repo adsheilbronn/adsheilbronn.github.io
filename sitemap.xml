@@ -2,50 +2,54 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://adsheilbronn.github.io/about.html</loc>
-    <lastmod>2026-10-03T14:29:13.507Z</lastmod>
-  </url>
-  <url>
-    <loc>https://adsheilbronn.github.io/posts/litreview/index.html</loc>
-    <lastmod>2026-10-03T14:29:13.553Z</lastmod>
-  </url>
-  <url>
-    <loc>https://adsheilbronn.github.io/posts/linregression/index.html</loc>
-    <lastmod>2026-10-03T14:29:13.546Z</lastmod>
-  </url>
-  <url>
-    <loc>https://adsheilbronn.github.io/posts/whatisresearch/index.html</loc>
-    <lastmod>2026-10-03T14:29:13.575Z</lastmod>
-  </url>
-  <url>
-    <loc>https://adsheilbronn.github.io/posts/logregression/index.html</loc>
-    <lastmod>2026-10-03T14:29:13.565Z</lastmod>
-  </url>
-  <url>
-    <loc>https://adsheilbronn.github.io/posts/welcome/index.html</loc>
-    <lastmod>2026-10-03T14:29:13.570Z</lastmod>
-  </url>
-  <url>
-    <loc>https://adsheilbronn.github.io/index.html</loc>
-    <lastmod>2026-10-03T14:29:13.507Z</lastmod>
+    <lastmod>2026-10-03T14:28:41.304Z</lastmod>
   </url>
   <url>
     <loc>https://adsheilbronn.github.io/posts/hypotesting/index.html</loc>
-    <lastmod>2026-10-03T14:29:13.535Z</lastmod>
+    <lastmod>2026-10-03T14:25:10.138Z</lastmod>
   </url>
   <url>
-    <loc>https://adsheilbronn.github.io/posts/descriptives/index.html</loc>
-    <lastmod>2026-10-03T14:29:13.528Z</lastmod>
-  </url>
-  <url>
-    <loc>https://adsheilbronn.github.io/posts/theoryhypo/index.html</loc>
-    <lastmod>2026-10-03T14:29:13.567Z</lastmod>
-  </url>
-  <url>
-    <loc>https://adsheilbronn.github.io/posts/correlation/index.html</loc>
-    <lastmod>2026-10-03T14:29:13.526Z</lastmod>
+    <loc>https://adsheilbronn.github.io/posts/class_1/index.html</loc>
+    <lastmod>2026-10-03T14:34:17.308Z</lastmod>
   </url>
   <url>
     <loc>https://adsheilbronn.github.io/posts/confinterval/index.html</loc>
-    <lastmod>2026-10-03T14:29:13.521Z</lastmod>
+    <lastmod>2026-10-03T14:25:20.347Z</lastmod>
+  </url>
+  <url>
+    <loc>https://adsheilbronn.github.io/posts/theoryhypo/index.html</loc>
+    <lastmod>2026-10-03T14:27:51.710Z</lastmod>
+  </url>
+  <url>
+    <loc>https://adsheilbronn.github.io/posts/correlation/index.html</loc>
+    <lastmod>2026-10-03T14:25:38.534Z</lastmod>
+  </url>
+  <url>
+    <loc>https://adsheilbronn.github.io/posts/linregression/index.html</loc>
+    <lastmod>2026-10-03T14:27:48.322Z</lastmod>
+  </url>
+  <url>
+    <loc>https://adsheilbronn.github.io/posts/logregression/index.html</loc>
+    <lastmod>2026-10-03T14:26:23.208Z</lastmod>
+  </url>
+  <url>
+    <loc>https://adsheilbronn.github.io/posts/litreview/index.html</loc>
+    <lastmod>2026-10-03T14:27:29.983Z</lastmod>
+  </url>
+  <url>
+    <loc>https://adsheilbronn.github.io/posts/welcome/index.html</loc>
+    <lastmod>2026-10-03T14:27:35.137Z</lastmod>
+  </url>
+  <url>
+    <loc>https://adsheilbronn.github.io/posts/descriptives/index.html</loc>
+    <lastmod>2026-10-03T14:24:52.494Z</lastmod>
+  </url>
+  <url>
+    <loc>https://adsheilbronn.github.io/posts/whatisresearch/index.html</loc>
+    <lastmod>2026-10-03T14:27:41.742Z</lastmod>
+  </url>
+  <url>
+    <loc>https://adsheilbronn.github.io/index.html</loc>
+    <lastmod>2026-09-27T06:25:09.011Z</lastmod>
   </url>
 </urlset>
