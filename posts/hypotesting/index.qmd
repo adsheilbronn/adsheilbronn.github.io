@@ -923,3 +923,7 @@ hchart(hc_data, "area", hcaes(x = x, y = y, group = Decision)) %>%
 
 AspectJoint F-TestNull Hypothesis ($H_0$)$H_0: \mu_1 = \mu_2 = \dots = \mu_k$ (All group means are equal)Alternative Hypothesis ($H_1$)$H_1: \text{At least one } \mu_i \neq \mu_j$ (Not all means are equal)Key AdvantageEvaluates all groups at once, keeping false positive risk tied to chosen $\alpha$Decision RuleIf $F_{\text{calculated}} > F_{\text{critical}}$ (or $p < \alpha$), reject $H_0$
 Next Step after Rejecting $H_0$Conduct post-hoc tests (e.g., Tukey's HSD) to locate which specific means differ.
+
+# Help guide
+
+Jamovi worksheets: https://jmablog.github.io/jamovi-worksheets/ 

@@ -103,8 +103,6 @@ In this course the students
 
 ## Literature
 
-[Statistical tests with Jamovi - University of Lincoln](https://guides.library.lincoln.ac.uk/mash/jamovi)
-
 [Learning Statistics with Jamovi . Danielle J Navarro and David R Foxcroft](https://blog.jamovi.org/2018/10/25/learning-statistics-with-jamovi.html) - [alternative link](https://davidfoxcroft.github.io/lsj-book/).
 
 [Statistics with Jamovi - Dana Wanzer](https://danawanzer.github.io/stats-with-jamovi/)
