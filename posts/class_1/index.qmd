@@ -1,8 +1,8 @@
 ---
 title: "Class 1"
 author: "Haseeb Mahmud"
-date: "2026-09-26"
-categories: [Statistics]
+date: "2026-10-05"
+categories: [Class Notes]
 image: "image.jpg"
 toc: true
 toc-depth: 3
@@ -19,4 +19,32 @@ format:
 
 # Summary of the class 
 
+- Course outline
+- Configuring laptops
+- Group formation
+- Introduction to Jamovi
+- Data entry in Jamovi 
+- Data and metadata
+- Measurements: Nominal, ordinal, ID, continuous
+- Missing data
+- Descriptive statistics (basic ones, plot)
+- Introduction to research question. How you can develop a research question from a data like ESS. 
+- Lecture page: adsheilbronn.github.io/ 
+
+# Video lecture: Opening data files
+
 {{< video https://www.youtube.com/watch?v=frF5RXdltY4 >}}
+
+# Video lecture: Data editor
+
+{{< video https://www.youtube.com/watch?v=TC3GB8SDrzo >}}
+
+# Video lecture: Results editor
+
+{{< video https://www.youtube.com/watch?v=JKabBHuKbdA >}}
+
+# Video lecture: Descriptive statistics 
+
+{{< video https://www.youtube.com/watch?v=8jLKfbaX0bk >}}
+
+
