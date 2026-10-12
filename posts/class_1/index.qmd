@@ -19,6 +19,8 @@ format:
 
 # Summary of the class 
 
+Topics convered. 
+
 - Course outline
 - Configuring laptops
 - Group formation
