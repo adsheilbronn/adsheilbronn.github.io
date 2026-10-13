@@ -21,9 +21,16 @@ format:
 
 Topics convered. 
 
+- How to develop a research question/Topics
+- Functional form: $Y = f(x)$, or in a multivariate setup $Y = f(x_1, x_2, ... , x_n). Students will be asked to show $Y$ and some $x$s for their research topic. 
+- Reserach ideas
+- Examples
+- Operational definition of the main topic/theme of the topic. 
+- Descriptive statistics
+- Hypothesis testing: t-test and p values
 
 
-# Video lecture: Opening data files
+# Video lecture: Hypothesis testing and t-tests
 
-{{< video https://www.youtube.com/watch?v=frF5RXdltY4 >}}
+{{< video https://www.youtube.com/watch?v=b-Q3sKX9JcE >}}
 
