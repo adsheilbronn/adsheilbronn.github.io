@@ -1,0 +1,30 @@
+---
+title: "Class 3"
+author: "Haseeb Mahmud"
+date: "2026-10-19"
+categories: [Class Notes]
+image: "image.jpg"
+toc: true
+toc-depth: 3
+execute:
+  warning: false
+  message: false
+format:
+  html:
+    code-fold: false
+    fig-width: 8
+    fig-height: 5
+    fig-align: center
+---
+
+# Summary of the class 
+
+Topics convered. 
+
+- Topic selection and appointments
+- [Data manipulation](https://docs.jamovi.org/data/data_overview.html)
+  - [Compute variables](https://blog.jamovi.org/2017/11/28/jamovi-formulas.html)
+  - [Compute variables](https://docs.jamovi.org/data/data_2_computed_variables.html)
+  - [Transform variables](https://docs.jamovi.org/data/data_3_transformed_variables.html)
+  - [Filtering](https://docs.jamovi.org/data/data_6_filtering_data.html)
+- ESS and WVS
