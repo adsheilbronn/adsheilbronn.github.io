@@ -24,6 +24,6 @@ Topics convered.
 - Topic selection and appointments (26.10.2026)
 - [Data manipulation](https://docs.jamovi.org/data/data_overview.html)
   - [Filtering](https://docs.jamovi.org/data/data_6_filtering_data.html)
-  - Cross table
+  - Cross tables
 - [ESS](https://www.europeansocialsurvey.org/)
 - [WVS](https://www.worldvaluessurvey.org/)
