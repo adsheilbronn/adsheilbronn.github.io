@@ -21,10 +21,15 @@ format:
 
 Topics convered. 
 
-- Topic selection and appointments
+- Topic selection and appointments (26.10.2026)
+- Literature review
+  - AI
+  - Google scholar 
+  - Tools: Zotero, Mendeley (for Windows)
 - [Data manipulation](https://docs.jamovi.org/data/data_overview.html)
   - [Compute variables](https://blog.jamovi.org/2017/11/28/jamovi-formulas.html)
   - [Compute variables](https://docs.jamovi.org/data/data_2_computed_variables.html)
   - [Transform variables](https://docs.jamovi.org/data/data_3_transformed_variables.html)
   - [Filtering](https://docs.jamovi.org/data/data_6_filtering_data.html)
-- ESS and WVS
+- [ESS](https://www.europeansocialsurvey.org/)
+- [WVS](https://www.worldvaluessurvey.org/)

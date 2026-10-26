@@ -143,7 +143,7 @@ It is expected that students will work in Windows, Mac or Linux laptops in the c
 
 ### Jamovi
 
-- [Download and Installation](https://docs.jamovi.org/_pages/um_1_installation.html)
+- [Download and Installation](https://docs.jamovi.org/_pages/um_1_installation.html). Note: Avoid Safari browser in Macbook.
 
 ### VS Code
 

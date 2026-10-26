@@ -69,6 +69,35 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../../styles.css">
 </head>
@@ -152,7 +181,7 @@ ul.task-list li input[type="checkbox"] {
    
   <ul>
   <li><a href="#summary-of-the-class" id="toc-summary-of-the-class" class="nav-link active" data-scroll-target="#summary-of-the-class">Summary of the class</a></li>
-  <li><a href="#video-lecture-opening-data-files" id="toc-video-lecture-opening-data-files" class="nav-link" data-scroll-target="#video-lecture-opening-data-files">Video lecture: Opening data files</a></li>
+  <li><a href="#video-lecture-hypothesis-testing-and-t-tests" id="toc-video-lecture-hypothesis-testing-and-t-tests" class="nav-link" data-scroll-target="#video-lecture-hypothesis-testing-and-t-tests">Video lecture: Hypothesis testing and t-tests</a></li>
   </ul>
 </nav>
     </div>
@@ -166,10 +195,19 @@ ul.task-list li input[type="checkbox"] {
 <section id="summary-of-the-class" class="level1">
 <h1>Summary of the class</h1>
 <p>Topics convered.</p>
+<ul>
+<li>How to develop a research question/Topics</li>
+<li>Functional form: <span class="math inline">\(Y = f(x)\)</span>, or in a multivariate setup $Y = f(x_1, x_2, … , x_n). Students will be asked to show <span class="math inline">\(Y\)</span> and some <span class="math inline">\(x\)</span>s for their research topic.</li>
+<li>Reserach ideas</li>
+<li>Examples</li>
+<li>Operational definition of the main topic/theme of the topic.</li>
+<li>Descriptive statistics</li>
+<li>Hypothesis testing: t-test and p values</li>
+</ul>
 </section>
-<section id="video-lecture-opening-data-files" class="level1">
-<h1>Video lecture: Opening data files</h1>
-<div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/frF5RXdltY4" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
+<section id="video-lecture-hypothesis-testing-and-t-tests" class="level1">
+<h1>Video lecture: Hypothesis testing and t-tests</h1>
+<div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/b-Q3sKX9JcE" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
 
 
 </section>
