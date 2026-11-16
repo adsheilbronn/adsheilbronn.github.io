@@ -150,8 +150,8 @@ $$
 To test whether an observed sample correlation coefficient $r$ reflects a true non-zero linear relationship in the population ($\rho$):
 
 #### 1. Hypotheses
-* **Null Hypothesis ($H_0$):** $\rho = 0$ (No linear relationship in the population)
-* **Alternative Hypothesis ($H_1$):** $\rho \neq 0$ (Two-tailed test for linear relationship)
+* **Null Hypothesis ($H_0$):** $r = 0$ (No linear relationship in the population)
+* **Alternative Hypothesis ($H_1$):** $r \neq 0$ (Two-tailed test for linear relationship)
 
 #### 2. Test Statistic
 Under the assumption that $X$ and $Y$ follow a bivariate normal distribution, the test statistic follows a **Student's $t$-distribution** with $df = n - 2$ degrees of freedom:

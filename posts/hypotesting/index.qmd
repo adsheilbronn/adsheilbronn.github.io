@@ -421,7 +421,7 @@ The observed significance level, or $p$-value, for a specific statistical test i
 For example, the value of the test statistic computed for the sample of $n=50$ sections of sewer pipe was $z=2.12$. Because the test is one-tailed, our $H_a:\mu > 2400$. The observed significance level $p$-value for this test is,
 
 $$
-$p$-value $= \mathbb{P}(z>2.12)$.
+$p$ - $value$ $= \mathbb{P}(z>2.12)$.
 $$
 
 Or equivalently the area under the standard normal curve to the right of $z=2.12$, which is here $0.017 (=0.5-0.483)$
