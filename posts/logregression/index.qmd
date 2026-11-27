@@ -27,7 +27,7 @@ In business analytics, many of the most important questions do not have a contin
 
 When our outcome variable has only two possible categories (coded as `1` for "Yes" and `0` for "No"), standard **linear regression** is the wrong tool. Instead, we use **Binary Logistic Regression**.
 
-In this tutorial, you will learn how binary logistic regression works without heavy mathematics, how to run it in **R** using the famous **Titanic** dataset, and—most importantly—how to read and interpret every part of R's output.
+In this tutorial, you will learn how binary logistic regression works without heavy mathematics, how to prepare and explore the complete **Titanic** passenger dataset (`titanic.csv`) in **R**, how to fit logistic regression models with `glm()`, and—most importantly—how to read and interpret every part of R's output.
 
 ---
 
@@ -45,10 +45,6 @@ In [Linear Regression](https://adsheilbronn.github.io/posts/linregression/), we 
 #| fig-cap: "Linear regression can predict impossible probabilities outside 0–1, whereas logistic regression stays bounded between 0 and 1."
 
 set.seed(42)
-score <- seq(-4, 4, length.out = 200)
-prob_true <- 1 / (1 + exp(-1.2 * score))
-
-# Sample points for illustration
 x_pts <- seq(-3.5, 3.5, length.out = 40)
 y_pts <- rbinom(length(x_pts), size = 1, prob = 1 / (1 + exp(-1.2 * x_pts)))
 
@@ -113,54 +109,89 @@ Before looking at R output, there are just **three connected ideas** you need to
 
 ---
 
-# 3. Loading and Preparing the Titanic Dataset in R
+# 3. Dataset Description: The Titanic Passenger Dataset
 
-R includes the historical `Titanic` dataset built right into the base `datasets` package—no extra packages or downloads needed. It records the fate of **2,201 people** aboard the RMS Titanic across four variables:
+For this tutorial, we use the classic **Titanic** passenger dataset (`titanic.csv`), popularized by Kaggle's *Titanic: Machine Learning from Disaster* competition and described in beginner data science guides such as [Beginner's Guide to ML with the Titanic Dataset](https://medium.com/@subhoshripal/beginners-guide-to-ml-with-the-titanic-dataset-step-by-step-intuition-with-code-09ca2f851b02).
 
-- **`Survived`**: Outcome variable (`No` or `Yes`)
-- **`Class`**: Ticket / crew status (`1st`, `2nd`, `3rd`, `Crew`)
-- **`Sex`**: Gender (`Male` or `Female`)
-- **`Age`**: Age group (`Adult` or `Child`)
+The dataset contains **891 passenger records** and **12 variables** capturing demographic details, socio-economic status, family ties, ticket pricing, and survival outcome:
 
-By default, R stores `Titanic` as a summary frequency table (counts per combination). To run logistic regression, we expand it into a standard dataset where **each row is one individual person**.
-
-```{r}
-# 1. Load R's built-in Titanic dataset
-data("Titanic")
-
-# Convert the 4-way table to a data frame of group counts
-titanic_counts <- as.data.frame(Titanic)
-head(titanic_counts)
-```
-
-Notice the `Freq` column: for example, row 3 says there were `35` male children in 3rd class who did not survive. Let's expand those counts so each passenger gets their own row:
-
-```{r}
-# 2. Expand counts into 2,201 individual passenger rows
-titanic_df <- titanic_counts[rep(seq_len(nrow(titanic_counts)), titanic_counts$Freq), 1:4]
-rownames(titanic_df) <- NULL
-
-# 3. Explicitly set factor levels (the first level becomes the reference baseline)
-titanic_df$Survived <- factor(titanic_df$Survived, levels = c("No", "Yes"))
-titanic_df$Class    <- factor(titanic_df$Class, levels = c("1st", "2nd", "3rd", "Crew"))
-titanic_df$Sex      <- factor(titanic_df$Sex, levels = c("Male", "Female"))
-titanic_df$Age      <- factor(titanic_df$Age, levels = c("Adult", "Child"))
-
-# Inspect structure and first few rows
-str(titanic_df)
-head(titanic_df)
-```
-
-### Understanding the Factor Order (Very Important!)
-
-In R's `glm()` function for binary logistic regression:
-
-- The **first level** of the outcome variable (`Survived = "No"`) is treated as failure (`0`), and the **second level** (`"Yes"`) is treated as success (`1`). So our model predicts the **probability of surviving (`Yes`)**.
-- For each predictor (`Sex`, `Class`, `Age`), the **first level** becomes the **reference (baseline) category**. Here, our baseline passenger is an **Adult Male in 1st Class**. Every coefficient in the model will compare another group against this baseline.
+| Variable | Role | Type | Description & Values |
+| :--- | :--- | :--- | :--- |
+| **`Survived`** | **Target (Outcome)** | Binary (`0` / `1`) | Survival status: `0` = Did not survive, `1` = Survived. |
+| **`Pclass`** | Feature | Categorical / Ordinal | Passenger ticket / socio-economic class: `1` = 1st Class (Upper), `2` = 2nd Class (Middle), `3` = 3rd Class (Lower). |
+| **`Sex`** | Feature | Categorical | Biological gender of the passenger (`male` or `female`). |
+| **`Age`** | Feature | Numerical | Passenger's age in years (fractional for infants under 1 year; contains missing values). |
+| **`SibSp`** | Feature | Numerical (Count) | Number of siblings (brother, sister, step-sibling) or spouses (husband, wife) aboard. |
+| **`Parch`** | Feature | Numerical (Count) | Number of parents or children traveling with the passenger (`0` if traveling with a nanny only). |
+| **`Fare`** | Feature | Numerical | Price paid for the ticket (in British pounds). |
+| **`Embarked`** | Feature | Categorical | Port where the passenger boarded: `C` = Cherbourg, `Q` = Queenstown, `S` = Southampton. |
+| **`PassengerId`** | Identifier | Integer | Unique ID number assigned to each passenger (`1` to `891`). |
+| **`Name`** | Text Identifier | Text | Full name and title (e.g., Mr., Mrs., Miss, Master) of the passenger. |
+| **`Ticket`** | Text Identifier | Alphanumeric | Ticket reference number. |
+| **`Cabin`** | Feature (Sparse) | Alphanumeric | Cabin number (missing for most passengers). |
 
 ---
 
-# 4. Exploring the Data Before Modeling
+# 4. Loading and Cleaning the Data in R
+
+Let's load `titanic.csv` using base R (`read.csv()`), inspect its structure, and check where values are missing. Notice we pass `na.strings = c("", "NA")` so blank cells (such as missing `Cabin` or `Embarked` entries) are properly recognized as `NA`.
+
+```{r}
+# 1. Load the Titanic dataset from CSV
+titanic_raw <- read.csv("titanic.csv", na.strings = c("", "NA"))
+
+# Check dimensions (rows and columns) and structure
+dim(titanic_raw)
+str(titanic_raw)
+```
+
+Let's preview the first few rows and summarize missing values across all 12 columns:
+
+```{r}
+# Preview the first 6 passengers
+head(titanic_raw[, c("PassengerId", "Survived", "Pclass", "Sex", "Age", "Fare", "Embarked")])
+
+# Count missing values and percentages per column
+na_summary <- data.frame(
+  Missing_Count = colSums(is.na(titanic_raw)),
+  Missing_Percent = round(colMeans(is.na(titanic_raw)) * 100, 1)
+)
+na_summary
+```
+
+### How Should We Handle Missing Values & Extra Columns?
+
+In real-world business data, datasets are rarely spotless. Here is how we prepare the data cleanly for our regression model:
+
+1. **Keep the core predictors (`Survived`, `Pclass`, `Sex`, `Age`):**  
+   `PassengerId`, `Name`, and `Ticket` are unique labels rather than generalizable characteristics, and `Cabin` is missing for **77.1%** (`687 / 891`) of passengers, so we exclude them from our baseline model.
+2. **Impute missing `Age` values (`177` missing = `19.9%`):**  
+   Dropping 177 rows would throw away nearly 20% of our sample. Instead, a standard beginner approach is **median imputation**: replacing missing ages with the median age (`28` years). Unlike the mean, the median is not pulled around by very old outliers.
+3. **Convert categorical variables into `factor`s:**  
+   Setting explicit factor levels tells R which group is the **outcome** (`"Yes"` vs. `"No"`) and which groups act as our **reference baselines** (`Male` for `Sex`, and `1st` Class for `Pclass`).
+
+```{r}
+# 2. Select columns for our model
+titanic_df <- titanic_raw[, c("Survived", "Pclass", "Sex", "Age")]
+
+# Check median age and impute missing Age values
+median_age <- median(titanic_df$Age, na.rm = TRUE)
+cat("Median Age used for imputation:", median_age, "\n")
+titanic_df$Age[is.na(titanic_df$Age)] <- median_age
+
+# Convert categorical variables into factors with clear labels and baselines
+titanic_df$Survived <- factor(titanic_df$Survived, levels = c(0, 1), labels = c("No", "Yes"))
+titanic_df$Pclass   <- factor(titanic_df$Pclass, levels = c(1, 2, 3), labels = c("1st", "2nd", "3rd"))
+titanic_df$Sex      <- factor(titanic_df$Sex, levels = c("male", "female"), labels = c("Male", "Female"))
+
+# Verify no missing values remain
+colSums(is.na(titanic_df))
+str(titanic_df)
+```
+
+---
+
+# 5. Exploring the Data Before Modeling
 
 Always explore cross-tabulations and survival rates before fitting a regression model. This gives you intuition and helps catch coding mistakes.
 
@@ -170,31 +201,30 @@ table(titanic_df$Survived)
 round(prop.table(table(titanic_df$Survived)) * 100, 1)
 ```
 
-Out of **2,201** people aboard, **1,490 (67.7%)** did not survive and **711 (32.3%)** survived.
+Out of **891** passengers in this dataset, **549 (61.6%)** did not survive and **342 (38.4%)** survived.
 
-Now let's check survival rates broken down by `Sex`, `Class`, and `Age`:
+Now let's examine survival rates by `Sex` and `Pclass`, as well as age summaries by survival status:
 
 ```{r}
 # Survival rate (%) by Sex
 round(prop.table(table(titanic_df$Sex, titanic_df$Survived), margin = 1) * 100, 1)
 
-# Survival rate (%) by Class
-round(prop.table(table(titanic_df$Class, titanic_df$Survived), margin = 1) * 100, 1)
+# Survival rate (%) by Passenger Class
+round(prop.table(table(titanic_df$Pclass, titanic_df$Survived), margin = 1) * 100, 1)
 
-# Survival rate (%) by Age
-round(prop.table(table(titanic_df$Age, titanic_df$Survived), margin = 1) * 100, 1)
+# Age summary by Survival status
+tapply(titanic_df$Age, titanic_df$Survived, summary)
 ```
 
-Let's visualize these survival rates side by side:
+Let's visualize these patterns side by side:
 
 ```{r}
-#| fig-width: 9
+#| fig-width: 9.5
 #| fig-height: 4.5
-#| fig-cap: "Observed Titanic survival rates across Sex, Passenger Class, and Age Group."
+#| fig-cap: "Observed Titanic survival rates by Sex and Passenger Class, and Age distribution by Survival status."
 
 surv_sex   <- prop.table(table(titanic_df$Sex, titanic_df$Survived), margin = 1)[, "Yes"] * 100
-surv_class <- prop.table(table(titanic_df$Class, titanic_df$Survived), margin = 1)[, "Yes"] * 100
-surv_age   <- prop.table(table(titanic_df$Age, titanic_df$Survived), margin = 1)[, "Yes"] * 100
+surv_class <- prop.table(table(titanic_df$Pclass, titanic_df$Survived), margin = 1)[, "Yes"] * 100
 
 par(mfrow = c(1, 3), mar = c(4, 4, 3, 1))
 
@@ -202,28 +232,29 @@ bp1 <- barplot(surv_sex, ylim = c(0, 90), col = c("#457B9D", "#E63946"),
                main = "Survival Rate by Sex", ylab = "Survived (%)")
 text(bp1, surv_sex + 4, labels = paste0(round(surv_sex, 1), "%"), font = 2)
 
-bp2 <- barplot(surv_class, ylim = c(0, 90), col = c("#2A9D8F", "#E9C46A", "#F4A261", "#264653"),
+bp2 <- barplot(surv_class, ylim = c(0, 90), col = c("#2A9D8F", "#E9C46A", "#F4A261"),
                main = "Survival Rate by Class", ylab = "Survived (%)")
 text(bp2, surv_class + 4, labels = paste0(round(surv_class, 1), "%"), font = 2)
 
-bp3 <- barplot(surv_age, ylim = c(0, 90), col = c("#6C757D", "#F77F00"),
-               main = "Survival Rate by Age", ylab = "Survived (%)")
-text(bp3, surv_age + 4, labels = paste0(round(surv_age, 1), "%"), font = 2)
+boxplot(Age ~ Survived, data = titanic_df,
+        col = c("#6C757D", "#2A9D8F"),
+        main = "Age Distribution by Survival",
+        xlab = "Survived", ylab = "Age (Years)")
 
 par(mfrow = c(1, 1))
 ```
 
 ### What Do These Exploratory Numbers Tell Us?
 
-- **Sex:** **73.2%** of females survived compared to only **21.2%** of males—a huge gap reflecting the *"women and children first"* evacuation protocol.
-- **Class:** **62.5%** of 1st-class passengers survived, dropping to **41.4%** in 2nd class, **25.2%** in 3rd class, and **24.0%** among the crew.
-- **Age:** **52.3%** of children survived compared to **31.3%** of adults.
+- **Sex:** **74.2%** of female passengers survived compared to only **18.9%** of male passengers—reflecting the *"women and children first"* evacuation protocol.
+- **Passenger Class (`Pclass`):** **63.0%** of 1st-class passengers survived, dropping to **47.3%** in 2nd class and just **24.2%** in 3rd class.
+- **Age:** Survivors were slightly younger on average (mean `28.3` years vs. `30.0` years for non-survivors), with young children having a noticeably higher survival rate.
 
-Cross-tables look at one variable at a time. **Logistic regression** lets us analyze **all three factors simultaneously** so we can separate their individual effects.
+Cross-tables look at one variable at a time. **Logistic regression** lets us analyze **all three factors (`Sex`, `Pclass`, and `Age`) simultaneously** so we can measure each factor's independent effect.
 
 ---
 
-# 5. Simple Logistic Regression (One Predictor)
+# 6. Simple Logistic Regression (One Predictor)
 
 Let's start small by predicting `Survived` using only `Sex`. In R, we use `glm()` (**G**eneralized **L**inear **M**odel) and set `family = binomial` to specify binary logistic regression.
 
@@ -232,7 +263,7 @@ model_simple <- glm(Survived ~ Sex, data = titanic_df, family = binomial)
 summary(model_simple)
 ```
 
-Let's also convert the coefficients into **Odds Ratios** using `exp()`:
+Let's convert the coefficients into **Odds Ratios** using `exp()`:
 
 ```{r}
 round(exp(coef(model_simple)), 3)
@@ -240,26 +271,26 @@ round(exp(coef(model_simple)), 3)
 
 ### Interpreting the Simple Model Output
 
-1. **`(Intercept) = -1.3128` (`p < 2e-16`):**  
-   This is the predicted **log-odds** of survival for the reference group (**Males**). Because `-1.3128` is negative, a male's probability of survival is below 50%. Converting to odds: `exp(-1.3128) = 0.269`, meaning for every 1 male who survived, nearly 4 did not (`0.269 / (1 + 0.269) = 21.2%`, matching our table above!).
+1. **`(Intercept) = -1.4571` (`p < 2e-16`):**  
+   This is the predicted **log-odds** of survival for the reference group (**Males**). Because `-1.4571` is negative, a male's probability of survival is well below 50%. Converting to odds: `exp(-1.4571) = 0.233`, which corresponds to `0.233 / (1 + 0.233) = 18.9%` survival—matching our cross-table above!
 
-2. **`SexFemale = +2.3172` (`p < 2e-16`):**  
-   Being female increases the log-odds of survival by **+2.3172** compared to being male.  
-   Converting to an **Odds Ratio**: `exp(2.3172) = 10.147`. This means **females had about 10.15 times the odds of surviving compared to males**.
+2. **`SexFemale = +2.5137` (`p < 2e-16`):**  
+   Being female increases the log-odds of survival by **+2.5137** compared to being male.  
+   Converting to an **Odds Ratio**: `exp(2.5137) = 12.351`. This means **females had about 12.35 times the odds of surviving compared to males**.
 
 3. **Deviance & AIC:**
-   - `Null deviance = 2769.5` (how much error remains if we guess using only the overall average).
-   - `Residual deviance = 2335.0` (how much error remains after adding `Sex`). Adding just `Sex` reduced deviance by `434.5` points!
-   - `AIC = 2339`: A benchmark score we will compare against our fuller model next.
+   - `Null deviance = 1186.7` (how much unexplained variation exists if we guess using only the overall average).
+   - `Residual deviance = 917.8` (how much unexplained variation remains after adding `Sex`). Adding just `Sex` reduced deviance by `268.9` points!
+   - `AIC = 921.8`: A benchmark score we will compare against our fuller model next.
 
 ---
 
-# 6. Multiple Logistic Regression (Adding Class and Age)
+# 7. Multiple Logistic Regression (Adding Class and Age)
 
-In real-world business problems, predictors can be correlated with one another (for instance, crew members were mostly adult males, while 1st class had a higher proportion of women). To measure the effect of each variable **while holding the others constant**, we include `Sex`, `Class`, and `Age` together:
+In real-world business problems, predictors often overlap (for example, 3rd-class passengers tended to be younger and disproportionately male). To measure the effect of each variable **while holding the others constant**, we include `Sex`, `Pclass`, and `Age` together:
 
 ```{r}
-model_full <- glm(Survived ~ Sex + Class + Age, data = titanic_df, family = binomial)
+model_full <- glm(Survived ~ Sex + Pclass + Age, data = titanic_df, family = binomial)
 summary(model_full)
 ```
 
@@ -267,57 +298,52 @@ This `summary()` output is the heart of logistic regression in R. Let's break do
 
 ---
 
-## 6.1 Detailed Interpretation of the R Output
+## 7.1 Detailed Interpretation of the R Output
 
 ### A. The `Call` Section
 ```
-glm(formula = Survived ~ Sex + Class + Age, family = binomial, data = titanic_df)
+glm(formula = Survived ~ Sex + Pclass + Age, family = binomial, data = titanic_df)
 ```
-This confirms the exact model R ran: `Survived` is predicted by `Sex`, `Class`, and `Age` using a binary logistic (`binomial`) model on `titanic_df`.
+This confirms the exact model R ran: `Survived` is predicted by `Sex`, `Pclass`, and `Age` using a binary logistic (`binomial`) model on `titanic_df`.
 
 ### B. The `Coefficients` Table (Column by Column)
 
-Before reading any row, identify the **baseline (reference) group**—the categories that do **not** appear in the table:
+Before reading any row, identify the **baseline (reference) categories** for the categorical predictors—the categories that do **not** appear in the table:
 - `Sex`: **Male**
-- `Class`: **1st**
-- `Age`: **Adult**
-
-So `(Intercept)` represents an **Adult Male in 1st Class**.
+- `Pclass`: **1st Class**
+- `Age`: Continuous number in years (`Age = 0` at the intercept)
 
 Each column in the `Coefficients` table answers a specific question:
 
 | Column | What It Means in Plain English |
 | :--- | :--- |
-| **`Estimate`** | The change in **log-odds** of survival compared to the reference group, holding all other predictors constant. A **positive (`+`)** number means *higher* chance of survival; a **negative (`-`)** number means *lower* chance of survival. |
+| **`Estimate`** | The change in **log-odds** of survival for a 1-unit increase (for numerical `Age`) or compared to the reference group (for `Sex` and `Pclass`), holding all other predictors constant. A **positive (`+`)** value means *higher* chance of survival; a **negative (`-`)** value means *lower* chance of survival. |
 | **`Std. Error`** | How much uncertainty (sampling noise) surrounds the estimate. Smaller values mean more precise estimates. |
 | **`z value`** | `Estimate / Std. Error`. Measures how many standard errors the estimate sits away from zero (no effect). Larger absolute values (far from 0) mean stronger evidence. |
 | **`Pr(>|z|)`** | The **$p$-value**. If `p < 0.05`, the variable has a **statistically significant** relationship with survival (not just random luck). The stars (`***`) give a quick visual cue (`***` means `p < 0.001`). |
 
 Now let's read each row of the `Coefficients` table:
 
-1. **`(Intercept) = -0.3762` (`SE = 0.1362`, `z = -2.763`, `p = 0.00573 **`)**  
-   This is the baseline log-odds of survival for an **Adult Male in 1st Class**. Because it is negative (`-0.3762`), his survival probability is slightly under 50% (specifically, about 40.7%).
+1. **`(Intercept) = +0.9193` (`SE = 0.3265`, `z = 2.816`, `p = 0.00487 **`)**  
+   This is the predicted log-odds of survival when `Sex = Male`, `Pclass = 1st`, and `Age = 0` (a newborn male infant in 1st class). Because `Age = 0` is an extreme value, we mainly use the intercept as the starting anchor when calculating predictions for realistic ages.
 
-2. **`SexFemale = +2.4201` (`SE = 0.1404`, `z = 17.236`, `p < 2e-16 ***`)**  
-   Holding `Class` and `Age` constant, being **Female** increases the log-odds of survival by **+2.4201** compared to being Male. With `p < 0.001` (`***`), sex is an overwhelmingly significant predictor of survival.
+2. **`SexFemale = +2.6115` (`SE = 0.1866`, `z = 13.993`, `p < 2e-16 ***`)**  
+   Holding `Pclass` and `Age` constant, being **Female** increases the log-odds of survival by **+2.6115** compared to being Male. With `p < 0.001` (`***`), sex is the strongest predictor of survival.
 
-3. **`Class2nd = -1.0181` (`SE = 0.1960`, `z = -5.194`, `p = 2.05e-07 ***`)**  
-   Holding `Sex` and `Age` constant, **2nd-class** passengers have **1.0181 lower** log-odds of survival than **1st-class** passengers (`p < 0.001`).
+3. **`Pclass2nd = -1.1154` (`SE = 0.2573`, `z = -4.335`, `p = 1.46e-05 ***`)**  
+   Holding `Sex` and `Age` constant, **2nd-class** passengers have **1.1154 lower** log-odds of survival than **1st-class** passengers (`p < 0.001`).
 
-4. **`Class3rd = -1.7778` (`SE = 0.1716`, `z = -10.362`, `p < 2e-16 ***`)**  
-   Holding `Sex` and `Age` constant, **3rd-class** passengers have **1.7778 lower** log-odds of survival than **1st-class** passengers (`p < 0.001`). Notice this drop (`-1.78`) is much steeper than 2nd class (`-1.02`).
+4. **`Pclass3rd = -2.3342` (`SE = 0.2415`, `z = -9.665`, `p < 2e-16 ***`)**  
+   Holding `Sex` and `Age` constant, **3rd-class** passengers have **2.3342 lower** log-odds of survival than **1st-class** passengers (`p < 0.001`). Notice this drop (`-2.33`) is more than twice as steep as 2nd class (`-1.12`).
 
-5. **`ClassCrew = -0.8577` (`SE = 0.1573`, `z = -5.451`, `p = 5.00e-08 ***`)**  
-   Holding `Sex` and `Age` constant, **Crew** members have **0.8577 lower** log-odds of survival than **1st-class** passengers (`p < 0.001`). Interestingly, once you control for the fact that the crew was mostly adult males, crew members actually had slightly better survival odds than 3rd-class passengers!
-
-6. **`AgeChild = +1.0615` (`SE = 0.2440`, `z = 4.350`, `p = 1.36e-05 ***`)**  
-   Holding `Sex` and `Class` constant, being a **Child** increases the log-odds of survival by **+1.0615** compared to being an Adult (`p < 0.001`).
+5. **`Age = -0.0332` (`SE = 0.0074`, `z = -4.491`, `p = 7.08e-06 ***`)**  
+   Holding `Sex` and `Pclass` constant, each **additional year of age** lowers the log-odds of survival by **0.0332** (`p < 0.001`). In other words, younger passengers had a clear survival advantage over older passengers in the same class and sex.
 
 ---
 
-## 6.2 Converting to Odds Ratios (How Business Analysts Report Results)
+## 7.2 Converting to Odds Ratios (How Business Analysts Report Results)
 
-Log-odds like `+2.4201` or `-1.7778` are great for statistical testing, but **no manager wants to hear about "log-odds."** Instead, we exponentiate the coefficients (`exp()`) to get **Odds Ratios (OR)** along with their **95% Confidence Intervals**:
+Log-odds like `+2.6115` or `-0.0332` are great for statistical testing, but **no manager wants to hear about "log-odds."** Instead, we exponentiate the coefficients (`exp()`) to get **Odds Ratios (OR)** along with their **95% Confidence Intervals**:
 
 ```{r}
 # Compute Odds Ratios and 95% Confidence Intervals
@@ -328,52 +354,45 @@ round(or_table, 3)
 ### How to Read Every Odds Ratio
 
 The magic benchmark for an Odds Ratio is **`1.0`**:
-- **`OR = 1`**: No effect (same odds as the baseline group).
+- **`OR = 1`**: No effect (same odds as the baseline).
 - **`OR > 1`**: **Increases** the odds of survival.
 - **`OR < 1`**: **Decreases** the odds of survival. To express this as a percentage drop, compute `(1 - OR) × 100%`.
 - **95% Confidence Interval (`2.5 %` to `97.5 %`)**: If the interval does **not** include `1.0`, the effect is statistically significant at the 5% level.
 
 Let's interpret every row in plain English:
 
-- **`SexFemale` (`OR = 11.247`, `95% CI: 8.541 – 14.809`):**  
-  Holding passenger class and age constant, **females had 11.25 times higher odds of surviving than males**. Even at the low end of the 95% confidence interval, females had over 8.5 times the odds of males.
+- **`SexFemale` (`OR = 13.619`, `95% CI: 9.447 – 19.634`):**  
+  Holding passenger class and age constant, **females had 13.62 times higher odds of surviving than males**. Even at the low end of the 95% confidence interval, females had over 9.4 times the odds of males.
 
-- **`AgeChild` (`OR = 2.891`, `95% CI: 1.792 – 4.664`):**  
-  Holding sex and class constant, **children had 2.89 times higher odds (nearly 3× the odds) of surviving than adults**.
+- **`Pclass2nd` (`OR = 0.328`, `95% CI: 0.198 – 0.543`):**  
+  Holding sex and age constant, 2nd-class passengers had `0.328` times the odds of 1st-class passengers—meaning **67.2% lower odds of survival** (`1 - 0.328 = 0.672`) compared to 1st class.
 
-- **`Class2nd` (`OR = 0.361`, `95% CI: 0.246 – 0.530`):**  
-  Holding sex and age constant, 2nd-class passengers had `0.361` times the odds of 1st-class passengers—meaning **63.9% lower odds of survival** (`1 - 0.361 = 0.639`) compared to 1st class.
+- **`Pclass3rd` (`OR = 0.097`, `95% CI: 0.060 – 0.156`):**  
+  Holding sex and age constant, 3rd-class passengers had **90.3% lower odds of survival** (`1 - 0.097 = 0.903`) compared to 1st class. Put another way, a 1st-class passenger had roughly `1 / 0.097 ≈ 10.3` times the odds of surviving compared to a 3rd-class passenger of the same sex and age!
 
-- **`Class3rd` (`OR = 0.169`, `95% CI: 0.121 – 0.237`):**  
-  Holding sex and age constant, 3rd-class passengers had **83.1% lower odds of survival** (`1 - 0.169 = 0.831`) compared to 1st class. Put another way, a 1st-class passenger had about `1 / 0.169 ≈ 5.9` times the odds of surviving compared to a 3rd-class passenger of the same sex and age!
+- **`Age` (`OR = 0.967`, `95% CI: 0.953 – 0.981`):**  
+  Because `Age` is a continuous numerical variable, `OR = 0.967` applies to **every 1-year increase in age**: holding sex and class constant, each additional year of age reduces the odds of survival by **3.3%** (`1 - 0.967 = 0.033`). Over 10 years, the odds multiply by $0.967^{10} \approx 0.715$ (about **28.5% lower odds**).
 
-- **`ClassCrew` (`OR = 0.424`, `95% CI: 0.312 – 0.577`):**  
-  Holding sex and age constant, crew members had **57.6% lower odds of survival** (`1 - 0.424 = 0.576`) compared to 1st-class passengers.
-
-- **`(Intercept)` (`OR = 0.686`, `95% CI: 0.526 – 0.896`):**  
-  For the baseline passenger (Adult Male in 1st Class), the survival odds were `0.686` to `1` (which translates to a `40.7%` survival probability).
-
-Let's visualize these Odds Ratios in a clean horizontal **Odds Ratio Plot**:
+Let's visualize both the **Odds Ratios** and the **predicted survival probability S-curves across Age**:
 
 ```{r}
 #| fig-width: 8.5
 #| fig-height: 4.5
-#| fig-cap: "Odds Ratios with 95% Confidence Intervals. Effects to the right of the dashed line (OR = 1) increase survival odds; effects to the left decrease them."
+#| fig-cap: "Odds Ratios with 95% Confidence Intervals. Effects to the right of OR = 1 increase survival odds; effects to the left decrease them."
 
 # Exclude the intercept for plotting predictor effects
 or_plot <- or_table[-1, ]
 labels_clean <- c("Female (vs. Male)",
                   "2nd Class (vs. 1st)",
                   "3rd Class (vs. 1st)",
-                  "Crew (vs. 1st)",
-                  "Child (vs. Adult)")
+                  "Age (+1 Year)")
 
 par(mar = c(5, 10, 3, 2))
 y_pos <- rev(seq_len(nrow(or_plot)))
 
 plot(or_plot[, "Odds_Ratio"], y_pos,
      log = "x",
-     xlim = c(0.08, 20),
+     xlim = c(0.04, 25),
      ylim = c(0.5, nrow(or_plot) + 0.5),
      yaxt = "n",
      pch = 19, cex = 1.5,
@@ -391,32 +410,66 @@ segments(x0 = or_plot[, "2.5 %"], y0 = y_pos,
          col = ifelse(or_plot[, "Odds_Ratio"] > 1, "#2A9D8F", "#E63946"))
 
 text(or_plot[, "Odds_Ratio"], y_pos + 0.25,
-     labels = paste0("OR = ", round(or_plot[, "Odds_Ratio"], 2)),
+     labels = paste0("OR = ", round(or_plot[, "Odds_Ratio"], 3)),
      cex = 0.85, font = 2)
 
 par(mar = c(5, 4, 4, 2) + 0.1)
 ```
 
+```{r}
+#| fig-width: 9
+#| fig-height: 4.5
+#| fig-cap: "Predicted survival probability curves across Age by Passenger Class for Female and Male passengers."
+
+age_seq <- seq(0, 80, by = 1)
+cols_class <- c("#2A9D8F", "#E9C46A", "#E63946")
+classes <- c("1st", "2nd", "3rd")
+
+par(mfrow = c(1, 2), mar = c(4.5, 4.5, 3, 1))
+
+for (sex_val in c("Female", "Male")) {
+  plot(NULL, xlim = c(0, 80), ylim = c(0, 1),
+       xlab = "Age (Years)", ylab = "Predicted Survival Probability",
+       main = paste("Predicted Survival:", sex_val, "Passengers"))
+  abline(h = 0.5, lty = 3, col = "gray50")
+  
+  for (i in seq_along(classes)) {
+    grid_df <- data.frame(
+      Sex = factor(sex_val, levels = c("Male", "Female")),
+      Pclass = factor(classes[i], levels = c("1st", "2nd", "3rd")),
+      Age = age_seq
+    )
+    preds <- predict(model_full, newdata = grid_df, type = "response")
+    lines(age_seq, preds, col = cols_class[i], lwd = 2.5)
+  }
+  
+  legend("topright", legend = paste(classes, "Class"),
+         col = cols_class, lwd = 2.5, bty = "n")
+}
+
+par(mfrow = c(1, 1))
+```
+
 ---
 
-## 6.3 Model Fit: Deviance, Pseudo-$R^2$, and AIC
+## 7.3 Model Fit: Deviance, Pseudo-$R^2$, and AIC
 
 In linear regression, we check $R^2$ to see how well the model fits. Logistic regression does not have an exact $R^2$, so R reports **Deviance** and **AIC** instead:
 
-1. **Null Deviance (`2769.5` on `2200` df):**  
-   Measures how much unexplained variation exists in a "empty" model with no predictors (just guessing the overall 32.3% survival rate for everyone).
+1. **Null Deviance (`1186.66` on `890` df):**  
+   Measures how much unexplained variation exists in an "empty" model with no predictors (just guessing the overall 38.4% survival rate for everyone).
 
-2. **Residual Deviance (`2210.1` on `2195` df):**  
-   Measures the unexplained variation *after* adding `Sex`, `Class`, and `Age`. It dropped by **`559.4` points** (`2769.5 - 2210.1`), showing our predictors explain a substantial share of who survived.
+2. **Residual Deviance (`805.53` on `886` df):**  
+   Measures the unexplained variation *after* adding `Sex`, `Pclass`, and `Age`. It dropped by **`381.13` points** (`1186.66 - 805.53`), showing our predictors explain a large share of who survived.
 
 3. **McFadden's Pseudo-$R^2$:**  
    Just like $R^2$, we can compute the percentage reduction in deviance:
    $$\text{Pseudo-}R^2 = 1 - \frac{\text{Residual Deviance}}{\text{Null Deviance}}$$
 
-4. **AIC (`2222.1` vs. `2339.0`):**  
+4. **AIC (`815.53` vs. `921.80`):**  
    **Akaike Information Criterion (AIC)** lets us compare competing models while penalizing unnecessary complexity. **Lower AIC is better.**
 
-Let's verify both **Pseudo-$R^2$** and whether adding `Class` and `Age` significantly improved our simple `Sex`-only model:
+Let's verify both **Pseudo-$R^2$** and whether adding `Pclass` and `Age` significantly improved our simple `Sex`-only model:
 
 ```{r}
 # McFadden's Pseudo-R2
@@ -432,16 +485,16 @@ anova(model_simple, model_full, test = "Chisq")
 
 ### Interpreting the Model Comparison Output
 
-- **McFadden's Pseudo-$R^2 = 0.202$ (20.2%):**  
-  Unlike linear regression $R^2$, logistic regression Pseudo-$R^2$ values tend to be lower. In applied business and social science research, a McFadden's Pseudo-$R^2$ between **0.20 and 0.40** indicates a **very good model fit**.
-- **AIC dropped from `2339.0` to `2222.1`:**  
-  A massive decrease of `116.9` points confirms that `Class` and `Age` add real predictive power beyond `Sex` alone.
-- **`anova(..., test = "Chisq")` (`Deviance = 124.93`, `p < 2.2e-16 ***`):**  
-  The Chi-square test confirms that adding `Class` and `Age` leads to a statistically significant improvement in model fit.
+- **McFadden's Pseudo-$R^2 = 0.3212$ (32.1%):**  
+  Unlike linear regression $R^2$, logistic regression Pseudo-$R^2$ values tend to be smaller. In applied business and social science research, a McFadden's Pseudo-$R^2$ between **0.20 and 0.40** indicates an **excellent model fit**.
+- **AIC dropped from `921.80` to `815.53`:**  
+  A decrease of `106.28` points confirms that `Pclass` and `Age` add substantial predictive power beyond `Sex` alone.
+- **`anova(..., test = "Chisq")` (`Deviance = 112.28`, `p < 2.2e-16 ***`):**  
+  The Chi-square test confirms that adding `Pclass` and `Age` leads to a statistically significant improvement in model fit.
 
 ---
 
-# 7. Making Predictions for Individual Passengers
+# 8. Making Predictions for Individual Passengers
 
 In practice, business teams use logistic regression to score **new observations**—for example, predicting a specific customer's probability of churning or a specific passenger's survival probability.
 
@@ -450,17 +503,16 @@ In R, we use `predict(..., type = "response")`. Always include `type = "response
 ```{r}
 # Create 5 realistic passenger profiles
 new_passengers <- data.frame(
-  Profile = c("1st Class Female Child",
-              "2nd Class Female Adult",
-              "1st Class Male Adult (Baseline)",
-              "Adult Male Crew Member",
-              "3rd Class Male Adult"),
-  Sex   = factor(c("Female", "Female", "Male", "Male", "Male"),
-                 levels = c("Male", "Female")),
-  Class = factor(c("1st", "2nd", "1st", "Crew", "3rd"),
-                 levels = c("1st", "2nd", "3rd", "Crew")),
-  Age   = factor(c("Child", "Adult", "Adult", "Adult", "Adult"),
-                 levels = c("Adult", "Child"))
+  Profile = c("1st Class Female (Age 8)",
+              "2nd Class Female (Age 28)",
+              "3rd Class Female (Age 25)",
+              "1st Class Male (Age 30)",
+              "3rd Class Male (Age 28)"),
+  Sex    = factor(c("Female", "Female", "Female", "Male", "Male"),
+                  levels = c("Male", "Female")),
+  Pclass = factor(c("1st", "2nd", "3rd", "1st", "3rd"),
+                  levels = c("1st", "2nd", "3rd")),
+  Age    = c(8, 28, 25, 30, 28)
 )
 
 # Predict survival probability
@@ -476,17 +528,17 @@ new_passengers
 
 Look how intuitive this is for decision-makers:
 
-- **1st Class Female Child (`95.7%`):** Almost guaranteed survival—she had every advantage (`Female`, `1st Class`, and `Child`).
-- **2nd Class Female Adult (`73.6%`):** High survival probability, mainly driven by being female, though lower than a 1st-class female.
-- **1st Class Male Adult (`40.7%`):** Notice this is our **reference group** (`(Intercept)`). Even in 1st class, being an adult male kept his survival probability below 50%.
-- **Adult Male Crew Member (`22.5%`):** Roughly a 1-in-4.5 chance of surviving.
-- **3rd Class Male Adult (`10.4%`):** Only about a 1-in-10 chance of surviving.
+- **1st Class Female, Age 8 (`96.3%`):** Almost guaranteed survival—she had every advantage (`Female`, `1st Class`, and young `Age`).
+- **2nd Class Female, Age 28 (`81.6%`):** Very high survival probability, driven strongly by being female in middle class.
+- **3rd Class Female, Age 25 (`59.1%`):** Still above 50%, though significantly lower than 1st- and 2nd-class women.
+- **1st Class Male, Age 30 (`48.1%`):** Even in 1st class, an adult male's predicted survival probability sits just under 50%.
+- **3rd Class Male, Age 28 (`8.8%`):** Less than a 1-in-11 chance of surviving.
 
 ---
 
-# 8. Evaluating Model Accuracy: The Confusion Matrix
+# 9. Evaluating Model Accuracy: The Confusion Matrix
 
-Finally, how well does our model classify all 2,201 passengers into **Survived (`Yes`)** vs. **Did Not Survive (`No`)**?
+Finally, how well does our model classify all 891 passengers into **Survived (`Yes`)** vs. **Did Not Survive (`No`)**?
 
 To turn predicted probabilities into binary `Yes`/`No` predictions, we pick a **decision threshold (cutoff)**—typically **`0.50` (50%)**:
 - If predicted probability $\ge 0.50$, predict **`Yes`** (Survived).
@@ -519,21 +571,20 @@ cat("Specificity:", round(specificity * 100, 1), "%\n")
 ### Interpreting the Confusion Matrix & Metrics
 
 Let's read each cell of the table:
-- **True Negatives (`1,364`):** Passengers who did not survive, and the model correctly predicted `No`.
-- **True Positives (`349`):** Passengers who survived, and the model correctly predicted `Yes`.
-- **False Positives (`126`):** Passengers who did not survive, but the model wrongly predicted `Yes`.
-- **False Negatives (`362`):** Passengers who survived, but the model wrongly predicted `No`.
+- **True Negatives (`472`):** Passengers who did not survive, and the model correctly predicted `No`.
+- **True Positives (`242`):** Passengers who survived, and the model correctly predicted `Yes`.
+- **False Positives (`77`):** Passengers who did not survive, but the model wrongly predicted `Yes`.
+- **False Negatives (`100`):** Passengers who survived, but the model wrongly predicted `No`.
 
 And what do the three metrics tell us?
-- **Overall Accuracy (`77.8%`):** The model correctly classifies nearly **4 out of 5 passengers** using just three simple variables (`Sex`, `Class`, `Age`).
-- **Specificity (`91.5%`):** Among passengers who did not survive, the model correctly identified **91.5%** of them.
-- **Sensitivity (`49.1%`):** Among passengers who actually survived, the model caught **49.1%** of them using the `0.50` cutoff.
+- **Overall Accuracy (`80.1%`):** The model correctly classifies **4 out of 5 passengers** using just three simple variables (`Sex`, `Pclass`, `Age`).
+- **Specificity (`86.0%`):** Among passengers who did not survive, the model correctly identified **86.0%** of them.
+- **Sensitivity (`70.8%`):** Among passengers who actually survived, the model caught **70.8%** of them using the `0.50` cutoff.
 
 > **Business Insight on Thresholds:**  
-> Why was Sensitivity 49.1% while Specificity was 91.5%? Because overall survival on the Titanic was only `32.3%`, many survivors (such as 1st-class adult males with a `40.7%` predicted probability) fell just below the strict `0.50` cutoff.  
 > In business applications—like **fraud detection** or **customer churn prevention**—missing a positive case (False Negative) is often much more costly than a false alarm. In those cases, analysts simply **lower the cutoff** (for example, from `0.50` to `0.35`) to catch more true positives!
 
-Let's quickly see how lowering the cutoff to `0.35` changes Sensitivity and Specificity:
+Let's see how lowering the cutoff to `0.35` changes Sensitivity and Specificity:
 
 ```{r}
 pred_class_35 <- factor(ifelse(pred_prob >= 0.35, "Yes", "No"), levels = c("No", "Yes"))
@@ -544,11 +595,11 @@ cat("Cutoff = 0.35 -> Accuracy:", round(sum(diag(cm_35)) / sum(cm_35) * 100, 1),
     "| Specificity:", round(cm_35["No", "No"] / sum(cm_35[, "No"]) * 100, 1), "%\n")
 ```
 
-Look at that trade-off: lowering the cutoff from `0.50` to `0.35` jumps Sensitivity from **49.1%** to **58.6%** (catching 68 more survivors), while Specificity shifts from **91.5%** to **83.6%**, and overall Accuracy moves slightly from **77.8%** to **75.6%**. Choosing the right cutoff is always a **business decision**, not just a statistical one.
+Look at that trade-off: lowering the cutoff from `0.50` to `0.35` jumps Sensitivity from **70.8%** to **80.4%** (catching 33 more survivors), while Specificity drops from **86.0%** to **76.3%**, and overall Accuracy shifts slightly from **80.1%** to **77.9%**. Choosing the right cutoff is always a **business decision**, not just a statistical one.
 
 ---
 
-# 9. Quick Reference: How to Read R's `glm()` Output
+# 10. Quick Reference: How to Read R's `glm()` Output
 
 | Output Item | Where to Find It | Quick Rule of Thumb |
 | :--- | :--- | :--- |
